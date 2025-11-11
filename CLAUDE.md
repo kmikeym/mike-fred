@@ -109,3 +109,33 @@ bun --hot ./index.ts
 ```
 
 For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+
+## Cloudflare Pages Deployment
+
+This Next.js 16 project is deployed to Cloudflare Pages and requires the `@cloudflare/next-on-pages` adapter.
+
+**IMPORTANT**: When deploying to Cloudflare Pages, you MUST use the special build command:
+
+### Cloudflare Pages Build Settings:
+- **Build command**: `npm run pages:build`
+- **Build output directory**: `.vercel/output/static`
+- **Environment variables**: `NODE_VERSION=20`
+
+### Why this is needed:
+- Next.js 16 generates server-side rendered output by default
+- Cloudflare Pages is a static hosting platform (no Node.js runtime)
+- `@cloudflare/next-on-pages` converts Next.js SSG pages to Cloudflare Workers
+- This allows dynamic routes like `/series/[id]` and `/reports/[id]` to work
+
+### Local development:
+```bash
+bun run dev              # Regular Next.js dev server
+bun run build            # Standard Next.js build (for testing)
+bun run pages:build      # Cloudflare Pages build (generates .vercel/output/static)
+```
+
+### After deployment:
+- The site will be live at https://mike.quarterly.systems
+- All future pushes to `main` branch will auto-deploy
+- CSV data files in `data/` directory are included in the build
+- Static assets in `public/` are served directly

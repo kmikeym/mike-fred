@@ -1,12 +1,12 @@
-date,value,notes
-2025-01-01,100.0,Baseline - RescueTime productive hours normalized
-2025-02-01,103.2,Increased focus time
-2025-03-01,105.8,Strong Q1 performance
-2025-04-01,108.4,AI tooling improvements
-2025-05-01,111.2,Workflow optimization
-2025-06-01,114.5,Peak Q2 productivity
-2025-07-01,117.8,New systems implemented
-2025-08-01,120.3,Sustained high output
-2025-09-01,123.9,Q3 acceleration
-2025-10-01,125.1,Optimization phase
-2025-11-01,127.3,Current - Strong momentum
+date,value,notes,pulse
+2025-01-01,102.5,McDonald's employment period,82
+2025-02-01,86.25,"Freedom adjustment phase, video games",69
+2025-03-01,98.75,"Networking phase, portfolio prep",79
+2025-04-01,97.5,Content production wind-down,78
+2025-05-01,97.5,Workflow stabilization period,78
+2025-06-01,98.75,Contract work intensive period,79
+2025-07-01,98.75,Project pivot and launch work,79
+2025-08-01,101.25,"New role momentum, dual projects",81
+2025-09-01,105,"Peak output, systems optimization",84
+2025-10-01,105,"Record output, sustained efficiency",84
+2025-11-01,0,,

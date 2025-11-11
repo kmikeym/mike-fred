@@ -42,14 +42,16 @@ This project provides a comprehensive economic data dashboard with official-look
 
 ## 🛠 Tech Stack
 
-- **Framework:** Next.js 16 with React 19
+- **Framework:** Next.js 15 with React 18
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS 3
 - **Charts:** Recharts
 - **Package Manager:** Bun
 - **Data Storage:** CSV files (git-tracked history)
-- **Deployment:** Cloudflare Pages (planned)
+- **Deployment:** Cloudflare Pages with @cloudflare/next-on-pages
 - **API:** Cloudflare Workers with KV (planned)
+
+**Note:** Using Next.js 15 (not 16) due to `@cloudflare/next-on-pages` compatibility requirements.
 
 ## 📁 Project Structure
 
@@ -104,11 +106,15 @@ bun run dev
 
 Visit http://localhost:3000
 
-### Build
+### Production Build
 
 ```bash
+# Standard Next.js build (for testing)
 bun run build
 bun run start
+
+# Cloudflare Pages build (for deployment)
+bun run pages:build
 ```
 
 ## 📈 Data Management
@@ -187,16 +193,23 @@ Reports follow Federal Reserve document styling for professional presentation.
 
 ## 🚀 Deployment
 
-### Cloudflare Pages (Recommended)
+### Cloudflare Pages
 
-1. Connect GitHub repository
-2. Build settings:
-   - Build command: `bun run build`
-   - Output directory: `.next`
-   - Environment: Node.js 18+
-3. Custom domain: `mike.quarterly.systems`
+**Status:** ✅ Live at https://mike.quarterly.systems
 
-### Environment Variables
+**Build Configuration:**
+- **Build command:** `npm run pages:build`
+- **Build output directory:** `.vercel/output/static`
+- **Environment variables:** `NODE_VERSION=20`
+
+The `@cloudflare/next-on-pages` adapter converts Next.js SSG pages to Cloudflare Workers, enabling dynamic routes on Cloudflare's static hosting platform.
+
+**Deployment Process:**
+1. Push to `main` branch
+2. Cloudflare Pages auto-builds and deploys
+3. Site live at custom domain
+
+### Environment Variables (Future)
 ```env
 NEXT_PUBLIC_API_URL=https://mike-api.quarterly.systems
 ```

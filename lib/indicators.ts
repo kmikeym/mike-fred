@@ -106,13 +106,15 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
 async function parseCSV(filePath: string): Promise<DataPoint[]> {
   const content = await fs.readFile(filePath, "utf-8");
   const lines = content.trim().split("\n");
-  const headers = lines[0].split(",");
+  const headers = lines[0]?.split(",") || [];
 
   const data: DataPoint[] = [];
 
   for (let i = 1; i < lines.length; i++) {
-    const values = lines[i].split(",");
-    if (values.length >= 2) {
+    const line = lines[i];
+    if (!line) continue;
+    const values = line.split(",");
+    if (values.length >= 2 && values[0] && values[1]) {
       data.push({
         date: values[0].trim(),
         value: parseFloat(values[1].trim()),
@@ -143,7 +145,12 @@ export async function loadIndicatorData(id: IndicatorId): Promise<Indicator> {
   const data = await parseCSV(csvPath);
 
   // Calculate current and previous values
-  const currentValue = data[data.length - 1].value;
+  const lastDataPoint = data[data.length - 1];
+  if (!lastDataPoint) {
+    throw new Error(`No data found for indicator ${id}`);
+  }
+
+  const currentValue = lastDataPoint.value;
   const previousValue = data[data.length - 2]?.value || currentValue;
   const change = currentValue - previousValue;
   const changePercent = previousValue > 0 ? (change / previousValue) * 100 : 0;

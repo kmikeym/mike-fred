@@ -112,7 +112,7 @@ export default async function EmbedWidget() {
         <div className="widget">
           <div className="header">
             <h3 className="title">MIKE Economy Dashboard</h3>
-            <span className="updated">Updated {formatDateShort(indicators[0].lastUpdate)}</span>
+            <span className="updated">Updated {indicators[0]?.lastUpdate ? formatDateShort(indicators[0].lastUpdate) : 'N/A'}</span>
           </div>
 
           <div className="grid">

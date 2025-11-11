@@ -1,5 +1,6 @@
 import { loadAllIndicators, formatValue, formatChangePercent, getTrendArrow } from "@/lib/indicators";
 import { formatDateShort } from "@/lib/utils";
+import CopyButton from "@/components/CopyButton";
 
 export default async function WidgetPage() {
   const indicators = await loadAllIndicators();
@@ -23,7 +24,7 @@ export default async function WidgetPage() {
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold text-gray-900">MIKE Economy Dashboard</h3>
                 <span className="text-xs text-gray-500">
-                  Updated {formatDateShort(indicators[0].lastUpdate)}
+                  Updated {indicators[0]?.lastUpdate ? formatDateShort(indicators[0].lastUpdate) : 'N/A'}
                 </span>
               </div>
 
@@ -78,14 +79,10 @@ export default async function WidgetPage() {
   style="border: none; border-radius: 12px;"
 ></iframe>`}
           </pre>
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(`<iframe src="https://mike.quarterly.systems/widget/embed" width="100%" height="400" frameborder="0" style="border: none; border-radius: 12px;"></iframe>`);
-            }}
-            className="mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-accent transition-colors"
-          >
-            Copy Iframe Code
-          </button>
+          <CopyButton
+            text={`<iframe src="https://mike.quarterly.systems/widget/embed" width="100%" height="400" frameborder="0" style="border: none; border-radius: 12px;"></iframe>`}
+            label="Copy Iframe Code"
+          />
         </div>
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -103,14 +100,10 @@ export default async function WidgetPage() {
   });
 </script>`}
           </pre>
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(`<div id="mike-widget"></div>\n<script src="https://mike.quarterly.systems/widget/embed.js"></script>\n<script>\n  MIKEWidget.init({\n    container: '#mike-widget',\n    theme: 'light'\n  });\n</script>`);
-            }}
-            className="mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-accent transition-colors"
-          >
-            Copy JavaScript Code
-          </button>
+          <CopyButton
+            text={`<div id="mike-widget"></div>\n<script src="https://mike.quarterly.systems/widget/embed.js"></script>\n<script>\n  MIKEWidget.init({\n    container: '#mike-widget',\n    theme: 'light'\n  });\n</script>`}
+            label="Copy JavaScript Code"
+          />
         </div>
       </div>
 

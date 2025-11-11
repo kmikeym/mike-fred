@@ -79,7 +79,7 @@ export function getQuarterId(date: Date): string {
  * Format quarter display (e.g., "Q4 2025")
  */
 export function formatQuarter(quarterId: string): string {
-  const [q, year] = quarterId.split("-");
+  const [q = "", year = ""] = quarterId.split("-");
   return `Q${q.replace("q", "")} ${year}`;
 }
 

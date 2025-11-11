@@ -39,9 +39,11 @@ export default async function IndicatorPage({ params }: PageProps) {
       <div className="mb-8">
         <div className="flex items-center space-x-3 mb-2">
           <h1 className="text-4xl font-bold text-gray-900">{indicator.title}</h1>
-          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-semibold bg-yellow-100 text-yellow-800">
-            Sample Data
-          </span>
+          {indicator.id !== "ppi" && (
+            <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-semibold bg-yellow-100 text-yellow-800">
+              Sample Data
+            </span>
+          )}
         </div>
         <p className="text-lg text-gray-600">{indicator.description}</p>
       </div>

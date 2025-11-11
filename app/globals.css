@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --fed-navy: #002147;
+  --fed-teal: #008080;
+  --fed-gold: #D4AF37;
+  --fed-red: #DC143C;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Federal Reserve official document styling */
+.fed-document {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.6;
+}
+
+.fed-header {
+  background: linear-gradient(135deg, var(--fed-navy) 0%, #003b73 100%);
+  color: white;
+}
+
+.fed-accent {
+  color: var(--fed-teal);
+}
+
+/* Chart containers */
+.chart-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+/* Indicator cards */
+.indicator-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.indicator-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Trend indicators */
+.trend-up {
+  color: #10b981;
+}
+
+.trend-down {
+  color: #ef4444;
+}
+
+.trend-neutral {
+  color: #f59e0b;
+}

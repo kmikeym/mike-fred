@@ -6,7 +6,7 @@ Official economic indicators and quarterly reports from the MIKE Economy. A FRED
 
 This project provides a comprehensive economic data dashboard with official-looking indicators and quarterly reports. It elevates the "publicly traded person" concept by treating personal productivity and output as a legitimate economic entity worthy of professional economic analysis.
 
-**Live URL:** https://mike.quarterly.systems (when deployed)
+**Live URL:** https://mike.quarterly.systems
 
 ## 📊 Key Features
 
@@ -122,14 +122,18 @@ bun run pages:build
 ### Adding New Data Points
 
 1. Open the relevant CSV file in `/data/`
-2. Add a new row with format: `date,value,notes`
-3. Save the file
-4. Data automatically appears on next page load
+2. Add a new row with format: `date,value,notes` (optional 4th column for additional metadata)
+3. Save and commit the file
+4. Push to GitHub
+5. Cloudflare Pages will auto-rebuild (2-5 minutes)
+6. Updated data appears on live site
 
 Example:
 ```csv
 2025-12-01,130.5,Continued growth trajectory
 ```
+
+**Note:** Data is baked into static pages at build time via Static Site Generation (SSG), so updates require a full rebuild to appear on the live site.
 
 ### Creating New Indicators
 
@@ -202,12 +206,17 @@ Reports follow Federal Reserve document styling for professional presentation.
 - **Build output directory:** `.vercel/output/static`
 - **Environment variables:** `NODE_VERSION=20`
 
+**Required Configuration Files:**
+- `wrangler.toml` - Sets `nodejs_compat` compatibility flag (required for Node.js APIs)
+- Without this flag, you'll see "Node.JS Compatibility Error" on the live site
+
 The `@cloudflare/next-on-pages` adapter converts Next.js SSG pages to Cloudflare Workers, enabling dynamic routes on Cloudflare's static hosting platform.
 
 **Deployment Process:**
 1. Push to `main` branch
-2. Cloudflare Pages auto-builds and deploys
+2. Cloudflare Pages auto-builds and deploys (usually 2-5 minutes)
 3. Site live at custom domain
+4. All CSV data is baked into static HTML at build time
 
 ### Environment Variables (Future)
 ```env

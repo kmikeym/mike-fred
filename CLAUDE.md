@@ -121,6 +121,10 @@ This Next.js 15 project is deployed to Cloudflare Pages and requires the `@cloud
 - **Build output directory**: `.vercel/output/static`
 - **Environment variables**: `NODE_VERSION=20`
 
+**Important Configuration Files:**
+- `wrangler.toml` - Sets `nodejs_compat` compatibility flag (required for Node.js APIs)
+- Without this flag, you'll see "Node.JS Compatibility Error" on the live site
+
 **Note**: This project uses Next.js 15 (not 16) because `@cloudflare/next-on-pages` officially supports Next.js up to 15.5.2. When the adapter adds Next.js 16 support, we can upgrade.
 
 ### Why this is needed:

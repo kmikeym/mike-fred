@@ -9,7 +9,7 @@
     "target": "ESNext",
     "module": "Preserve",
     "moduleDetection": "force",
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "allowJs": true,
     // Bundler mode
     "moduleResolution": "bundler",
@@ -28,7 +28,9 @@
     "noPropertyAccessFromIndexSignature": false,
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "plugins": [
       {

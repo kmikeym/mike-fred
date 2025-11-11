@@ -112,7 +112,7 @@ For more information, read the Bun API docs in `node_modules/bun-types/docs/**.m
 
 ## Cloudflare Pages Deployment
 
-This Next.js 16 project is deployed to Cloudflare Pages and requires the `@cloudflare/next-on-pages` adapter.
+This Next.js 15 project is deployed to Cloudflare Pages and requires the `@cloudflare/next-on-pages` adapter.
 
 **IMPORTANT**: When deploying to Cloudflare Pages, you MUST use the special build command:
 
@@ -120,6 +120,8 @@ This Next.js 16 project is deployed to Cloudflare Pages and requires the `@cloud
 - **Build command**: `npm run pages:build`
 - **Build output directory**: `.vercel/output/static`
 - **Environment variables**: `NODE_VERSION=20`
+
+**Note**: This project uses Next.js 15 (not 16) because `@cloudflare/next-on-pages` officially supports Next.js up to 15.5.2. When the adapter adds Next.js 16 support, we can upgrade.
 
 ### Why this is needed:
 - Next.js 16 generates server-side rendered output by default

@@ -1,57 +1,9 @@
 import Link from "next/link";
+import { loadAllIndicators, formatValue, formatChangePercent } from "@/lib/indicators";
 
-export default function Home() {
-  // Mock data for initial display
-  const indicators = [
-    {
-      id: "ppi",
-      title: "Personal Productivity Index (PPI)",
-      value: "127.3",
-      unit: "Index",
-      change: 2.3,
-      lastUpdate: "2025-11-01",
-    },
-    {
-      id: "knowledge-expansion",
-      title: "Knowledge Base Expansion",
-      value: "1,247",
-      unit: "Notes",
-      change: 5.8,
-      lastUpdate: "2025-11-01",
-    },
-    {
-      id: "social-capital",
-      title: "Social Capital Index",
-      value: "89.4",
-      unit: "Index",
-      change: -1.2,
-      lastUpdate: "2025-11-01",
-    },
-    {
-      id: "content-velocity",
-      title: "Content Production Velocity",
-      value: "12.5",
-      unit: "Units/Week",
-      change: 8.1,
-      lastUpdate: "2025-11-01",
-    },
-    {
-      id: "revenue",
-      title: "Revenue Index",
-      value: "104.2",
-      unit: "Index (Q1 2025 = 100)",
-      change: 4.2,
-      lastUpdate: "2025-11-01",
-    },
-    {
-      id: "completion-rate",
-      title: "Project Completion Rate",
-      value: "67%",
-      unit: "Percentage",
-      change: 3.0,
-      lastUpdate: "2025-11-01",
-    },
-  ];
+export default async function Home() {
+  // Load real data from CSV files
+  const indicators = await loadAllIndicators();
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -109,19 +61,21 @@ export default function Home() {
                 </div>
                 <span
                   className={`text-sm font-semibold ${
-                    indicator.change > 0
+                    indicator.changePercent > 0
                       ? "trend-up"
-                      : indicator.change < 0
+                      : indicator.changePercent < 0
                       ? "trend-down"
                       : "trend-neutral"
                   }`}
                 >
-                  {indicator.change > 0 ? "↑" : indicator.change < 0 ? "↓" : "→"}{" "}
-                  {Math.abs(indicator.change)}%
+                  {indicator.changePercent > 0 ? "↑" : indicator.changePercent < 0 ? "↓" : "→"}{" "}
+                  {formatChangePercent(indicator.changePercent)}
                 </span>
               </div>
               <div className="mb-2">
-                <div className="text-3xl font-bold text-gray-900">{indicator.value}</div>
+                <div className="text-3xl font-bold text-gray-900">
+                  {formatValue(indicator.currentValue, indicator.id)}
+                </div>
                 <div className="text-sm text-gray-500">{indicator.unit}</div>
               </div>
               <div className="text-xs text-gray-400">

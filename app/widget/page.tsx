@@ -1,6 +1,7 @@
 import { loadAllIndicators, formatValue, formatChangePercent, getTrendArrow } from "@/lib/indicators";
 import { formatDateShort } from "@/lib/utils";
 import CopyButton from "@/components/CopyButton";
+import Image from "next/image";
 
 export default async function WidgetPage() {
   const indicators = await loadAllIndicators();
@@ -22,7 +23,13 @@ export default async function WidgetPage() {
             {/* This is the actual widget component */}
             <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-gray-900">MIKE Economy Dashboard</h3>
+                <Image
+                  src="/mike-logo-w150.png"
+                  alt="MIKE Economic Data"
+                  width={150}
+                  height={40}
+                  style={{ height: '40px', width: 'auto' }}
+                />
                 <span className="text-xs text-gray-500">
                   Updated {indicators[0]?.lastUpdate ? formatDateShort(indicators[0].lastUpdate) : 'N/A'}
                 </span>

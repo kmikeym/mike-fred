@@ -8,13 +8,6 @@ interface PageProps {
 }
 
 const REPORTS = {
-  "q4-2025": {
-    id: "q4-2025",
-    quarter: "Q4 2025",
-    title: "State of the MIKE Economy - Q4 2025",
-    publishedDate: "2025-11-01",
-    summary: "Strong productivity growth driven by AI tooling and workflow optimization.",
-  },
   "q3-2025": {
     id: "q3-2025",
     quarter: "Q3 2025",

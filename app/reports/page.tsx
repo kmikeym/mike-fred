@@ -4,35 +4,27 @@ import { formatDate } from "@/lib/utils";
 export default function ReportsPage() {
   const reports = [
     {
-      id: "q4-2025",
-      quarter: "Q4 2025",
-      title: "State of the MIKE Economy - Q4 2025",
-      summary: "Strong productivity growth driven by AI tooling and workflow optimization. Knowledge base expansion continues at accelerated pace.",
-      publishedDate: "2025-11-01",
-      status: "current",
-    },
-    {
       id: "q3-2025",
       quarter: "Q3 2025",
       title: "State of the MIKE Economy - Q3 2025",
-      summary: "Sustained momentum across all indicators. Content velocity reaching new highs with multi-platform strategy.",
-      publishedDate: "2025-08-01",
-      status: "published",
+      summary: "High-growth productivity quarter with major financial restructuring. PPI surged +6.3% to 105 (peak 2025 performance).",
+      publishedDate: "2025-10-15",
+      status: "current",
     },
     {
       id: "q2-2025",
       quarter: "Q2 2025",
       title: "State of the MIKE Economy - Q2 2025",
-      summary: "Peak engagement in social capital. Project completion rate improvements through better prioritization.",
-      publishedDate: "2025-05-01",
+      summary: "Stabilization quarter following Q1 employment transition. PPI flat at 98.75, PWI recovered +6.5% to 59.3.",
+      publishedDate: "2025-07-15",
       status: "published",
     },
     {
       id: "q1-2025",
       quarter: "Q1 2025",
       title: "State of the MIKE Economy - Q1 2025",
-      summary: "Baseline establishment quarter. Strong foundation set across productivity, knowledge, and revenue indicators.",
-      publishedDate: "2025-02-01",
+      summary: "Transitional quarter marked by employment change. PPI averaged 95.8 (volatile), PWI declined -28.6% during job transition.",
+      publishedDate: "2025-04-15",
       status: "published",
     },
   ];

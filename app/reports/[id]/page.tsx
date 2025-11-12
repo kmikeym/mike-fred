@@ -158,14 +158,82 @@ export default async function ReportPage({ params }: PageProps) {
           <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
             Methodology & Data Sources
           </h2>
+
+          <h3 className="text-lg font-semibold text-gray-900 mb-3">Data Collection Framework</h3>
           <p className="text-gray-700 leading-relaxed mb-4">
-            This report is based on data collected from multiple sources including productivity tracking systems,
-            knowledge management platforms, social media analytics, content management systems, financial records,
-            and project management tools. All data is normalized and indexed to provide consistent year-over-year
-            comparisons.
+            MIKE Economic Data employs a comprehensive multi-source data aggregation infrastructure designed
+            for transparent, reproducible economic analysis. Our methodology integrates quantitative metrics
+            from six primary domains: productivity measurement (RescueTime API), knowledge management systems
+            (Obsidian vault analytics), social capital assessment (platform engagement metrics), health monitoring
+            (weight tracking and wellness indicators), financial position tracking (net worth calculations), and
+            intellectual engagement measurement (longform media consumption logs).
           </p>
+
+          <h3 className="text-lg font-semibold text-gray-900 mb-3">Processing & Normalization</h3>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            Raw data is collected monthly and stored in CSV format for version-controlled historical integrity.
+            Each indicator undergoes standardized normalization to enable consistent quarter-over-quarter and
+            year-over-year comparisons. Index values are calculated against established baselines (e.g., PPI
+            normalized to 2025 average = 100), with percentage changes computed using trailing period methodology.
+            All transformations are executed via open-source TypeScript utilities, ensuring algorithmic transparency
+            and reproducibility.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-900 mb-3">Reporting Architecture</h3>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            Quarterly reports are generated through a hybrid human-AI workflow. Data snapshots are compiled at
+            quarter-end, capturing final indicator values and monthly progression narratives. Strategic analysis
+            is produced using Claude AI (Anthropic) following standardized prompt templates that enforce data-driven
+            insights and prohibit generic commentary. The entire report generation pipeline—from raw data to
+            published analysis—is version-controlled and publicly auditable.
+          </p>
+
+          <div className="bg-blue-50 border-l-4 border-primary p-4 mb-4">
+            <h3 className="text-sm font-semibold text-gray-900 mb-2">Open Data & Reproducibility</h3>
+            <p className="text-sm text-gray-700 mb-3">
+              All source data, transformation scripts, and report generation prompts are publicly available
+              for verification and replication. This commitment to transparency enables stakeholders to audit
+              methodologies, reproduce analyses, and adapt frameworks for similar economic modeling applications.
+            </p>
+            <div className="flex flex-col space-y-2 text-sm">
+              <a
+                href="https://github.com/kmikeym/mike-fred/tree/main/data"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-accent font-medium"
+              >
+                → View Source Data (CSV files)
+              </a>
+              <a
+                href="https://github.com/kmikeym/mike-fred/tree/main/data/quarterly"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-accent font-medium"
+              >
+                → View Quarterly Snapshots (JSON)
+              </a>
+              <a
+                href="https://github.com/kmikeym/mike-fred/tree/main/instructions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-accent font-medium"
+              >
+                → View Report Generation Prompts
+              </a>
+              <a
+                href="https://github.com/kmikeym/mike-fred"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-accent font-medium"
+              >
+                → Full Repository & Documentation
+              </a>
+            </div>
+          </div>
+
           <p className="text-sm text-gray-600">
-            For detailed methodology and data access, visit <Link href="/" className="text-primary hover:underline">mike.quarterly.systems</Link>
+            For interactive data visualization and real-time indicator monitoring, visit{" "}
+            <Link href="/" className="text-primary hover:underline">mike.quarterly.systems</Link>
           </p>
         </section>
 

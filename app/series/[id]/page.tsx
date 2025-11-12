@@ -108,9 +108,14 @@ export default async function IndicatorPage({ params }: PageProps) {
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-gray-900">Recent Observations</h2>
-          <button className="text-sm text-primary hover:text-accent font-medium">
+          <a
+            href={`https://github.com/kmikeym/mike-fred/blob/main/data/${indicator.id}.csv`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-primary hover:text-accent font-medium"
+          >
             Download Full Dataset →
-          </button>
+          </a>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">

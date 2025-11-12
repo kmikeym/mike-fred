@@ -33,8 +33,8 @@ const REPORTS = {
     id: "q1-2025",
     quarter: "Q1 2025",
     title: "State of the MIKE Economy - Q1 2025",
-    publishedDate: "2025-02-01",
-    summary: "Baseline establishment quarter.",
+    publishedDate: "2025-04-15",
+    summary: "Transitional quarter marked by employment change and strategic repositioning. PPI averaged 95.8 (volatile: 102.5→86.3→98.8), PWI declined -22% (employment transition), Longform Media Velocity strong at 11.3 points/month average. Foundation-setting period with mixed productivity signals and financial adjustment.",
   },
 };
 

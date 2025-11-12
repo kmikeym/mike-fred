@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { loadAllIndicators, formatValue, formatChangePercent } from "@/lib/indicators";
+import Sparkline from "@/components/Sparkline";
 
 export default async function Home() {
   // Load real data from CSV files
@@ -79,6 +80,14 @@ export default async function Home() {
                   {formatValue(indicator.currentValue, indicator.id)}
                 </div>
                 <div className="text-sm text-gray-500">{indicator.unit}</div>
+              </div>
+              {/* Sparkline chart */}
+              <div className="mt-3 mb-3 h-12">
+                <Sparkline
+                  data={indicator.data}
+                  color={indicator.color}
+                  minHeight={48}
+                />
               </div>
               <div className="text-xs text-gray-400">
                 Updated {indicator.lastUpdate}

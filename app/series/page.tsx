@@ -103,9 +103,11 @@ export default async function IndicatorsPage() {
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center space-x-2">
                       <h3 className="text-sm font-medium text-gray-600">{indicator.title}</h3>
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-yellow-100 text-yellow-800">
-                        Sample
-                      </span>
+                      {indicator.id !== "ppi" && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-yellow-100 text-yellow-800">
+                          Sample
+                        </span>
+                      )}
                     </div>
                     <span
                       className={`text-sm font-semibold ${getTrendClass(indicator.changePercent)}`}

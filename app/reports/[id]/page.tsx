@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
-import { loadAllIndicators, formatValue, formatChangePercent } from "@/lib/indicators";
+import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePercent } from "@/lib/indicators";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -50,7 +50,9 @@ export default async function ReportPage({ params }: PageProps) {
     notFound();
   }
 
-  const indicators = await loadAllIndicators();
+  // Try to load quarterly snapshot data first, fall back to current data
+  const snapshotData = await loadQuarterlySnapshot(id);
+  const indicators = snapshotData || await loadAllIndicators();
 
   return (
     <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -102,7 +104,7 @@ export default async function ReportPage({ params }: PageProps) {
           </h2>
 
           <div className="space-y-8">
-            {indicators.map((indicator) => (
+            {indicators.filter(ind => ind.currentValue !== 0 || ind.data.length > 0).map((indicator) => (
               <div key={indicator.id} className="bg-white border border-gray-200 rounded-lg p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>

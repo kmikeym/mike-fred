@@ -1,0 +1,60 @@
+{
+  "quarter": "Q1 2025",
+  "reportDate": "2025-04-15",
+  "period": {
+    "start": "2025-01-01",
+    "end": "2025-03-31"
+  },
+  "indicators": {
+    "ppi": {
+      "value": 98.75,
+      "change": -3.66,
+      "changePercent": -3.6,
+      "trend": "down",
+      "note": "March value (98.75). Volatile quarter: started 102.5, dipped to 86.25 in Feb (Civ video game), recovered to 98.75. Employment transition period."
+    },
+    "knowledge-expansion": {
+      "value": null,
+      "change": null,
+      "changePercent": null,
+      "trend": "neutral",
+      "note": "No data available for Q1 2025. Tracking began October 2025."
+    },
+    "social-capital": {
+      "value": null,
+      "change": null,
+      "changePercent": null,
+      "trend": "neutral",
+      "note": "No data available for Q1 2025. Baseline established October 2025."
+    },
+    "phi": {
+      "value": null,
+      "change": null,
+      "changePercent": null,
+      "trend": "neutral",
+      "note": "No data available for Q1 2025. Tracking began October 2025."
+    },
+    "revenue": {
+      "value": 55.7,
+      "change": -22.3,
+      "changePercent": -28.6,
+      "trend": "down",
+      "note": "March value (55.7). Sharp decline from 78.0 (Jan) → 68.0 (Feb) → 55.7 (Mar) during employment transition and networking phase."
+    },
+    "completion-rate": {
+      "value": 11.0,
+      "change": -9.0,
+      "changePercent": -45.0,
+      "trend": "down",
+      "note": "March value (11 points). Dropped from exceptional January (20 points: 6 books, 6 films) to March (11 points: 2 books, 5 films). February had minimal engagement (3 points)."
+    }
+  },
+  "summary": "Transitional quarter marked by employment change and strategic repositioning. PPI volatile but stable (averaged 95.8, ended 98.75). PWI declined 29% due to job transition. Longform Media Velocity averaged 11.3 points/month. Foundation-setting period with mixed signals.",
+  "highlights": [
+    "Strong January productivity (PPI 102.5) followed by February adjustment",
+    "Employment transition drove PWI decline of 29% over the quarter",
+    "Exceptional reading/viewing in January (20 points) not sustained",
+    "March showed recovery signs: PPI back to 98.75, media engagement at 11 points",
+    "Three indicators (KBER, SCI, PHI) not yet tracking in Q1 period"
+  ]
+}

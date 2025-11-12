@@ -177,6 +177,56 @@ export async function loadAllIndicators(): Promise<Indicator[]> {
 }
 
 /**
+ * Load quarterly snapshot data
+ */
+export async function loadQuarterlySnapshot(quarterId: string): Promise<Indicator[] | null> {
+  const snapshotPath = path.join(process.cwd(), "data", "quarterly", `${quarterId}.json`);
+
+  try {
+    const content = await fs.readFile(snapshotPath, "utf-8");
+    const snapshot = JSON.parse(content);
+
+    // Transform snapshot data into Indicator[] format
+    const indicators: Indicator[] = [];
+
+    for (const [indicatorId, indicatorData] of Object.entries(snapshot.indicators)) {
+      const metadata = INDICATOR_REGISTRY[indicatorId as IndicatorId];
+      if (!metadata) continue;
+
+      const data = indicatorData as any;
+
+      // For indicators with no data (null values), create a placeholder
+      if (data.value === null) {
+        indicators.push({
+          ...metadata,
+          currentValue: 0,
+          previousValue: 0,
+          change: 0,
+          changePercent: 0,
+          trend: "neutral" as TrendDirection,
+          data: [],
+        });
+      } else {
+        indicators.push({
+          ...metadata,
+          currentValue: data.value,
+          previousValue: data.value - data.change,
+          change: data.change,
+          changePercent: data.changePercent,
+          trend: data.trend as TrendDirection,
+          data: [{ date: snapshot.period.end, value: data.value, notes: data.note }],
+        });
+      }
+    }
+
+    return indicators;
+  } catch (error) {
+    // If snapshot doesn't exist, return null to fall back to current data
+    return null;
+  }
+}
+
+/**
  * Format value with appropriate precision and unit
  */
 export function formatValue(value: number, indicatorId: IndicatorId): string {

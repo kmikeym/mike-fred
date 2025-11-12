@@ -39,10 +39,9 @@ export default async function EmbedWidget() {
             flex-wrap: wrap;
             gap: 12px;
           }
-          .title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #111827;
+          .logo {
+            height: 40px;
+            width: auto;
           }
           .updated {
             font-size: 12px;
@@ -111,7 +110,7 @@ export default async function EmbedWidget() {
       <body>
         <div className="widget">
           <div className="header">
-            <h3 className="title">MIKE Economy Dashboard</h3>
+            <img src="/mike-logo-w150.png" alt="MIKE Economic Data" className="logo" />
             <span className="updated">Updated {indicators[0]?.lastUpdate ? formatDateShort(indicators[0].lastUpdate) : 'N/A'}</span>
           </div>
 

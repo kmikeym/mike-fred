@@ -26,7 +26,7 @@ This project provides a comprehensive economic data dashboard with official-look
 - Metadata (source, frequency, calculation method)
 - Download capabilities (CSV, JSON)
 
-### 3. Quarterly Reports
+### 3. Reports
 - Fed-style official economic reports
 - Comprehensive indicator analysis
 - Strategic outlook and forecasts
@@ -184,7 +184,7 @@ Example:
 </script>
 ```
 
-## 📝 Quarterly Reports
+## 📝 Reports
 
 Reports are generated quarterly and include:
 - Executive summary

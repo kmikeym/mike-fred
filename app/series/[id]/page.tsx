@@ -177,7 +177,7 @@ export default async function IndicatorPage({ params }: PageProps) {
           <ul className="space-y-3">
             <li>
               <Link href="/reports" className="text-sm text-primary hover:text-accent">
-                → View Quarterly Reports
+                → View Reports
               </Link>
             </li>
             <li>

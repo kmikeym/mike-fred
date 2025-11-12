@@ -10,7 +10,8 @@ export default async function IndicatorsPage() {
   const categories = {
     "Productivity & Output": ["ppi", "completion-rate"],
     "Knowledge & Learning": ["knowledge-expansion"],
-    "Social & Influence": ["social-capital", "content-velocity"],
+    "Social & Influence": ["social-capital"],
+    "Health & Wellness": ["phi"],
     "Financial": ["revenue"],
   };
 

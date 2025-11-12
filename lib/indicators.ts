@@ -53,17 +53,17 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     lastUpdate: "2025-10-01",
     nextUpdate: "2025-11-01",
   },
-  "content-velocity": {
-    id: "content-velocity",
-    title: "Content Production Velocity",
-    shortTitle: "Content Velocity",
+  "phi": {
+    id: "phi",
+    title: "Personal Health Index (PHI)",
+    shortTitle: "Health Index",
     description:
-      "Rate of content creation across all channels - blog posts, videos, tweets, newsletters, code commits, etc. Measured in standardized content units per week.",
-    unit: "Units/Week",
+      "Composite health metric tracking physical wellness across three key dimensions - sleep quality, physical activity, and weight management. Measured as a weighted average with sleep optimization receiving highest priority, followed by exercise consistency and weight targets.",
+    unit: "Index",
     frequency: "monthly",
-    category: "Content",
-    source: "Multi-platform Content Tracking",
-    calculation: "Weighted count of blog posts (3x), videos (5x), social posts (1x), normalized weekly",
+    category: "Health & Wellness",
+    source: "Personal tracking apps and devices",
+    calculation: "Weighted composite of sleep quality (40%), physical activity frequency (35%), and weight management (25%). Sleep scored against 8-hour baseline, workouts against 30/month target, weight against 175lb target. Higher scores indicate better health optimization.",
     color: "#f59e0b",
     lastUpdate: "2025-11-01",
     nextUpdate: "2025-12-01",
@@ -188,10 +188,6 @@ export function formatValue(value: number, indicatorId: IndicatorId): string {
 
   if (indicatorId === "completion-rate") {
     return `${value.toFixed(1)}%`;
-  }
-
-  if (indicatorId === "content-velocity") {
-    return value.toFixed(1);
   }
 
   return value.toFixed(1);

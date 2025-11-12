@@ -7,7 +7,7 @@ export type IndicatorId =
   | "ppi"
   | "knowledge-expansion"
   | "social-capital"
-  | "content-velocity"
+  | "phi"
   | "revenue"
   | "completion-rate";
 

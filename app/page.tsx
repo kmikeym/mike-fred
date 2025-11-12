@@ -55,7 +55,7 @@ export default async function Home() {
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center space-x-2 flex-1 mr-2">
                   <h3 className="text-sm font-medium text-gray-600">{indicator.title}</h3>
-                  {indicator.id !== "ppi" && (
+                  {indicator.id !== "ppi" && indicator.id !== "knowledge-expansion" && (
                     <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-yellow-100 text-yellow-800">
                       Sample
                     </span>

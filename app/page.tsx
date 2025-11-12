@@ -91,17 +91,12 @@ export default async function Home() {
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center space-x-2 mb-2">
-            <h3 className="text-lg font-semibold text-gray-900">Latest Report</h3>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-yellow-100 text-yellow-800">
-              Sample
-            </span>
-          </div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Latest Report</h3>
           <p className="text-gray-600 mb-4">
-            Q4 2025 State of the MIKE Economy - Comprehensive analysis of performance,
-            trends, and strategic outlook.
+            Q3 2025 State of the MIKE Economy - High-growth productivity quarter with major
+            financial restructuring.
           </p>
-          <Link href="/reports/q4-2025" className="text-primary hover:text-accent font-medium">
+          <Link href="/reports/q3-2025" className="text-primary hover:text-accent font-medium">
             Read Report →
           </Link>
         </div>

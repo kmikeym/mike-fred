@@ -62,12 +62,7 @@ export default async function ReportPage({ params }: PageProps) {
       <div className="fed-document">
         <div className="text-center mb-12 pb-8 border-b-2 border-gray-300">
           <div className="text-sm text-gray-500 mb-2">MIKE ECONOMIC DATA</div>
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <h1 className="text-4xl font-bold text-gray-900">{report.title}</h1>
-            <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-semibold bg-yellow-100 text-yellow-800">
-              Sample Report
-            </span>
-          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{report.title}</h1>
           <div className="text-lg text-gray-600">
             For Release: {formatDate(report.publishedDate)}
           </div>

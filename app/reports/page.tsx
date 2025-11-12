@@ -78,9 +78,6 @@ export default function ReportsPage() {
                         Current
                       </span>
                     )}
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
-                      Sample
-                    </span>
                   </div>
                   <p className="text-lg text-gray-700 mb-2">{report.title}</p>
                   <p className="text-sm text-gray-600">{report.summary}</p>

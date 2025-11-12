@@ -46,7 +46,7 @@ This project provides a comprehensive economic data dashboard with official-look
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS 3
 - **Charts:** Recharts
-- **Package Manager:** Bun
+- **Package Manager:** npm
 - **Data Storage:** CSV files (git-tracked history)
 - **Deployment:** Cloudflare Pages with @cloudflare/next-on-pages
 - **API:** Cloudflare Workers with KV (planned)
@@ -88,20 +88,19 @@ mike-fred/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Bun installed (`curl -fsSL https://bun.sh/install | bash`)
-- Node.js 18+ (for compatibility)
+- Node.js 18+ installed
 
 ### Installation
 
 ```bash
 cd mike-fred
-bun install
+npm install
 ```
 
 ### Development
 
 ```bash
-bun run dev
+npm run dev
 ```
 
 Visit http://localhost:3000
@@ -110,11 +109,11 @@ Visit http://localhost:3000
 
 ```bash
 # Standard Next.js build (for testing)
-bun run build
-bun run start
+npm run build
+npm run start
 
 # Cloudflare Pages build (for deployment)
-bun run pages:build
+npm run pages:build
 ```
 
 ## 📈 Data Management

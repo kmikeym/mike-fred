@@ -1,6 +1,6 @@
 "use client";
 
-import { AreaChart, Area, ResponsiveContainer, YAxis } from "recharts";
+import { BarChart, Bar, ResponsiveContainer, YAxis } from "recharts";
 
 interface SparklineProps {
   data: Array<{ date: string; value: number; notes?: string }>;
@@ -16,21 +16,19 @@ export default function Sparkline({ data, color, minHeight = 50 }: SparklineProp
 
   return (
     <ResponsiveContainer width="100%" height={minHeight}>
-      <AreaChart
+      <BarChart
         data={data}
         margin={{ top: 2, right: 0, left: 0, bottom: 2 }}
       >
         <YAxis hide={true} domain={["dataMin", "dataMax"]} />
-        <Area
-          type="monotone"
+        <Bar
           dataKey="value"
-          stroke={color}
-          strokeWidth={2}
           fill={color}
-          fillOpacity={0.1}
+          fillOpacity={0.7}
           isAnimationActive={false}
+          radius={[2, 2, 0, 0]}
         />
-      </AreaChart>
+      </BarChart>
     </ResponsiveContainer>
   );
 }

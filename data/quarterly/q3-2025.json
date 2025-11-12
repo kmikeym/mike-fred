@@ -1,0 +1,62 @@
+{
+  "quarter": "Q3 2025",
+  "reportDate": "2025-10-15",
+  "period": {
+    "start": "2025-07-01",
+    "end": "2025-09-30"
+  },
+  "indicators": {
+    "ppi": {
+      "value": 105,
+      "change": 6.25,
+      "changePercent": 6.3,
+      "trend": "up",
+      "note": "September value (105). Strong growth quarter averaging 101.67: project pivot and launch work (Jul 98.75), new role momentum with dual projects (Aug 101.25), peak output with systems optimization (Sep 105). Best quarter of 2025."
+    },
+    "knowledge-expansion": {
+      "value": null,
+      "change": null,
+      "changePercent": null,
+      "trend": "neutral",
+      "note": "No data available for Q3 2025. Tracking began October 2025."
+    },
+    "social-capital": {
+      "value": null,
+      "change": null,
+      "changePercent": null,
+      "trend": "neutral",
+      "note": "No data available for Q3 2025. Baseline established October 2025."
+    },
+    "phi": {
+      "value": null,
+      "change": null,
+      "changePercent": null,
+      "trend": "neutral",
+      "note": "No data available for Q3 2025. Tracking began October 2025."
+    },
+    "revenue": {
+      "value": 22.9,
+      "change": -36.4,
+      "changePercent": -61.4,
+      "trend": "down",
+      "note": "September value (22.9). Volatile quarter with major financial restructuring: started at 45.4 (Jul standard operations), plunged to -3.5 in August (debt refactoring period), recovered to 22.9 by September (full-time employment began). Net worth reset for long-term stability."
+    },
+    "completion-rate": {
+      "value": 5.0,
+      "change": -5.0,
+      "changePercent": -50.0,
+      "trend": "down",
+      "note": "September value (5 points: 5 films). Significant drop in engagement averaging 4 points/month. July (4 films), August (1 book), September (5 films). Focus shifted to career transition and productivity optimization over longform media consumption."
+    }
+  },
+  "summary": "High-growth productivity quarter with major financial restructuring. PPI surged +6.3% to 105 (peak 2025 performance, averaging 101.67), PWI declined -61.4% to 22.9 (August debt refactoring, stabilized with full-time employment), Longform Media Velocity dropped -50% to 5 points (4 pts/month average - focus shifted to career momentum). Quarter marked by productivity peak, financial reset for stability, and reduced leisure engagement.",
+  "highlights": [
+    "PPI reached 2025 peak at 105, up 6.3% - best productivity quarter of the year",
+    "New role momentum in August with dual projects, systems optimization in September",
+    "PWI underwent major restructuring: debt refactoring dropped to -3.5, recovered to 22.9 with employment",
+    "Longform Media Velocity halved to 5 points as focus shifted to career acceleration",
+    "Quarter averaged 101.67 PPI - sustained high productivity through role transition",
+    "Three indicators (KBER, SCI, PHI) not yet tracking in Q3 period",
+    "Financial reset positioned for long-term stability despite short-term net worth decline"
+  ]
+}

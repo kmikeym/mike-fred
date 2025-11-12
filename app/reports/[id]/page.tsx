@@ -19,8 +19,8 @@ const REPORTS = {
     id: "q3-2025",
     quarter: "Q3 2025",
     title: "State of the MIKE Economy - Q3 2025",
-    publishedDate: "2025-08-01",
-    summary: "Sustained momentum across all indicators.",
+    publishedDate: "2025-10-15",
+    summary: "High-growth productivity quarter with major financial restructuring. PPI surged +6.3% to 105 (peak 2025 performance, averaging 101.67), PWI declined -61.4% to 22.9 (August debt refactoring, stabilized with full-time employment), Longform Media Velocity dropped -50% to 5 points (4 pts/month average - focus shifted to career momentum). Quarter marked by productivity peak, financial reset for stability, and reduced leisure engagement.",
   },
   "q2-2025": {
     id: "q2-2025",

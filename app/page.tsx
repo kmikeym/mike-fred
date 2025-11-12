@@ -55,7 +55,7 @@ export default async function Home() {
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center space-x-2 flex-1 mr-2">
                   <h3 className="text-sm font-medium text-gray-600">{indicator.title}</h3>
-                  {indicator.id !== "ppi" && indicator.id !== "knowledge-expansion" && indicator.id !== "social-capital" && indicator.id !== "revenue" && indicator.id !== "completion-rate" && (
+                  {indicator.id !== "ppi" && indicator.id !== "knowledge-expansion" && indicator.id !== "social-capital" && indicator.id !== "revenue" && indicator.id !== "completion-rate" && indicator.id !== "phi" && (
                     <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-yellow-100 text-yellow-800">
                       Sample
                     </span>
@@ -91,7 +91,12 @@ export default async function Home() {
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Latest Report</h3>
+          <div className="flex items-center space-x-2 mb-2">
+            <h3 className="text-lg font-semibold text-gray-900">Latest Report</h3>
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-yellow-100 text-yellow-800">
+              Sample
+            </span>
+          </div>
           <p className="text-gray-600 mb-4">
             Q4 2025 State of the MIKE Economy - Comprehensive analysis of performance,
             trends, and strategic outlook.

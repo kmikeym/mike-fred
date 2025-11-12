@@ -26,8 +26,8 @@ const REPORTS = {
     id: "q2-2025",
     quarter: "Q2 2025",
     title: "State of the MIKE Economy - Q2 2025",
-    publishedDate: "2025-05-01",
-    summary: "Peak engagement in social capital.",
+    publishedDate: "2025-07-15",
+    summary: "Stabilization quarter following Q1 employment transition. PPI flat at 98.75 (stable productivity averaging 97.92), PWI recovered +6.5% to 59.3 (volatile April spike from shareholder purchase), Longform Media Velocity strong at 12 points/month average. Foundation solidified with contract work focus and consistent intellectual engagement.",
   },
   "q1-2025": {
     id: "q1-2025",

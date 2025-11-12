@@ -1,0 +1,61 @@
+{
+  "quarter": "Q2 2025",
+  "reportDate": "2025-07-15",
+  "period": {
+    "start": "2025-04-01",
+    "end": "2025-06-30"
+  },
+  "indicators": {
+    "ppi": {
+      "value": 98.75,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "trend": "neutral",
+      "note": "June value (98.75). Stable quarter averaging 97.92: content wind-down (Apr 97.5), workflow stabilization (May 97.5), contract work intensive period (Jun 98.75). Flat performance vs Q1 ending."
+    },
+    "knowledge-expansion": {
+      "value": null,
+      "change": null,
+      "changePercent": null,
+      "trend": "neutral",
+      "note": "No data available for Q2 2025. Tracking began October 2025."
+    },
+    "social-capital": {
+      "value": null,
+      "change": null,
+      "changePercent": null,
+      "trend": "neutral",
+      "note": "No data available for Q2 2025. Baseline established October 2025."
+    },
+    "phi": {
+      "value": null,
+      "change": null,
+      "changePercent": null,
+      "trend": "neutral",
+      "note": "No data available for Q2 2025. Tracking began October 2025."
+    },
+    "revenue": {
+      "value": 59.3,
+      "change": 3.6,
+      "changePercent": 6.5,
+      "trend": "up",
+      "note": "June value (59.3). Recovery quarter with significant volatility: spiked to 91.2 in April (shareholder purchase), dropped to 41.4 in May (standard operations), settled at 59.3 by June. Averaged 64.0 across quarter, showing 6.5% improvement vs Q1 ending."
+    },
+    "completion-rate": {
+      "value": 10.0,
+      "change": -1.0,
+      "changePercent": -9.1,
+      "trend": "down",
+      "note": "June value (10 points: 1 book, 7 films). Consistent engagement with strong monthly average of 12 points. April (12 points: 3 books, 3 films), May peaked at 14 points (1 book, 11 films - heavy film consumption), June ended at 10 points. Slight decline from Q1 ending but sustained high engagement."
+    }
+  },
+  "summary": "Stabilization quarter following Q1 employment transition. PPI flat at 98.75 (stable productivity averaging 97.92), PWI recovered +6.5% to 59.3 (volatile April spike from shareholder purchase), Longform Media Velocity strong at 12 points/month average. Foundation solidified with contract work focus and consistent intellectual engagement.",
+  "highlights": [
+    "PPI remained stable at 98.75, consistent productivity through contract work",
+    "PWI recovered 6.5% with volatile spike to 91.2 in April (shareholder purchase)",
+    "Longform Media Velocity sustained at 12 points/month average (April 12, May 14, June 10)",
+    "Quarter marked stabilization after Q1 transition - finding sustainable rhythm",
+    "Three indicators (KBER, SCI, PHI) not yet tracking in Q2 period",
+    "Contract work intensive period established foundation for future growth"
+  ]
+}

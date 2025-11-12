@@ -39,7 +39,7 @@ export default async function IndicatorPage({ params }: PageProps) {
       <div className="mb-8">
         <div className="flex items-center space-x-3 mb-2">
           <h1 className="text-4xl font-bold text-gray-900">{indicator.title}</h1>
-          {indicator.id !== "ppi" && indicator.id !== "knowledge-expansion" && indicator.id !== "social-capital" && indicator.id !== "revenue" && (
+          {indicator.id !== "ppi" && indicator.id !== "knowledge-expansion" && indicator.id !== "social-capital" && indicator.id !== "revenue" && indicator.id !== "completion-rate" && (
             <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-semibold bg-yellow-100 text-yellow-800">
               Sample Data
             </span>

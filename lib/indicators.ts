@@ -85,15 +85,15 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
   },
   "completion-rate": {
     id: "completion-rate",
-    title: "Project Completion Rate",
-    shortTitle: "Completion Rate",
+    title: "Longform Media Velocity",
+    shortTitle: "Media Velocity",
     description:
-      "Percentage of started projects that reach completion. Tracks delivery effectiveness and follow-through. Based on GitHub activity and task management data.",
-    unit: "Percentage",
+      "Measures intellectual engagement through consumption of longform content - books and films. Tracks sustained attention span and cultural literacy development. Higher scores indicate consistent engagement with complex narratives and ideas.",
+    unit: "Points",
     frequency: "monthly",
-    category: "Execution",
-    source: "GitHub API + Task Management Systems",
-    calculation: "Completed projects / (Completed + In Progress + Abandoned) × 100",
+    category: "Learning & Growth",
+    source: "Personal reading and viewing logs",
+    calculation: "Combined scoring of books (2-5 points based on length) and movies (1 point each). Rewards sustained intellectual engagement with longform content across different media formats.",
     color: "#8b5cf6",
     lastUpdate: "2025-11-01",
     nextUpdate: "2025-12-01",
@@ -184,10 +184,6 @@ export function formatValue(value: number, indicatorId: IndicatorId): string {
 
   if (indicatorId === "knowledge-expansion") {
     return value.toLocaleString("en-US", { maximumFractionDigits: 0 });
-  }
-
-  if (indicatorId === "completion-rate") {
-    return `${value.toFixed(1)}%`;
   }
 
   return value.toFixed(1);

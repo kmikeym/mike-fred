@@ -1,7 +1,7 @@
-import { loadAllIndicators, formatValue, formatChangePercent, getTrendArrow } from "@/lib/indicators";
-import { formatDateShort } from "@/lib/utils";
+import { loadAllIndicators, formatValue, formatChangePercent } from "@/lib/indicators";
 
 // This page is designed to be embedded in iframes
+// Styled to match FRED "At a Glance" widget for seamless drop-in replacement
 export default async function EmbedWidget() {
   const indicators = await loadAllIndicators();
 
@@ -10,7 +10,7 @@ export default async function EmbedWidget() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>MIKE Economy Widget</title>
+        <title>MIKE At a Glance</title>
         <style dangerouslySetInnerHTML={{ __html: `
           * {
             margin: 0;
@@ -20,121 +20,120 @@ export default async function EmbedWidget() {
           body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background: transparent;
-            padding: 16px;
+            padding: 8px;
           }
           .widget {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e5e7eb;
-            padding: 24px;
-            max-width: 1000px;
-            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 16px;
+            max-width: 400px;
           }
           .header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
             gap: 12px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
           }
           .logo {
-            height: 40px;
+            height: 32px;
             width: auto;
           }
-          .updated {
-            font-size: 12px;
-            color: #6b7280;
+          .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
           }
-          .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
+          .indicators {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
           }
           .indicator {
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 16px;
-            transition: box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f0f0;
           }
-          .indicator:hover {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          .indicator:last-child {
+            border-bottom: none;
           }
-          .indicator-label {
-            font-size: 11px;
-            font-weight: 600;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 8px;
-          }
-          .indicator-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 4px;
-          }
-          .indicator-change {
-            font-size: 14px;
-            font-weight: 600;
-          }
-          .trend-up { color: #10b981; }
-          .trend-down { color: #ef4444; }
-          .trend-neutral { color: #f59e0b; }
-          .footer {
-            text-align: center;
-            padding-top: 16px;
-            border-top: 1px solid #e5e7eb;
-          }
-          .footer a {
-            font-size: 14px;
-            color: #667eea;
+          .indicator-name {
+            font-size: 13px;
+            color: #003366;
             text-decoration: none;
             font-weight: 500;
           }
-          .footer a:hover {
-            color: #764ba2;
+          .indicator-name:hover {
+            text-decoration: underline;
           }
-          @media (max-width: 640px) {
-            .grid {
-              grid-template-columns: repeat(2, 1fr);
-            }
-            .indicator-value {
-              font-size: 20px;
-            }
+          .indicator-value {
+            font-size: 13px;
+            color: #333;
+            margin-top: 2px;
+          }
+          .indicator-value strong {
+            font-weight: 700;
+          }
+          .trend-up { color: #10b981; }
+          .trend-down { color: #ef4444; }
+          .trend-neutral { color: #666; }
+          .footer {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+          }
+          .footer a {
+            font-size: 12px;
+            color: #003366;
+            text-decoration: none;
+          }
+          .footer a:hover {
+            text-decoration: underline;
           }
         `}} />
       </head>
       <body>
         <div className="widget">
           <div className="header">
-            <img src="/mike-logo-w150.png" alt="MIKE Economic Data" className="logo" />
-            <span className="updated">Updated {indicators[0]?.lastUpdate ? formatDateShort(indicators[0].lastUpdate) : 'N/A'}</span>
+            <a href="https://mike.quarterly.systems" target="_blank" rel="noopener noreferrer">
+              <img src="https://mike.quarterly.systems/mike-logo-w150.png" alt="MIKE Economic Data" className="logo" />
+            </a>
+            <span className="title">MIKE At a Glance</span>
           </div>
 
-          <div className="grid">
-            {indicators.map((indicator) => (
-              <div key={indicator.id} className="indicator">
-                <div className="indicator-label">{indicator.shortTitle}</div>
-                <div className="indicator-value">
-                  {formatValue(indicator.currentValue, indicator.id)}
+          <div className="indicators">
+            {indicators.map((indicator) => {
+              const changeClass = indicator.changePercent > 0 ? "trend-up" :
+                                  indicator.changePercent < 0 ? "trend-down" : "trend-neutral";
+              return (
+                <div key={indicator.id} className="indicator">
+                  <a
+                    href={`https://mike.quarterly.systems/series/${indicator.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="indicator-name"
+                  >
+                    {indicator.title}
+                  </a>
+                  <div className="indicator-value">
+                    <strong className={changeClass}>{formatValue(indicator.currentValue, indicator.id)}</strong>
+                    {' '}
+                    <span className={changeClass}>{formatChangePercent(indicator.changePercent)}</span>
+                    {' '}
+                    <span style={{ color: '#666', fontSize: '12px' }}>
+                      {indicator.lastUpdate ? `on ${indicator.lastUpdate}` : ''}
+                    </span>
+                  </div>
                 </div>
-                <div className={`indicator-change ${
-                  indicator.changePercent > 0 ? "trend-up" :
-                  indicator.changePercent < 0 ? "trend-down" :
-                  "trend-neutral"
-                }`}>
-                  {getTrendArrow(indicator.trend)} {formatChangePercent(indicator.changePercent)}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="footer">
             <a href="https://mike.quarterly.systems" target="_blank" rel="noopener noreferrer">
-              View Full Dashboard →
+              ... and more indicators at mike.quarterly.systems
             </a>
           </div>
         </div>

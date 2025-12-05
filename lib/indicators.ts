@@ -20,8 +20,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "RescueTime Productivity Pulse",
     calculation: "RescueTime Productivity Pulse score, normalized to 2025 average baseline (99.1)",
     color: "#667eea",
-    lastUpdate: "2025-10-01",
-    nextUpdate: "2025-11-01",
+    lastUpdate: "2025-11-01",
+    nextUpdate: "2025-12-01",
   },
   "knowledge-expansion": {
     id: "knowledge-expansion",
@@ -35,8 +35,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Obsidian Vault Manual Count",
     calculation: "Total count of all markdown files in vault (daily notes, permanent notes, reference materials, MOCs)",
     color: "#10b981",
-    lastUpdate: "2025-10-01",
-    nextUpdate: "2025-11-01",
+    lastUpdate: "2025-11-01",
+    nextUpdate: "2025-12-01",
   },
   "social-capital": {
     id: "social-capital",
@@ -50,8 +50,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Multi-platform subscriber counts via platform APIs",
     calculation: "Weighted composite index of subscriber/follower counts across 11 platforms. High-value platforms (KmikeyM accounts 35%, Substack 30%) receive majority weighting, with primary social platforms (LinkedIn, X, Instagram) and medium-priority platforms (YouTube, Bluesky) contributing smaller weights. Baseline: October 2025 = 100.",
     color: "#3b82f6",
-    lastUpdate: "2025-10-01",
-    nextUpdate: "2025-11-01",
+    lastUpdate: "2025-11-01",
+    nextUpdate: "2025-12-01",
   },
   "phi": {
     id: "phi",

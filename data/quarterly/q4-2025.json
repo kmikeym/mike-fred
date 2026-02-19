@@ -1,0 +1,61 @@
+{
+  "quarter": "Q4 2025",
+  "reportDate": "2026-01-15",
+  "period": {
+    "start": "2025-10-01",
+    "end": "2025-12-31"
+  },
+  "indicators": {
+    "ppi": {
+      "value": 100,
+      "change": -5.0,
+      "changePercent": -4.8,
+      "trend": "down",
+      "note": "December value (100). Quarter showed deceleration from Q3 peak: October held strong at 101.25, November and December settled at 100 each. Holiday season and travel brought productivity back to baseline after Q3's record run."
+    },
+    "knowledge-expansion": {
+      "value": 3482,
+      "change": 507,
+      "changePercent": 16.2,
+      "trend": "up",
+      "note": "December value (3,482 notes). Strong growth from October baseline of 2,975. Averaging ~169 new notes/month as knowledge capture systems mature. Obsidian vault expanding steadily."
+    },
+    "social-capital": {
+      "value": 100.4,
+      "change": 0.4,
+      "changePercent": 0.4,
+      "trend": "neutral",
+      "note": "December value (100.4, raw: 3053.92). Slow but steady growth from October baseline (100). Audience reach expanding incrementally across platforms."
+    },
+    "phi": {
+      "value": 75.0,
+      "change": 3.6,
+      "changePercent": 5.0,
+      "trend": "up",
+      "note": "December value (75.0). Peaked at 77.9 in November before slight dip. Overall improvement from October's 71.4, with better sleep and increased workout frequency driving gains."
+    },
+    "revenue": {
+      "value": 58.6,
+      "change": 35.7,
+      "changePercent": 155.9,
+      "trend": "up",
+      "note": "December value (58.6). Major recovery from Q3's restructuring period. Steady climb from October (49.8) through November (38.4 dip) to strong December close. Full-time employment stabilizing finances."
+    },
+    "completion-rate": {
+      "value": 16,
+      "change": 11.0,
+      "changePercent": 220.0,
+      "trend": "up",
+      "note": "December value (16 points). Massive rebound from Q3's low of 5. October (12), November dipped (9), December surged to 16 — best month of 2025. Renewed engagement with longform media."
+    }
+  },
+  "summary": "Recovery and stabilization quarter. Productivity eased from Q3 peak to baseline (100, -4.8%), while wealth surged +155.9% to 58.6 as employment income took hold. Longform Media Velocity exploded +220% to 16 points (best month of 2025). Knowledge base grew 16.2% to 3,482 notes. Health improved 5% to 75.0. Social capital held steady. A quarter of consolidation after Q3's intensity, with strong financial and cultural engagement gains.",
+  "highlights": [
+    "PWI surged 155.9% to 58.6 — strongest financial quarter, full employment income flowing",
+    "Longform Media Velocity hit 16 points in December — highest single month of 2025",
+    "Knowledge base crossed 3,400 notes, growing ~169 notes/month",
+    "PHI improved 5% as health habits strengthened from October baseline",
+    "PPI settled at baseline (100) after Q3 peak — natural post-sprint deceleration",
+    "All six indicators now actively tracking for first full-data quarter"
+  ]
+}

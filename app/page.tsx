@@ -18,27 +18,27 @@ export default async function Home() {
           Transparent, data-driven insights into personal productivity, growth, and strategic output.
         </p>
         <div className="mt-6 flex items-center justify-center space-x-4 text-sm text-gray-500">
-          <span>Last Updated: November 1, 2025</span>
+          <span>Last Updated: February 1, 2026</span>
           <span>•</span>
-          <span>Next Update: December 1, 2025</span>
+          <span>Next Update: March 1, 2026</span>
         </div>
       </div>
 
       {/* Economic Summary Banner */}
       <div className="bg-gradient-to-r from-fed-navy to-blue-900 rounded-lg p-8 mb-12 text-white">
-        <h2 className="text-2xl font-bold mb-4">Economic Overview - Q4 2025</h2>
+        <h2 className="text-2xl font-bold mb-4">Economic Overview - Q1 2026</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <div className="text-sm opacity-80 mb-1">Overall Performance</div>
-            <div className="text-3xl font-bold">Strong Growth</div>
+            <div className="text-3xl font-bold">Expansion</div>
           </div>
           <div>
-            <div className="text-sm opacity-80 mb-1">Productivity Trend</div>
-            <div className="text-3xl font-bold trend-up">+3.8%</div>
+            <div className="text-sm opacity-80 mb-1">Wealth Index</div>
+            <div className="text-3xl font-bold trend-up">+209.7</div>
           </div>
           <div>
             <div className="text-sm opacity-80 mb-1">Strategic Outlook</div>
-            <div className="text-3xl font-bold">Positive</div>
+            <div className="text-3xl font-bold">Bullish</div>
           </div>
         </div>
       </div>
@@ -102,10 +102,10 @@ export default async function Home() {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Latest Report</h3>
           <p className="text-gray-600 mb-4">
-            Q3 2025 State of the MIKE Economy - High-growth productivity quarter with major
-            financial restructuring.
+            Q4 2025 State of the MIKE Economy - Recovery and stabilization with surging wealth
+            and record media engagement.
           </p>
-          <Link href="/reports/q3-2025" className="text-primary hover:text-accent font-medium">
+          <Link href="/reports/q4-2025" className="text-primary hover:text-accent font-medium">
             Read Report →
           </Link>
         </div>

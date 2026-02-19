@@ -26,7 +26,7 @@ export default async function EmbedWidget() {
             background: #fff;
             border: 1px solid #ddd;
             padding: 16px;
-            max-width: 400px;
+            width: 100%;
           }
           .header {
             display: flex;
@@ -52,15 +52,16 @@ export default async function EmbedWidget() {
           }
           .indicator {
             display: flex;
-            flex-direction: column;
-            padding: 6px 0;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
             border-bottom: 1px solid #f0f0f0;
           }
           .indicator:last-child {
             border-bottom: none;
           }
           .indicator-name {
-            font-size: 13px;
+            font-size: 14px;
             color: #003366;
             text-decoration: none;
             font-weight: 500;
@@ -69,9 +70,10 @@ export default async function EmbedWidget() {
             text-decoration: underline;
           }
           .indicator-value {
-            font-size: 13px;
+            font-size: 14px;
             color: #333;
-            margin-top: 2px;
+            text-align: right;
+            white-space: nowrap;
           }
           .indicator-value strong {
             font-weight: 700;

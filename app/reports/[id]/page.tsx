@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
-import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePercent } from "@/lib/indicators";
+import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePercent, loadQuarterlyNarrative } from "@/lib/indicators";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -13,7 +13,7 @@ const REPORTS = {
     quarter: "Q4 2025",
     title: "State of the MIKE Economy - Q4 2025",
     publishedDate: "2026-01-15",
-    summary: "Recovery and stabilization quarter. Productivity eased from Q3 peak to baseline (100, -4.8%), while wealth surged +155.9% to 58.6 as employment income took hold. Longform Media Velocity exploded +220% to 16 points (best month of 2025). Knowledge base grew 16.2% to 3,482 notes. Health improved 5% to 75.0. Social capital held steady. First full quarter with all six indicators tracking. A quarter of consolidation after Q3's intensity, with strong financial and cultural engagement gains.",
+    summary: "Recovery and stabilization quarter. Productivity eased from Q3 peak to baseline (100, -4.8%), while wealth surged +155.9% to 58.6 as employment income took hold. Longform Media Velocity exploded +220% to 16 points (best month of 2025). Knowledge base grew 16.2% to 3,482 notes. Health improved 5% to 75.0. Social capital held steady. First full quarter with all six indicators tracking.",
   },
   "q3-2025": {
     id: "q3-2025",
@@ -50,9 +50,10 @@ export default async function ReportPage({ params }: PageProps) {
     notFound();
   }
 
-  // Try to load quarterly snapshot data first, fall back to current data
+  // Load quarterly snapshot data and narrative
   const snapshotData = await loadQuarterlySnapshot(id);
   const indicators = snapshotData || await loadAllIndicators();
+  const narrative = await loadQuarterlyNarrative(id);
 
   return (
     <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -80,33 +81,65 @@ export default async function ReportPage({ params }: PageProps) {
           <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
             Executive Summary
           </h2>
-          <p className="text-lg text-gray-700 leading-relaxed mb-6">
-            The MIKE Economy demonstrated strong performance in {report.quarter}, with notable achievements across
-            key productivity and output indicators. This report provides a comprehensive analysis of economic
-            activity, strategic developments, and forward-looking perspectives for stakeholders.
-          </p>
-          <div className="bg-blue-50 border-l-4 border-primary p-6 mb-6">
-            <p className="text-gray-800 font-medium">
-              <strong>Key Highlights:</strong> {report.summary}
+          {narrative ? (
+            <div className="text-lg text-gray-700 leading-relaxed mb-6 whitespace-pre-line">
+              {narrative.executiveSummary}
+            </div>
+          ) : (
+            <p className="text-lg text-gray-700 leading-relaxed mb-6">
+              {report.summary}
             </p>
+          )}
+          <div className="bg-blue-50 border-l-4 border-primary p-6 mb-6">
+            <p className="text-gray-800">
+              <strong>Key Highlights:</strong>
+            </p>
+            {narrative?.highlights ? (
+              <ul className="mt-3 space-y-1 text-gray-800">
+                {narrative.highlights.map((h: string, i: number) => (
+                  <li key={i}>• {h}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-800 mt-2">{report.summary}</p>
+            )}
           </div>
         </section>
 
-        {/* Indicator Performance */}
+        {/* Narrative Analysis Sections */}
+        {narrative?.sections && narrative.sections.length > 0 && (
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-300">
+              Detailed Analysis
+            </h2>
+            <div className="space-y-10">
+              {narrative.sections.map((section: { title: string; body: string }, i: number) => (
+                <div key={i}>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">{section.title}</h3>
+                  <div className="text-gray-700 leading-relaxed whitespace-pre-line">
+                    {section.body}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Indicator Performance Table */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-300">
-            Economic Indicator Performance
+            Indicator Scorecard
           </h2>
 
-          <div className="space-y-8">
+          <div className="space-y-4">
             {indicators.filter(ind => ind.currentValue !== 0 || ind.data.length > 0).map((indicator) => (
-              <div key={indicator.id} className="bg-white border border-gray-200 rounded-lg p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-1">{indicator.title}</h3>
-                    <p className="text-sm text-gray-600">{indicator.category}</p>
+              <div key={indicator.id} className="bg-white border border-gray-200 rounded-lg p-5">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900">{indicator.shortTitle}</h3>
+                    <p className="text-sm text-gray-500">{indicator.category}</p>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right ml-4">
                     <div className="text-2xl font-bold text-gray-900">
                       {formatValue(indicator.currentValue, indicator.id)}
                     </div>
@@ -115,19 +148,9 @@ export default async function ReportPage({ params }: PageProps) {
                       indicator.changePercent < 0 ? "text-red-600" :
                       "text-yellow-600"
                     }`}>
+                      {indicator.changePercent > 0 ? "↑" : indicator.changePercent < 0 ? "↓" : "→"}{" "}
                       {formatChangePercent(indicator.changePercent)}
                     </div>
-                  </div>
-                </div>
-                <p className="text-gray-700 mb-4">{indicator.description}</p>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="text-gray-500">Source:</span>
-                    <span className="ml-2 text-gray-900">{indicator.source}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500">Frequency:</span>
-                    <span className="ml-2 text-gray-900 capitalize">{indicator.frequency}</span>
                   </div>
                 </div>
               </div>
@@ -136,112 +159,45 @@ export default async function ReportPage({ params }: PageProps) {
         </section>
 
         {/* Strategic Outlook */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
-            Strategic Outlook
-          </h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Looking ahead to the next quarter, MIKE Economic Data anticipates continued strong performance
-            across core indicators. Key strategic initiatives include:
-          </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4 mb-6">
-            <li>Sustained productivity improvements through AI-assisted workflows</li>
-            <li>Expansion of knowledge base with focus on emerging technologies</li>
-            <li>Strategic social capital building in key communities</li>
-            <li>Diversification of content channels and formats</li>
-            <li>Revenue optimization across multiple business streams</li>
-            <li>Enhanced project delivery through improved prioritization</li>
-          </ul>
-          <div className="bg-green-50 border-l-4 border-green-500 p-6">
-            <p className="text-gray-800">
-              <strong>Forecast:</strong> The MIKE Economy is well-positioned for continued growth, with
-              stable fundamentals and positive momentum across all key indicators.
+        {narrative?.outlook ? (
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
+              {narrative.outlook.title}
+            </h2>
+            <div className="text-gray-700 leading-relaxed whitespace-pre-line">
+              {narrative.outlook.body}
+            </div>
+          </section>
+        ) : (
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
+              Strategic Outlook
+            </h2>
+            <p className="text-gray-700 leading-relaxed">
+              {report.summary}
             </p>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Methodology */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
             Methodology & Data Sources
           </h2>
-
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">Data Collection Framework</h3>
           <p className="text-gray-700 leading-relaxed mb-4">
-            MIKE Economic Data employs a comprehensive multi-source data aggregation infrastructure designed
-            for transparent, reproducible economic analysis. Our methodology integrates quantitative metrics
-            from six primary domains: productivity measurement (RescueTime API), knowledge management systems
-            (Obsidian vault analytics), social capital assessment (platform engagement metrics), health monitoring
-            (weight tracking and wellness indicators), financial position tracking (net worth calculations), and
-            intellectual engagement measurement (longform media consumption logs).
+            MIKE Economic Data tracks six indicators across productivity, financial, health, social, and intellectual
+            domains. Raw data is collected monthly in CSV format, normalized against established baselines, and
+            snapshotted quarterly for historical comparison. All source data and transformation logic is open-source
+            and publicly auditable.
           </p>
-
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">Processing & Normalization</h3>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Raw data is collected monthly and stored in CSV format for version-controlled historical integrity.
-            Each indicator undergoes standardized normalization to enable consistent quarter-over-quarter and
-            year-over-year comparisons. Index values are calculated against established baselines (e.g., PPI
-            normalized to 2025 average = 100), with percentage changes computed using trailing period methodology.
-            All transformations are executed via open-source TypeScript utilities, ensuring algorithmic transparency
-            and reproducibility.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">Reporting Architecture</h3>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Quarterly reports are generated through a hybrid human-AI workflow. Data snapshots are compiled at
-            quarter-end, capturing final indicator values and monthly progression narratives. Strategic analysis
-            is produced using Claude AI (Anthropic) following standardized prompt templates that enforce data-driven
-            insights and prohibit generic commentary. The entire report generation pipeline—from raw data to
-            published analysis—is version-controlled and publicly auditable.
-          </p>
-
-          <div className="bg-blue-50 border-l-4 border-primary p-4 mb-4">
-            <h3 className="text-sm font-semibold text-gray-900 mb-2">Open Data & Reproducibility</h3>
-            <p className="text-sm text-gray-700 mb-3">
-              All source data, transformation scripts, and report generation prompts are publicly available
-              for verification and replication. This commitment to transparency enables stakeholders to audit
-              methodologies, reproduce analyses, and adapt frameworks for similar economic modeling applications.
-            </p>
+          <div className="bg-blue-50 border-l-4 border-primary p-4">
+            <h3 className="text-sm font-semibold text-gray-900 mb-2">Open Data</h3>
             <div className="flex flex-col space-y-2 text-sm">
-              <a
-                href="https://github.com/kmikeym/mike-fred/tree/main/data"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:text-accent font-medium"
-              >
-                → View Source Data (CSV files)
-              </a>
-              <a
-                href="https://github.com/kmikeym/mike-fred/tree/main/data/quarterly"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:text-accent font-medium"
-              >
-                → View Quarterly Snapshots (JSON)
-              </a>
-              <a
-                href="https://github.com/kmikeym/mike-fred/tree/main/instructions"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:text-accent font-medium"
-              >
-                → View Report Generation Prompts
-              </a>
-              <a
-                href="https://github.com/kmikeym/mike-fred"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:text-accent font-medium"
-              >
-                → Full Repository & Documentation
-              </a>
+              <a href="https://github.com/kmikeym/mike-fred/tree/main/data" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-accent font-medium">→ Source Data (CSV)</a>
+              <a href="https://github.com/kmikeym/mike-fred/tree/main/data/quarterly" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-accent font-medium">→ Quarterly Snapshots (JSON)</a>
+              <a href="https://github.com/kmikeym/mike-fred" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-accent font-medium">→ Full Repository</a>
             </div>
           </div>
-
-          <p className="text-sm text-gray-600">
-            For interactive data visualization and real-time indicator monitoring, visit{" "}
-            <Link href="/" className="text-primary hover:underline">mike.quarterly.systems</Link>
-          </p>
         </section>
 
         {/* Footer */}

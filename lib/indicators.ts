@@ -227,6 +227,29 @@ export async function loadQuarterlySnapshot(quarterId: string): Promise<Indicato
 }
 
 /**
+ * Load quarterly narrative data (executive summary, analysis sections, outlook)
+ */
+export async function loadQuarterlyNarrative(quarterId: string): Promise<any | null> {
+  const snapshotPath = path.join(process.cwd(), "data", "quarterly", `${quarterId}.json`);
+
+  try {
+    const content = await fs.readFile(snapshotPath, "utf-8");
+    const snapshot = JSON.parse(content);
+
+    if (!snapshot.narrative) return null;
+
+    return {
+      executiveSummary: snapshot.narrative.executiveSummary,
+      sections: snapshot.narrative.sections || [],
+      outlook: snapshot.narrative.outlook || null,
+      highlights: snapshot.highlights || [],
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Format value with appropriate precision and unit
  */
 export function formatValue(value: number, indicatorId: IndicatorId): string {

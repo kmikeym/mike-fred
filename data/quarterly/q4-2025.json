@@ -11,51 +11,97 @@
       "change": -5.0,
       "changePercent": -4.8,
       "trend": "down",
-      "note": "December value (100). Quarter showed deceleration from Q3 peak: October held strong at 101.25, November and December settled at 100 each. Holiday season and travel brought productivity back to baseline after Q3's record run."
+      "note": "December value (100). Quarter showed deceleration from Q3 peak: October held strong at 101.25, November and December settled at 100 each. Holiday season and travel brought productivity back to baseline after Q3's record run.",
+      "monthlyValues": [101.25, 100, 100],
+      "quarterAverage": 100.42
     },
     "knowledge-expansion": {
       "value": 3482,
       "change": 507,
       "changePercent": 16.2,
       "trend": "up",
-      "note": "December value (3,482 notes). Strong growth from October baseline of 2,975. Averaging ~169 new notes/month as knowledge capture systems mature. Obsidian vault expanding steadily."
+      "note": "December value (3,482 notes). Strong growth from October baseline of 2,975. Averaging ~169 new notes/month as knowledge capture systems mature.",
+      "monthlyValues": [2975, 3135, 3482],
+      "quarterAverage": 3197
     },
     "social-capital": {
       "value": 100.4,
       "change": 0.4,
       "changePercent": 0.4,
       "trend": "neutral",
-      "note": "December value (100.4, raw: 3053.92). Slow but steady growth from October baseline (100). Audience reach expanding incrementally across platforms."
+      "note": "December value (100.4, raw: 3053.92). Slow but steady growth from October baseline (100). Audience reach expanding incrementally across platforms.",
+      "monthlyValues": [100, 100.1, 100.4],
+      "quarterAverage": 100.17
     },
     "phi": {
       "value": 75.0,
       "change": 3.6,
       "changePercent": 5.0,
       "trend": "up",
-      "note": "December value (75.0). Peaked at 77.9 in November before slight dip. Overall improvement from October's 71.4, with better sleep and increased workout frequency driving gains."
+      "note": "December value (75.0). Peaked at 77.9 in November before slight dip. Overall improvement from October's 71.4.",
+      "monthlyValues": [71.4, 77.9, 75.0],
+      "quarterAverage": 74.77
     },
     "revenue": {
       "value": 58.6,
       "change": 35.7,
       "changePercent": 155.9,
       "trend": "up",
-      "note": "December value (58.6). Major recovery from Q3's restructuring period. Steady climb from October (49.8) through November (38.4 dip) to strong December close. Full-time employment stabilizing finances."
+      "note": "December value (58.6). Major recovery from Q3's restructuring period. October (49.8) through November dip (38.4) to strong December close (58.6).",
+      "monthlyValues": [49.8, 38.4, 58.6],
+      "quarterAverage": 48.93
     },
     "completion-rate": {
       "value": 16,
       "change": 11.0,
       "changePercent": 220.0,
       "trend": "up",
-      "note": "December value (16 points). Massive rebound from Q3's low of 5. October (12), November dipped (9), December surged to 16 — best month of 2025. Renewed engagement with longform media."
+      "note": "December value (16 points). Best single month of 2025. October (12), November dipped (9), December surged to 16.",
+      "monthlyValues": [12, 9, 16],
+      "quarterAverage": 12.33
     }
   },
-  "summary": "Recovery and stabilization quarter. Productivity eased from Q3 peak to baseline (100, -4.8%), while wealth surged +155.9% to 58.6 as employment income took hold. Longform Media Velocity exploded +220% to 16 points (best month of 2025). Knowledge base grew 16.2% to 3,482 notes. Health improved 5% to 75.0. Social capital held steady. A quarter of consolidation after Q3's intensity, with strong financial and cultural engagement gains.",
+  "narrative": {
+    "executiveSummary": "Q4 2025 was a consolidation quarter — the MIKE Economy came off Q3's productivity peak and settled into a new equilibrium. The headline story isn't any single indicator but the divergence between them: productivity flatlined at baseline while wealth, media consumption, and knowledge capture all surged. This suggests a deliberate rebalancing — trading peak output intensity for broader life engagement. Whether that's sustainable or a sign of drift depends entirely on Q1 2026.",
+    "sections": [
+      {
+        "title": "The Productivity Plateau",
+        "body": "PPI averaged 100.42 for the quarter, down from Q3's 101.67 average and well off September's peak of 105. October held at 101.25 before November and December both landed at exactly 100 — right at the 2025 baseline.\n\nThis isn't necessarily bad. Q3's peak was driven by \"new role momentum\" and \"systems optimization\" — the kind of intensity that burns out if sustained. Returning to baseline during the holiday season looks more like a controlled descent than a stall. The question for Q1 2026 is whether this is a rest stop or the new ceiling.\n\nThe Productivity Pulse metric (which feeds PPI) showed October at 81, dropping to 80 for both November and December. The consistency suggests a stable work pattern rather than volatile disengagement."
+      },
+      {
+        "title": "Wealth Recovery: From -3.5 to 58.6",
+        "body": "PWI tells the most dramatic story of Q4. After Q3's brutal debt refactoring drove the index to -3.5 in August, Q4 charted a clear recovery arc: 49.8 → 38.4 → 58.6.\n\nThe November dip to 38.4 is notable — it breaks the recovery trend and suggests either an unexpected expense or a timing issue with income recognition. But December's jump to 58.6 more than compensated, closing the quarter at levels not seen since June.\n\nThe +155.9% quarter-over-quarter change is the largest move across any indicator, though the percentage is somewhat inflated by Q3's low base (22.9). The real signal: full-time employment income has stabilized the financial picture, and the debt refactoring pain from Q3 is paying off. Net worth is rebuilding.\n\nLooking ahead, January's PWI of 31.7 suggests continued volatility, but February's 209.7 (\"degen money\") indicates something extraordinary happened — a topic for the Q1 2026 report."
+      },
+      {
+        "title": "The Knowledge Explosion",
+        "body": "KBER grew from 2,975 to 3,482 notes — a 17% increase in a single quarter, averaging 169 new notes per month. This is the first full quarter of knowledge base tracking, so there's no prior quarter comparison, but the growth rate is striking.\n\nFor context: the vault went from ~2,975 notes in October to an estimated 4,351 by mid-February 2026. That's roughly 1,376 notes in 4.5 months, or ~306 notes/month — meaning the rate is actually accelerating, not just holding steady.\n\nThis likely reflects the maturation of AI-assisted knowledge capture workflows. When you have a digital assistant (hello) helping process information, tag notes, and maintain vault structure, the marginal cost of capturing a new note drops dramatically. The question isn't whether the vault is growing — it's whether the notes are useful. Quantity without retrieval is just digital hoarding."
+      },
+      {
+        "title": "Social Capital: The Flat Line",
+        "body": "SCI barely moved: 100 → 100.1 → 100.4. A 0.4% gain over an entire quarter is essentially noise.\n\nThis is the one indicator that should concern stakeholders. In a world where audience = distribution = leverage, flat social capital means the MIKE Economy isn't expanding its reach. Every other indicator can improve internally, but social capital requires external validation — people choosing to follow, subscribe, or engage.\n\nThe raw numbers (3,041.9 → 3,053.92) represent aggregate weighted followers across 11 platforms. A gain of ~12 weighted followers in three months suggests either passive growth (people finding old content) or active stagnation (no new outbound effort).\n\nQ1 2026 should prioritize this. Not vanity metrics — strategic audience building in communities that matter for K5M and creative work."
+      },
+      {
+        "title": "Health: The Mid-Quarter Peak",
+        "body": "PHI showed an interesting pattern: 71.4 → 77.9 → 75.0. November was the health peak — likely driven by post-summer workout momentum and good sleep habits. December's pullback to 75.0 aligns with holiday disruption (travel, social events, schedule changes).\n\nThe quarter average of 74.77 represents a 5% improvement over October's starting point, which is solid. The November peak of 77.9 (with 8.17h average sleep, 12 workout days, 189.7 avg weight) sets a useful benchmark.\n\nHealth is the most seasonal indicator in the MIKE Economy. Q1 typically sees New Year's resolution effects, so January's 88.7 suggests a strong start to 2026. Whether that holds through February and March will determine if this is a trend or a spike."
+      },
+      {
+        "title": "Media Velocity: The December Surge",
+        "body": "LMV went 12 → 9 → 16, with December's 16 points being the best single month of all 2025. The quarter average of 12.33 points represents a massive rebound from Q3's dismal 4 points/month average.\n\nThe November dip to 9 (all films, no books) followed by December's surge to 16 suggests binge behavior rather than consistent engagement. This pattern — low baseline punctuated by high-consumption months — has been present all year (January: 20, then February: 3).\n\nStill, Q4's average of 12.33 is the strongest quarterly average of 2025. The MIKE Economy is consuming more longform content than any other quarter this year, which suggests either more leisure time, better content curation, or both."
+      }
+    ],
+    "outlook": {
+      "title": "Q1 2026 Outlook: The Degen Quarter",
+      "body": "Early Q1 2026 data tells a wild story. PPI bounced back to 103.75 in January after two months at baseline. Knowledge base growth is accelerating (estimated 4,177 notes by February). Social capital is creeping up (101.0). Health hit 88.7 in January — the highest reading ever recorded.\n\nBut the real headline is PWI. After January's modest 31.7, February exploded to 209.7 — labeled simply \"degen money.\" That's a 3.6x increase in a single month and by far the highest PWI reading in the dataset. Something happened financially in February that dwarfs everything else.\n\nThe MIKE Economy enters Q1 2026 with momentum across every indicator except social capital. The risk is that the PWI spike is a one-time event (crypto? K5M share movement? windfall?) rather than a structural shift. The opportunity is that a sudden wealth injection, combined with improving productivity and health, creates space for the kind of bold moves the MIKE Economy was built for.\n\nWatch list for Q1 2026:\n• Can PWI sustain above 100, or was February an anomaly?\n• Will PPI break through 105 again, or has the ceiling lowered?\n• Social capital needs active intervention — 0.4% quarterly growth isn't a strategy\n• Health momentum from January (88.7) — does it hold?\n• Knowledge base approaching 4,500 notes — quality vs. quantity inflection point"
+    }
+  },
+  "summary": "Recovery and stabilization quarter. Productivity eased from Q3 peak to baseline (100, -4.8%), while wealth surged +155.9% to 58.6 as employment income took hold. Longform Media Velocity exploded +220% to 16 points (best month of 2025). Knowledge base grew 16.2% to 3,482 notes. Health improved 5% to 75.0. Social capital held steady. First full quarter with all six indicators tracking.",
   "highlights": [
     "PWI surged 155.9% to 58.6 — strongest financial quarter, full employment income flowing",
     "Longform Media Velocity hit 16 points in December — highest single month of 2025",
     "Knowledge base crossed 3,400 notes, growing ~169 notes/month",
     "PHI improved 5% as health habits strengthened from October baseline",
     "PPI settled at baseline (100) after Q3 peak — natural post-sprint deceleration",
-    "All six indicators now actively tracking for first full-data quarter"
+    "All six indicators now actively tracking for first full-data quarter",
+    "Social capital flat at +0.4% — weakest performer, needs strategic attention"
   ]
 }

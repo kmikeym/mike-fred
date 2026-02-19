@@ -8,6 +8,13 @@ interface PageProps {
 }
 
 const REPORTS = {
+  "q4-2025": {
+    id: "q4-2025",
+    quarter: "Q4 2025",
+    title: "State of the MIKE Economy - Q4 2025",
+    publishedDate: "2026-01-15",
+    summary: "Recovery and stabilization quarter. Productivity eased from Q3 peak to baseline (100, -4.8%), while wealth surged +155.9% to 58.6 as employment income took hold. Longform Media Velocity exploded +220% to 16 points (best month of 2025). Knowledge base grew 16.2% to 3,482 notes. Health improved 5% to 75.0. Social capital held steady. First full quarter with all six indicators tracking. A quarter of consolidation after Q3's intensity, with strong financial and cultural engagement gains.",
+  },
   "q3-2025": {
     id: "q3-2025",
     quarter: "Q3 2025",

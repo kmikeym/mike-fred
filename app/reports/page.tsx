@@ -4,12 +4,20 @@ import { formatDate } from "@/lib/utils";
 export default function ReportsPage() {
   const reports = [
     {
+      id: "q4-2025",
+      quarter: "Q4 2025",
+      title: "State of the MIKE Economy - Q4 2025",
+      summary: "Recovery and stabilization quarter. PWI surged +155.9% to 58.6, Media Velocity hit 16 (best month of 2025), Knowledge Base crossed 3,400 notes. All six indicators now actively tracking.",
+      publishedDate: "2026-01-15",
+      status: "current",
+    },
+    {
       id: "q3-2025",
       quarter: "Q3 2025",
       title: "State of the MIKE Economy - Q3 2025",
       summary: "High-growth productivity quarter with major financial restructuring. PPI surged +6.3% to 105 (peak 2025 performance).",
       publishedDate: "2025-10-15",
-      status: "current",
+      status: "published",
     },
     {
       id: "q2-2025",

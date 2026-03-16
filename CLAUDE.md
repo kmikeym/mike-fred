@@ -41,16 +41,48 @@ Indicator data is stored in CSV files in the `/data` directory:
 - `ppi.csv` - Personal Productivity Index (RescueTime data)
 - `knowledge-expansion.csv` - Obsidian vault note count
 - `social-capital.csv` - Social media engagement metrics
-- `content-velocity.csv` - Content production rate
-- `revenue.csv` - Revenue index
-- `completion-rate.csv` - Project completion percentage
+- `completion-rate.csv` - Longform Media Velocity (books + films)
+- `revenue.csv` - Personal Wealth Index
+- `phi.csv` - Personal Health Index
+
+### Monthly Update Checklist
+
+Updates are due on the 1st of each month. Two things to update:
+
+**1. Add a row to each CSV in `/data/`:**
+
+| CSV | What to ask Mike | Format | Notes |
+|-----|-----------------|--------|-------|
+| `ppi.csv` | RescueTime Productivity Pulse score | `date,value,notes,pulse` (4 cols) | Baseline: 2025 avg = 100 |
+| `knowledge-expansion.csv` | Total Obsidian vault note count | `date,value,notes` | Raw count |
+| `social-capital.csv` | Raw follower total across platforms | `date,value,notes` | Index = raw / 3041.9 × 100. Note format: `Measured growth (raw: XXXX.XX)` |
+| `phi.csv` | Sleep avg (h), workout days, weight avg | `date,value,notes` | Formula: sleep% × 0.4 + activity% × 0.35 + weight% × 0.25. Sleep% = avg/8×100. Activity% = days/30×100. Weight% = 100-((avg-175)/175×100). Note format: `Sleep Xh avg, N workout days, weight X avg` |
+| `revenue.csv` | Wealth index value | `date,value,notes` | Ask Mike directly |
+| `completion-rate.csv` | Books and films consumed | `date,value,notes` | Books = 2-5 pts by length, films = 1 pt each. Note format: `N books, N films` |
+
+**How to calculate PHI from daily notes (example for February):**
+- Grep `Sleep.*\d+h` across daily notes for the month → average hours (decimal)
+- Grep exercise entries across daily notes → count days with activity
+- Grep `Today:.*\d{3}` weight entries → average lbs
+- Plug into formula above
+
+**How to calculate Social Capital Index:**
+- Get raw follower total from Mike
+- Divide by baseline 3041.9, multiply by 100
+
+**2. Update `lib/indicators.ts`:**
+- Change `lastUpdate` to current month's date (e.g., `"2026-04-01"`)
+- Change `nextUpdate` to next month's date (e.g., `"2026-05-01"`)
+- These are hardcoded strings in `INDICATOR_REGISTRY` — there are 6 entries to update (use find-and-replace)
+
+**3. Commit and push to `main`.** Cloudflare auto-rebuilds in 2-5 minutes.
 
 ### Adding New Data Points
 
 1. Open the relevant CSV file in `/data/`
-2. Add a new row with format: `date,value,notes`
-3. Save and commit the file
-4. Push to GitHub
+2. Add a new row with the correct format (see table above — PPI has 4 columns, others have 3)
+3. Update `lastUpdate`/`nextUpdate` in `lib/indicators.ts`
+4. Commit all changes and push to `main`
 5. Cloudflare Pages will auto-rebuild (2-5 minutes)
 6. Updated data appears on live site
 

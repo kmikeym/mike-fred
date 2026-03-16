@@ -75,7 +75,11 @@ Updates are due on the 1st of each month. Two things to update:
 - Change `nextUpdate` to next month's date (e.g., `"2026-05-01"`)
 - These are hardcoded strings in `INDICATOR_REGISTRY` — there are 6 entries to update (use find-and-replace)
 
-**3. Commit and push to `main`.** Cloudflare auto-rebuilds in 2-5 minutes.
+**3. Update `app/page.tsx`:**
+- Lines ~21-23 have hardcoded "Last Updated" and "Next Update" dates in the homepage header
+- Change both to match the current/next month
+
+**4. Commit and push to `main`.** Cloudflare auto-rebuilds in 2-5 minutes.
 
 ### Adding New Data Points
 

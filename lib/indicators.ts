@@ -158,6 +158,7 @@ export async function loadIndicatorData(id: IndicatorId): Promise<Indicator> {
 
   return {
     ...metadata,
+    lastUpdate: lastDataPoint.date,
     currentValue,
     previousValue,
     change,

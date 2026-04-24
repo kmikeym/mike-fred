@@ -2,6 +2,19 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePercent, loadQuarterlyNarrative } from "@/lib/indicators";
+import YoYChart, { type YoYIndicator } from "@/components/YoYChart";
+
+interface YoYComparison {
+  previousQuarter: string;
+  currentQuarter: string;
+  indicators: YoYIndicator[];
+}
+
+interface NarrativeSection {
+  title: string;
+  body: string;
+  yoyComparison?: YoYComparison;
+}
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -120,9 +133,16 @@ export default async function ReportPage({ params }: PageProps) {
               Detailed Analysis
             </h2>
             <div className="space-y-10">
-              {narrative.sections.map((section: { title: string; body: string }, i: number) => (
+              {narrative.sections.map((section: NarrativeSection, i: number) => (
                 <div key={i}>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">{section.title}</h3>
+                  {section.yoyComparison && (
+                    <YoYChart
+                      indicators={section.yoyComparison.indicators}
+                      previousQuarter={section.yoyComparison.previousQuarter}
+                      currentQuarter={section.yoyComparison.currentQuarter}
+                    />
+                  )}
                   <div className="text-gray-700 leading-relaxed whitespace-pre-line">
                     {section.body}
                   </div>

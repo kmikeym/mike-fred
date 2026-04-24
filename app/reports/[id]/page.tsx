@@ -8,6 +8,13 @@ interface PageProps {
 }
 
 const REPORTS = {
+  "q1-2026": {
+    id: "q1-2026",
+    quarter: "Q1 2026",
+    title: "State of the MIKE Economy - Q1 2026",
+    publishedDate: "2026-04-25",
+    summary: "Strongest quarter in the dataset. Five of six indicators advanced; three set all-time records. PWI averaged 143.5 (+193% vs Q4) — 'degen quarter' confirmed as sustained regime. Net worth grew from $11,653 to $37,624 (+223%). PHI hit 93.5 in March (all-time high). PPI held above baseline at 102.5 average through international relocation. Knowledge base added 1,104 notes (+31.7%). SCI finally broke 101. Only LMV retreated — attributable to Kosovo departure logistics.",
+  },
   "q4-2025": {
     id: "q4-2025",
     quarter: "Q4 2025",

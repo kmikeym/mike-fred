@@ -18,9 +18,9 @@ export default async function Home() {
           Transparent, data-driven insights into personal productivity, growth, and strategic output.
         </p>
         <div className="mt-6 flex items-center justify-center space-x-4 text-sm text-gray-500">
-          <span>Last Updated: March 1, 2026</span>
+          <span>Last Updated: April 25, 2026</span>
           <span>•</span>
-          <span>Next Update: April 1, 2026</span>
+          <span>Next Update: May 1, 2026</span>
         </div>
       </div>
 
@@ -34,7 +34,7 @@ export default async function Home() {
           </div>
           <div>
             <div className="text-sm opacity-80 mb-1">Wealth Index</div>
-            <div className="text-3xl font-bold trend-up">+209.7</div>
+            <div className="text-3xl font-bold trend-up">+189.1</div>
           </div>
           <div>
             <div className="text-sm opacity-80 mb-1">Strategic Outlook</div>
@@ -102,10 +102,10 @@ export default async function Home() {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Latest Report</h3>
           <p className="text-gray-600 mb-4">
-            Q4 2025 State of the MIKE Economy - Recovery and stabilization with surging wealth
-            and record media engagement.
+            Q1 2026 State of the MIKE Economy — strongest quarter in the dataset. PWI averaged 143.5,
+            net worth grew +223%, PHI hit an all-time high of 93.5.
           </p>
-          <Link href="/reports/q4-2025" className="text-primary hover:text-accent font-medium">
+          <Link href="/reports/q1-2026" className="text-primary hover:text-accent font-medium">
             Read Report →
           </Link>
         </div>

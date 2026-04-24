@@ -4,12 +4,20 @@ import { formatDate } from "@/lib/utils";
 export default function ReportsPage() {
   const reports = [
     {
+      id: "q1-2026",
+      quarter: "Q1 2026",
+      title: "State of the MIKE Economy - Q1 2026",
+      summary: "Strongest quarter in the dataset. PWI averaged 143.5 (+193% vs Q4) — 'degen quarter' confirmed as sustained regime, not a one-month spike. Net worth grew from $11,653 to $37,624 (+223%). PHI hit 93.5 in March (all-time high). PPI held above baseline through international relocation. Knowledge base added 1,104 notes. SCI finally broke 101.",
+      publishedDate: "2026-04-25",
+      status: "current",
+    },
+    {
       id: "q4-2025",
       quarter: "Q4 2025",
       title: "State of the MIKE Economy - Q4 2025",
       summary: "Recovery and stabilization quarter. PWI surged +155.9% to 58.6, Media Velocity hit 16 (best month of 2025), Knowledge Base crossed 3,400 notes. All six indicators now actively tracking.",
       publishedDate: "2026-01-15",
-      status: "current",
+      status: "published",
     },
     {
       id: "q3-2025",

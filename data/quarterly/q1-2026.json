@@ -47,7 +47,7 @@
       "change": 130.5,
       "changePercent": 222.7,
       "trend": "up",
-      "note": "March value (189.1). Q1 shattered every prior quarterly record on the index: January's 31.7 set a modest floor, February exploded to 209.7, March sustained at 189.1. Q1 average of 143.5 is 2.9x the Q4 average of 48.93. The 'degen quarter' narrative from the Q4 outlook proved understated — this wasn't a one-month spike, it's a sustained regime change.",
+      "note": "March value (189.1). Q1 shattered every prior quarterly record on the index: January's 31.7 set a modest floor, February exploded to 209.7, March sustained at 189.1. Q1 average of 143.5 is 2.9x the Q4 average of 48.93. The 'degen quarter' narrative from the Q4 outlook proved understated — this wasn't a one-month spike, it's a sustained regime change.\n\n**Baseline rebase (2026-04-25):** Published with this report, PWI is now rebased with **March 2026 = 100** going forward. The Degen quarter exposed that the prior baseline — calibrated in early 2025 when 1 PWI point ≈ $200 net worth — no longer reflected reality. With February touching 209.7 on the old scale, the index lost its intuitive '100 = normal' anchor. Under the new baseline, 1 PWI point = $376.24 net worth. Q1 2026's monthly values on the new scale are [16.8, 110.9, 100.0] with a quarterly average of 75.9. The numbers in this report body are the values as originally calculated (old scale); the CSV has been restated on the new scale. Future quarterly reports will use the new scale natively.",
       "monthlyValues": [31.7, 209.7, 189.1],
       "quarterAverage": 143.5
     },

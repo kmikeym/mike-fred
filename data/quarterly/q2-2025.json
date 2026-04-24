@@ -39,7 +39,7 @@
       "change": 3.6,
       "changePercent": 6.5,
       "trend": "up",
-      "note": "June value (59.3). Recovery quarter with significant volatility: spiked to 91.2 in April (shareholder purchase), dropped to 41.4 in May (standard operations), settled at 59.3 by June. Averaged 64.0 across quarter, showing 6.5% improvement vs Q1 ending."
+      "note": "June value (59.3). Recovery quarter with significant volatility: spiked to 91.2 in April (shareholder purchase), dropped to 41.4 in May (standard operations), settled at 59.3 by June. Averaged 64.0 across quarter, showing 6.5% improvement vs Q1 ending.\n\n**Rebase note (added 2026-04-25):** PWI was rebased after this report was published. Values here reflect the original-publication scale. Under the new baseline (Mar 2026 = 100, where 1 PWI point = $376.24 net worth), Q2 2025's ending value of 59.3 corresponds to 7.9 on the new scale. See the Q1 2026 report for the rebase rationale."
     },
     "completion-rate": {
       "value": 10.0,

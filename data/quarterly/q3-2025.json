@@ -39,7 +39,7 @@
       "change": -36.4,
       "changePercent": -61.4,
       "trend": "down",
-      "note": "September value (22.9). Volatile quarter with major financial restructuring: started at 45.4 (Jul standard operations), plunged to -3.5 in August (debt refactoring period), recovered to 22.9 by September (full-time employment began). Net worth reset for long-term stability."
+      "note": "September value (22.9). Volatile quarter with major financial restructuring: started at 45.4 (Jul standard operations), plunged to -3.5 in August (debt refactoring period), recovered to 22.9 by September (full-time employment began). Net worth reset for long-term stability.\n\n**Rebase note (added 2026-04-25):** PWI was rebased after this report was published. Values here reflect the original-publication scale. Under the new baseline (Mar 2026 = 100, where 1 PWI point = $376.24 net worth), Q3 2025's ending value of 22.9 corresponds to 3.0 on the new scale (August's -3.5 corresponds to -0.5). See the Q1 2026 report for the rebase rationale."
     },
     "completion-rate": {
       "value": 5.0,

@@ -47,7 +47,7 @@
       "change": 35.7,
       "changePercent": 155.9,
       "trend": "up",
-      "note": "December value (58.6). Major recovery from Q3's restructuring period. October (49.8) through November dip (38.4) to strong December close (58.6).",
+      "note": "December value (58.6). Major recovery from Q3's restructuring period. October (49.8) through November dip (38.4) to strong December close (58.6).\n\n**Rebase note (added 2026-04-25):** PWI was rebased after this report was published. Values here reflect the original-publication scale, which contained a ~4× scale break between November and December 2025 that inflated the reported +155.9% quarterly change. Under the new baseline (Mar 2026 = 100, where 1 PWI point = $376.24 net worth), Q4 2025's monthly values are [6.6, 5.1, 31.0] ending at 31.0 — the Dec uptick remains a real recovery, but the scale-break artifact is removed. See the Q1 2026 report for the rebase rationale.",
       "monthlyValues": [49.8, 38.4, 58.6],
       "quarterAverage": 48.93
     },

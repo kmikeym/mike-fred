@@ -102,8 +102,8 @@ export default async function Home() {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Latest Report</h3>
           <p className="text-gray-600 mb-4">
-            Q1 2026 State of the MIKE Economy — strongest quarter in the dataset. PWI averaged 143.5,
-            net worth grew +223%, PHI hit an all-time high of 93.5.
+            Q1 2026 State of the MIKE Economy — strongest quarter in the dataset. PWI averaged 143.5
+            (+193% vs Q4), PHI hit an all-time high of 93.5, SCI finally broke 101.
           </p>
           <Link href="/reports/q1-2026" className="text-primary hover:text-accent font-medium">
             Read Report →

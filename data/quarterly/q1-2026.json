@@ -6,102 +6,98 @@
     "end": "2026-03-31"
   },
   "indicators": {
-    "ppi": {
-      "value": 100,
-      "change": 0,
-      "changePercent": 0,
-      "trend": "neutral",
-      "note": "March value (100). Quarter held a tight band: January and February both at 103.75, March settling to 100. Q1 average of 102.5 represents the highest quarterly productivity reading since Q3 2025's peak — sustained above baseline without the Q3 burnout pattern.",
-      "monthlyValues": [103.75, 103.75, 100],
-      "quarterAverage": 102.5
+    "revenue": {
+      "value": 189.1,
+      "change": 130.5,
+      "changePercent": 222.7,
+      "trend": "up",
+      "note": "March value (189.1). Q1 shattered every prior quarterly record on the index: January's 31.7 set a modest floor, February exploded to 209.7, March sustained at 189.1. Q1 average of 143.5 is 2.9x the Q4 average of 48.93. The 'degen quarter' narrative from the Q4 outlook proved understated — this wasn't a one-month spike, it's a sustained regime change.\n\n**Baseline rebase (2026-04-25):** Published with this report, PWI is now rebased with **March 2026 = 100** going forward. The Degen quarter exposed that the prior baseline — calibrated in early 2025 when 1 PWI point ≈ $200 net worth — no longer reflected reality. With February touching 209.7 on the old scale, the index lost its intuitive '100 = normal' anchor. Under the new baseline, 1 PWI point = $376.24 net worth. Q1 2026's monthly values on the new scale are [16.8, 110.9, 100.0] with a quarterly average of 75.9. The numbers in this report body are the values as originally calculated (old scale); the CSV has been restated on the new scale. Future quarterly reports will use the new scale natively."
     },
     "knowledge-expansion": {
       "value": 4586,
       "change": 1104,
       "changePercent": 31.7,
       "trend": "up",
-      "note": "March value (4,586 notes). Q1 added 1,104 notes — roughly 368 notes/month, an acceleration from Q4's 169/month pace. The knowledge base has now more than doubled from its October 2025 baseline of 2,975.",
-      "monthlyValues": [3829, 4177, 4586],
-      "quarterAverage": 4197
-    },
-    "social-capital": {
-      "value": 101.23,
-      "change": 0.83,
-      "changePercent": 0.83,
-      "trend": "up",
-      "note": "March value (101.23, raw: 3,079.43). Q1 finally broke SCI above 101 for the first time, driven by X growth (3,916 → 4,251) and steady LinkedIn expansion. Still the slowest-growing indicator, but direction is clearly positive after Q4's flat line.",
-      "monthlyValues": [101.15, 100.98, 101.23],
-      "quarterAverage": 101.12
+      "note": "March value (4,586 notes). Q1 added 1,104 notes — roughly 368 notes/month, an acceleration from Q4's 169/month pace. The knowledge base has now more than doubled from its October 2025 baseline of 2,975."
     },
     "phi": {
       "value": 93.5,
       "change": 18.5,
       "changePercent": 24.7,
       "trend": "up",
-      "note": "March value (93.5) — the highest PHI reading ever recorded. Quarter opened with January's 88.7 (already a record), dipped to 79.2 during February's travel and pre-Kosovo transition, then surged to 93.5 in March with fewer exercise days but better sleep and lower weight.",
-      "monthlyValues": [88.7, 79.2, 93.5],
-      "quarterAverage": 87.13
+      "note": "March value (93.5) — the highest PHI reading ever recorded. Quarter opened with January's 88.7 (already a record), dipped to 79.2 during February's travel and pre-Kosovo transition, then surged to 93.5 in March with fewer exercise days but better sleep and lower weight."
     },
-    "revenue": {
-      "value": 189.1,
-      "change": 130.5,
-      "changePercent": 222.7,
+    "social-capital": {
+      "value": 101.23,
+      "change": 0.83,
+      "changePercent": 0.83,
       "trend": "up",
-      "note": "March value (189.1). Q1 shattered every prior quarterly record on the index: January's 31.7 set a modest floor, February exploded to 209.7, March sustained at 189.1. Q1 average of 143.5 is 2.9x the Q4 average of 48.93. The 'degen quarter' narrative from the Q4 outlook proved understated — this wasn't a one-month spike, it's a sustained regime change.\n\n**Baseline rebase (2026-04-25):** Published with this report, PWI is now rebased with **March 2026 = 100** going forward. The Degen quarter exposed that the prior baseline — calibrated in early 2025 when 1 PWI point ≈ $200 net worth — no longer reflected reality. With February touching 209.7 on the old scale, the index lost its intuitive '100 = normal' anchor. Under the new baseline, 1 PWI point = $376.24 net worth. Q1 2026's monthly values on the new scale are [16.8, 110.9, 100.0] with a quarterly average of 75.9. The numbers in this report body are the values as originally calculated (old scale); the CSV has been restated on the new scale. Future quarterly reports will use the new scale natively.",
-      "monthlyValues": [31.7, 209.7, 189.1],
-      "quarterAverage": 143.5
+      "note": "March value (101.23, raw: 3,079.43). Q1 finally broke SCI above 101 for the first time, driven by X growth (3,916 → 4,251) and steady LinkedIn expansion. Still the slowest-growing indicator, but direction is clearly positive after Q4's flat line."
+    },
+    "ppi": {
+      "value": 100,
+      "change": 0,
+      "changePercent": 0,
+      "trend": "neutral",
+      "note": "March value (100). Quarter held a tight band: January and February both at 103.75, March settling to 100. Q1 average of 102.5 represents the highest quarterly productivity reading since Q3 2025's peak — sustained above baseline without the Q3 burnout pattern."
     },
     "completion-rate": {
       "value": 7,
       "change": -9,
       "changePercent": -56.3,
       "trend": "down",
-      "note": "March value (7 points). After December's all-time high of 16, LMV pulled back: January 14, February 5, March 7. Q1 average of 8.67 is below Q4's 12.33. The drawdown coincides with Kosovo departure preparation in March — travel logistics crowded out media consumption time.",
-      "monthlyValues": [14, 5, 7],
-      "quarterAverage": 8.67
+      "note": "March value (7 points). After December's all-time high of 16, LMV pulled back: January 14, February 5, March 7. Q1 average of 8.67 is below Q4's 12.33. The drawdown coincides with Kosovo departure preparation in March — travel logistics crowded out media consumption time."
     }
   },
   "narrative": {
-    "executiveSummary": "Q1 2026 was the strongest quarter in the tracked history of the MIKE Economy. Five of six indicators advanced, three set all-time records, and the one retreat — Longform Media Velocity — is directly attributable to the Kosovo relocation. The story is not any single indicator: it's the convergence. Productivity held above baseline without burning out. Wealth tripled its Q4 average and did it across two consecutive months, turning the Q4 outlook's 'degen spike' warning into a confirmed regime. Health hit an all-time high. Knowledge base growth accelerated. Social capital finally broke 101. This is what a compounding quarter looks like.",
+    "executiveSummary": "Q1 2026 was the strongest quarter in the tracked history of the MIKE Economy — and also one of the hardest. Mike's 9-year relationship with Kathryn ended during the quarter, which sits in tension with what the indicators show: five of six advanced, three set all-time records, and only one (Longform Media Velocity) retreated. Productivity held above baseline without burning out. Wealth tripled its Q4 average across two consecutive months, turning the Q4 outlook's 'degen spike' warning into a confirmed regime. Health hit an all-time high. Knowledge base growth accelerated. Social capital finally broke 101. This is what a compounding quarter looks like, and it's worth naming the personal context alongside it: indicators measure observable outputs, not the weight of a decade.",
     "sections": [
+      {
+        "title": "The Personal Context",
+        "body": "Q1 2026 included a major personal transition: Mike's 9-year relationship with Kathryn ended during the quarter. The apparent counter-intuitive result — an indicator spike across five of six metrics during a period of significant personal upheaval — deserves naming rather than hiding.\n\nLife transitions at this scale typically surface as PHI declines (sleep disruption, weight gain, workout adherence dropping) and PPI declines (attention scattered, baseline output falling). Q1 showed neither. Instead, PHI climbed to an all-time high (93.5 in March) and PPI held at 102.5 average through the quarter.\n\nTwo plausible framings fit the data. First, channeled energy: time and attention that previously went into a partnership redirected into work, health routines, and content output. The +368 notes/month KBER pace — nearly double Q4's 169/month — aligns with sustained solo deep work. Second, loosened constraints: Kosovo departure planning, the Degen financial activity, and aggressive content cadence proceeded without the friction of coordinating a two-person life. The 'operating system scaled' because its inputs simplified.\n\nThe numbers don't tell the whole story. PWI went up. PHI hit a high. But shareholder indicators measure observable outputs — they don't measure grief, loneliness, or the weight of a decade. Q1's outputs were real, and so was the transition behind them. Both belong in the record."
+      },
       {
         "title": "The Degen Quarter, Confirmed",
         "body": "Q4's outlook flagged February's 209.7 PWI reading as possibly a one-time event. Q1 erased that doubt. March sustained at 189.1 — a number that would have been the highest reading in the dataset before February printed. Across the quarter, PWI averaged 143.5, which is 2.9x Q4's 48.93 and the highest quarterly reading on record.\n\nIn index terms, PWI moved from 58.6 at Q4 close to 189.1 by March 31 — a 223% increase in 90 days. The underlying balance sheet followed the same arc: assets expanded, debt reduced. This is not a paper gain or a one-month windfall; it's a quarter of sustained financial restructuring.\n\nThe January reading of 31.7 in retrospect looks like the setup, not the pattern. Whatever triggered February's jump continued through March with only modest mean reversion.\n\nThe honest question for Q2 is whether this new floor holds. Two consecutive months at triple-digit PWI doesn't prove sustainability, but it substantially raises the bar for what 'normal' looks like in the MIKE Economy."
       },
       {
-        "title": "Productivity Held the Line",
-        "body": "Normally a quarter with this much financial and logistical activity would pressure PPI downward. Q1 held at 102.5 average — higher than Q4's 100.42 and the best quarterly reading since Q3 2025's 101.67.\n\nJanuary and February both landed at 103.75 (Productivity Pulse of 83), with March settling back to 100 (Pulse of 80) as Kosovo departure logistics intensified. The fact that productivity stayed above baseline during a quarter that included a major international move, the degen financial activity, and sustained content output tells a real story: the operating system scaled.\n\nWhere Q3 2025's productivity peak was driven by 'new role momentum' and burned out by Q4, Q1 2026's elevated reading sits on a different foundation — AI agent tooling, file-based memory systems, and delegated workflows that do the sustaining. That infrastructure is the actual Q1 headline."
+        "title": "Knowledge Base: Acceleration + Retrieval Layer",
+        "body": "KBER added 1,104 notes in Q1, pushing the vault from 3,482 to 4,586. That's ~368 notes/month — more than double Q4's 169/month rate.\n\nThe growth curve is now super-linear. Q4 grew 507 notes. Q1 grew 1,104. If the trend holds, Q2 will cross 6,000 notes. That raises the familiar question: is this growth useful, or is it digital hoarding?\n\nThe Q1 2026 answer is: retrieval became the binding constraint, and Mike addressed it. As the vault grew, a RAG search layer (obsidian-notes-rag MCP server) was implemented and put into production — semantic search across the full corpus, consumed by the 5-agent system as working memory. Without it, each new note's marginal value would be dropping as the base expands; with it, the larger base enables better cross-referencing and pattern-matching. The growth rate and the retrieval layer went live in the same quarter — by design.\n\nTwo data points argue the notes are being used, not hoarded. First, Q1's content outputs (Impressing Aaron series, Tolmach Files 3,670-email ingestion, AI Shareholder Trilogy, weekly VO shorts) drew heavily on vault content. Second, the agent system now uses the vault as working memory across sessions, which drives both write and read pressure.\n\nQuality vs. quantity will become the Q3 question. For now, capture velocity is correlated with output velocity, and both are high."
       },
       {
         "title": "Health: A New Ceiling",
         "body": "PHI hit 93.5 in March — the highest single-month reading in the dataset. The quarter averaged 87.13, a 17% improvement over Q4's 74.77.\n\nThe shape of the quarter matters: January 88.7 (record-setting at the time), February 79.2 (dip during pre-Kosovo transition, travel, social events), March 93.5 (rebound). What changed in March was counterintuitive — fewer exercise days but better sleep and lower weight. The composite score rewards consistency over peak intensity.\n\nThe March spike coincided with Kosovo arrival preparation, which typically disrupts health routines. That it pushed PHI to a new high suggests something else is going on — likely the combined effect of MSC practice (from Grey's 5-week plan), improved sleep discipline, and weight trajectory finally bending in the right direction.\n\nHealth is the indicator most sensitive to seasonal and lifestyle shifts. A 93.5 ceiling set during a logistically chaotic month is a structurally different result than the same number recorded during a calm, routine-friendly stretch."
       },
       {
-        "title": "Knowledge Base: Acceleration",
-        "body": "KBER added 1,104 notes in Q1, pushing the vault from 3,482 to 4,586. That's ~368 notes/month — more than double Q4's 169/month rate.\n\nThe growth curve is now super-linear. Q4 grew 507 notes. Q1 grew 1,104. If the trend holds, Q2 will cross 6,000 notes. That raises the familiar question: is this growth useful, or is it digital hoarding?\n\nTwo data points argue for useful. First, the quarter's content outputs (Impressing Aaron series, Tolmach Files 3,670-email ingestion, AI Shareholder Trilogy, weekly VO shorts) drew heavily on vault content — notes are being retrieved, not just captured. Second, the agent system (Sid, Thalberg, Colbert, Seshat, Grey) now uses the vault as working memory across sessions, which increases both write and read pressure.\n\nQuality vs. quantity will become the Q3 question. For now, capture velocity is correlated with output velocity, and output velocity is obviously high."
+        "title": "Social Capital: Finally Moving (+ a Parallel Track)",
+        "body": "After a Q4 that ended with SCI at 100.4 (a 0.4% quarterly gain), Q1 pushed the index to 101.23 — 0.83% growth, double Q4's pace. More importantly, the index breached 101 for the first time.\n\nThe raw weighted follower count grew from 3,053.92 to 3,079.43. Most of the expansion came from X (3,916 → 4,251 followers, +335) and LinkedIn (2,201 → 2,304, +103). The KmikeyM primary accounts held flat at 3,948 — no new shareholder momentum, which is the indicator to watch.\n\nOne dimension the SCI index doesn't capture: Mike's career work has driven the Vibes YouTube channel from ~40 subscribers when he was hired to 700+ this quarter — roughly 17× growth across the employment window. That growth belongs to the Vibes platform, not Mike's personal social capital (and so it doesn't roll into SCI), but it represents a significant parallel audience-building effort. The personal SCI breaking 101 is the headline for this index; the Vibes channel's order-of-magnitude growth over the same period is the under-the-radar story.\n\nThis is still the slowest-growing personal indicator, but the direction has changed. Q4's stagnation has been replaced by steady growth. The Q4 outlook called for 'strategic intervention' on social capital. That intervention is now visible in the numbers."
       },
       {
-        "title": "Social Capital: Finally Moving",
-        "body": "After a Q4 that ended with SCI at 100.4 (a 0.4% quarterly gain), Q1 pushed the index to 101.23 — 0.83% growth, double Q4's pace. More importantly, the index breached 101 for the first time.\n\nThe raw weighted follower count grew from 3,053.92 to 3,079.43. Most of the expansion came from X (3,916 → 4,251 followers, +335) and LinkedIn (2,201 → 2,304, +103). The KmikeyM primary accounts held flat at 3,948 — no new shareholder momentum, which is the indicator to watch.\n\nThis is still the slowest-growing indicator, but the direction has changed. Q4's stagnation has been replaced by steady, if modest, audience growth. The Q4 outlook called for 'strategic intervention' on social capital. That intervention is now visible in the numbers."
+        "title": "Productivity Held the Line",
+        "body": "Normally a quarter with this much financial and logistical activity — plus a major personal transition — would pressure PPI downward. Q1 held at 102.5 average: higher than Q4's 100.42 and the best quarterly reading since Q3 2025's 101.67.\n\nJanuary and February both landed at 103.75 (Productivity Pulse of 83), with March settling back to 100 (Pulse of 80) as Kosovo departure logistics intensified. The fact that productivity stayed above baseline during a quarter that included a major international move, the degen financial activity, and sustained content output tells a real story: the operating system scaled.\n\nWhere Q3 2025's productivity peak was driven by 'new role momentum' and burned out by Q4, Q1 2026's elevated reading sits on a different foundation — AI agent tooling, file-based memory systems, and delegated workflows that do the sustaining. That infrastructure is the actual Q1 headline."
       },
       {
         "title": "Media Velocity: The Kosovo Effect",
         "body": "LMV was the only indicator to decline in Q1. December's all-time high of 16 points gave way to January 14, February 5, March 7 — a quarterly average of 8.67, below Q4's 12.33.\n\nThe quarter's arc mirrors the travel arc. January was a normal consumption month in LA. February's 5 points coincided with ramp-up for Kosovo departure. March's 7 points reflect the final departure window (Mike left for Kosovo April 5).\n\nThis is not a concerning drawdown. It's a temporary narrowing driven by a specific logistical event. Q2 should rebuild media velocity as Kosovo routines stabilize — especially given the production-heavy content plan for the quarter includes Tolmach Files audio, which will require extensive listening."
+      },
+      {
+        "title": "Year-over-Year (partial)",
+        "body": "Q1 2026 is the first quarter with any YoY comparison data, since three of the six indicators (KBER, SCI, PHI) only began tracking in October 2025. Full six-indicator YoY becomes available in Q4 2026. For the three indicators with a year of history:\n\n**PWI: Q1 2025 average 8.93 → Q1 2026 average 75.9 — an 8.5× expansion.** This is the sharpest single-year move in the dataset. The comparison requires care: Q1 2025's values have been restated on the new baseline (Mar 2026 = 100) so the comparison is apples-to-apples, but the underlying story is that Q1 2025 was a transitional low — employment change, networking phase, net worth in low single-digit thousands — while Q1 2026 was the Degen quarter. The YoY read confirms what the narrative suggests: the MIKE Economy operates at a different scale now.\n\n**PPI: Q1 2025 average 95.8 → Q1 2026 average 102.5 — +7.0%.** A quieter but meaningful trend. Q1 2025 was volatile (102.5 → 86.3 → 98.8 across the three months, with the February drop attributable to extended Civ VI play). Q1 2026 held a tighter band (103.75, 103.75, 100) despite more logistical pressure. The YoY gain is not just higher average output, it's lower variance — productivity went from spiky to steady.\n\n**LMV: Q1 2025 average 11.3 → Q1 2026 average 8.67 — -23.3%.** Q1 2025 was the year's highest media consumption quarter (January alone produced 20 points); Q1 2026 was pulled down by Kosovo departure logistics in February and March. This is the one YoY decline, and it's context-dependent rather than directional.\n\nKBER, SCI, and PHI will have full YoY reads starting Q4 2026. From then on, YoY becomes a standard section of every quarterly."
       }
     ],
     "outlook": {
       "title": "Q2 2026 Outlook: Production Phase",
-      "body": "Q2 begins with Mike in Kosovo through early June, anchored around the June 9 Switchblade court date in LA. The quarter's character will be determined by three tensions:\n\nFirst, can PWI hold above 100? Q1's 143.5 average is a new floor until proven otherwise. A Q2 return to Q4-range (below 60) would recharacterize Q1 as an anomaly. A Q2 that holds triple digits would confirm a structural shift in the MIKE Economy's financial profile.\n\nSecond, does productivity survive the Kosovo production sprint? Phase 3 in the CALENDAR.md is the highest-output content phase of the year — Albanik in-person, VO batch shoots, Eckips Consulting Tier 1 with Eric Powell kicking off, the Tolmach Files podcast entering audio production. High activity does not always mean high PPI. Q1 showed the operating system can handle load, but Q2 will test its ceiling.\n\nThird, will SCI finally compound? Two consecutive quarters of positive movement is not yet a trend. Q2 needs a 1.5% gain to establish one. The Q1 2026 content (Extending Macfadyen response, Bot Poker follow-up, AI Agent Voting Rights results, Tolmach vote) should drive measurable follower growth if the strategy is working.\n\nWatch list for Q2 2026:\n• PWI holds above 100 — or the degen thesis breaks\n• PPI stays above 100 under production load\n• PHI sustains above 85 while traveling\n• SCI reaches 102 (trend confirmation)\n• KBER crosses 6,000 notes (quality inflection point)\n• LMV rebuilds to 10+ per month as Kosovo routine stabilizes"
+      "body": "Q2 begins with Mike in Kosovo through early June, anchored around a June criminal case hearing. The quarter's character will be determined by three tensions:\n\nFirst, can PWI hold above 100? Q1's 143.5 average is a new floor until proven otherwise. A Q2 return to Q4-range (below 60) would recharacterize Q1 as an anomaly. A Q2 that holds triple digits would confirm a structural shift in the MIKE Economy's financial profile.\n\nSecond, does productivity survive the Kosovo production sprint? Mike has planned a 'Phase 3' for his content which is the highest-output content plan yet. But we've seen Mike overplan in the past, and high activity does not always mean high PPI. Q1 showed the operating system can handle load, but Q2 will test its ceiling.\n\nThird, will SCI finally compound? Two consecutive quarters of positive movement is not yet a trend. Q2 needs a 1.5% gain to establish one. The Q1 2026 content should drive measurable follower growth if the strategy is working.\n\nWatch list for Q2 2026:\n• PWI holds above 100 — or the degen thesis breaks\n• PPI stays above 100 under production load\n• PHI sustains above 85 while traveling\n• SCI reaches 102 (trend confirmation)\n• KBER crosses 6,000 notes (quality inflection point)\n• LMV rebuilds to 10+ per month as Kosovo routine stabilizes"
     }
   },
-  "summary": "Strongest quarter in the dataset. Five of six indicators advanced; three set all-time records. PWI exploded to 143.5 average (+193% vs Q4) — confirming the 'degen quarter' as a sustained regime, not a one-month spike. PWI tripled from Q4 close of 58.6 to Q1 close of 189.1 (+223%). PHI hit 93.5 in March (all-time high). PPI held above baseline at 102.5 average through an international relocation. KBER acceleration continued to 4,586 notes (+1,104 Q1). SCI finally broke 101. Only LMV retreated — attributable to Kosovo departure logistics.",
+  "summary": "Strongest quarter in the dataset — against a backdrop of a 9-year relationship ending during the quarter. Five of six indicators advanced; three set all-time records. PWI exploded to 143.5 average (+193% vs Q4) — confirming the 'degen quarter' as a sustained regime, not a one-month spike. PWI tripled from Q4 close of 58.6 to Q1 close of 189.1 (+223%). PHI hit 93.5 in March (all-time high). PPI held above baseline at 102.5 average through an international relocation. KBER acceleration continued to 4,586 notes (+1,104 Q1) alongside a new RAG retrieval layer. SCI finally broke 101. Only LMV retreated — attributable to Kosovo departure logistics.",
   "highlights": [
-    "PWI averaged 143.5 — 2.9x Q4 average, highest quarterly reading ever",
+    "PWI averaged 143.5 — 2.9x Q4 average, highest quarterly reading ever (+222.7%)",
     "PWI tripled from Q4 close (58.6) to Q1 close (189.1) — +223% over the quarter",
-    "PHI set an all-time high of 93.5 in March (better sleep + weight, fewer exercise days)",
-    "PPI held above 100 baseline through international relocation (102.5 average)",
-    "Knowledge base added 1,104 notes — growth rate doubled from Q4's 169/month to 368/month",
-    "SCI broke 101 for the first time — Q4's flat line is over",
-    "LMV down to 8.67 average — Kosovo departure logistics compressed media consumption"
+    "Knowledge base added 1,104 notes — growth rate doubled from Q4's 169/month to 368/month (+31.7%); RAG retrieval layer went live",
+    "PHI set an all-time high of 93.5 in March — better sleep + weight, fewer exercise days (+24.7%)",
+    "SCI broke 101 for the first time — Q4's flat line is over (+0.83%); Vibes YouTube channel grew 40 → 700+ subs over the employment window (parallel track)",
+    "PPI held above 100 baseline through international relocation + major personal transition (102.5 average, neutral)",
+    "LMV down to 8.67 average — Kosovo departure logistics compressed media consumption (-56.3%)"
   ]
 }

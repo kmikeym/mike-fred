@@ -34,7 +34,7 @@ export default async function Home() {
           </div>
           <div>
             <div className="text-sm opacity-80 mb-1">Wealth Index</div>
-            <div className="text-3xl font-bold trend-up">100.0</div>
+            <div className="text-3xl font-bold trend-down">90.4</div>
           </div>
           <div>
             <div className="text-sm opacity-80 mb-1">Strategic Outlook</div>

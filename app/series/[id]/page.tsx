@@ -3,7 +3,6 @@ import { loadIndicatorData, INDICATOR_REGISTRY, formatValue, formatChangePercent
 import { formatDate, formatDateShort, getTrendClass } from "@/lib/utils";
 import type { IndicatorId } from "@/lib/types";
 import IndicatorChart from "@/components/IndicatorChart";
-import HoursBarChart from "@/components/HoursBarChart";
 import Link from "next/link";
 
 interface PageProps {
@@ -106,21 +105,13 @@ export default async function IndicatorPage({ params }: PageProps) {
           </div>
         </div>
         <IndicatorChart data={indicator.data} color={indicator.color} unit={indicator.unit} />
+        {hasHours && (
+          <p className="text-sm text-gray-500 mt-4">
+            Bars show monthly total tracked hours (RescueTime, right axis); the line is
+            the productivity index (left axis).
+          </p>
+        )}
       </div>
-
-      {/* Total Hours Bar Chart (PPI only) */}
-      {hasHours && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Total Hours Tracked</h2>
-            <p className="text-sm text-gray-500 mt-1">
-              Monthly total tracked hours (RescueTime). The index above measures
-              productivity quality; this shows raw volume.
-            </p>
-          </div>
-          <HoursBarChart data={indicator.data} color={indicator.color} />
-        </div>
-      )}
 
       {/* Data Table */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">

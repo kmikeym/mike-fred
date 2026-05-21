@@ -17,6 +17,7 @@ export interface DataPoint {
   date: string; // ISO 8601 date format (YYYY-MM-DD)
   value: number;
   notes?: string;
+  hours?: number; // Total tracked hours (PPI only; column 5 of ppi.csv)
 }
 
 export interface IndicatorMetadata {

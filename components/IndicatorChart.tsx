@@ -18,6 +18,15 @@ export default function IndicatorChart({ data, color, unit }: IndicatorChartProp
     value: point.value,
   }));
 
+  // Zoom the y-axis to the data range (with padding) instead of anchoring at 0,
+  // so tight-band series like Social Capital (100–101) show their variation.
+  const values = chartData.map((d) => d.value);
+  const dataMin = Math.min(...values);
+  const dataMax = Math.max(...values);
+  const range = dataMax - dataMin;
+  const pad = range === 0 ? Math.max(1, Math.abs(dataMax) * 0.05) : range * 0.15;
+  const yDomain: [number, number] = [dataMin - pad, dataMax + pad];
+
   return (
     <div className="w-full h-96">
       <ResponsiveContainer width="100%" height="100%">
@@ -37,6 +46,8 @@ export default function IndicatorChart({ data, color, unit }: IndicatorChartProp
           <YAxis
             stroke="#6b7280"
             style={{ fontSize: "12px" }}
+            domain={yDomain}
+            tickFormatter={(v: number) => v.toFixed(range < 5 ? 1 : 0)}
           />
           <Tooltip
             contentStyle={{

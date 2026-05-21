@@ -115,10 +115,14 @@ async function parseCSV(filePath: string): Promise<DataPoint[]> {
     if (!line) continue;
     const values = line.split(",");
     if (values.length >= 2 && values[0] && values[1]) {
+      // ppi.csv layout: date,value,notes,pulse,hours — capture hours (col 5) when present
+      const hoursRaw = values[4]?.trim();
+      const hours = hoursRaw ? parseFloat(hoursRaw) : NaN;
       data.push({
         date: values[0].trim(),
         value: parseFloat(values[1].trim()),
         notes: values[2]?.trim() || undefined,
+        hours: Number.isNaN(hours) ? undefined : hours,
       });
     }
   }

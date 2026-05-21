@@ -145,6 +145,11 @@ export default async function IndicatorPage({ params }: PageProps) {
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Value
                 </th>
+                {hasHours && (
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Hours
+                  </th>
+                )}
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Notes
                 </th>
@@ -159,6 +164,11 @@ export default async function IndicatorPage({ params }: PageProps) {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-mono text-gray-900">
                     {formatValue(point.value, indicator.id)}
                   </td>
+                  {hasHours && (
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-mono text-gray-900">
+                      {typeof point.hours === "number" ? `${point.hours}h` : "—"}
+                    </td>
+                  )}
                   <td className="px-6 py-4 text-sm text-gray-500">
                     {point.notes || "—"}
                   </td>

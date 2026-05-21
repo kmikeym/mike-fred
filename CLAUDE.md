@@ -53,22 +53,27 @@ Updates are due on the 1st of each month. Two things to update:
 
 | CSV | What to ask Mike | Format | Notes |
 |-----|-----------------|--------|-------|
-| `ppi.csv` | RescueTime Productivity Pulse score | `date,value,notes,pulse` (4 cols) | Baseline: 2025 avg = 100 |
+| `ppi.csv` | RescueTime Productivity Pulse score + total tracked hours | `date,value,notes,pulse,hours` (5 cols) | **Index `value` = `pulse × 1.25`** (80 pulse = 100 baseline). `hours` (col 5) drives the "Total Hours Tracked" bar chart on the PPI page — leave blank for months with no hours. Notes must not contain commas (breaks positional parsing — use `;`) |
 | `knowledge-expansion.csv` | Total Obsidian vault note count | `date,value,notes` | Raw count |
 | `social-capital.csv` | Raw follower total across platforms | `date,value,notes` | Index = raw / 3041.9 × 100. Note format: `Measured growth (raw: XXXX.XX)` |
 | `phi.csv` | Sleep avg (h), workout days, weight avg | `date,value,notes` | Formula: sleep% × 0.4 + activity% × 0.35 + weight% × 0.25. Sleep% = avg/8×100. Activity% = days/30×100. Weight% = 100-((avg-175)/175×100). Note format: `Sleep Xh avg, N workout days, weight X avg` |
 | `revenue.csv` | Wealth index value | `date,value,notes` | Ask Mike directly |
 | `completion-rate.csv` | Books and films consumed | `date,value,notes` | Books = 2-5 pts by length, films = 1 pt each. Note format: `N books, N films` |
 
+**Fast path — vault-derivable metrics (`scripts/mike-fred-vault-pull.sh`):**
+- Run `./scripts/mike-fred-vault-pull.sh [YYYY-MM]` (defaults to last month). It computes **KBER** (vault note count) and the **PHI sleep input** (avg nightly sleep) automatically, and prints the 5 values still needed from Mike. This collapses a 6-source gather into "fill in what the script can't reach."
+
 **How to calculate PHI from daily notes (example for February):**
-- Grep `Sleep.*\d+h` across daily notes for the month → average hours (decimal)
+- Sleep: the script does this (first `sleep Xh Ym` per daily note → monthly avg). Or grep `Sleep.*\d+h` manually.
 - Grep exercise entries across daily notes → count days with activity
-- Grep `Today:.*\d{3}` weight entries → average lbs
-- Plug into formula above
+- Grep `Today:.*\d{3}` weight entries → average lbs (weight is rarely logged; usually ask Mike)
+- Plug into formula above. Mike often just gives the final PHI index directly.
 
 **How to calculate Social Capital Index:**
 - Get raw follower total from Mike
 - Divide by baseline 3041.9, multiply by 100
+
+**Date convention (release lag):** A row dated month N reports month **N-1**'s actuals (e.g. the `2026-02-01` row is noted "January productivity uptick"; April's data lives in the `2026-05-01` row). Keep each month's pulse and hours together in the same row. Charts label the x-axis by row date, so a bar reads one month ahead of the data it shows — known and accepted as of 2026-05.
 
 **2. Update `lib/indicators.ts`:**
 - Change `lastUpdate` to current month's date (e.g., `"2026-04-01"`)

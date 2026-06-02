@@ -20,8 +20,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "RescueTime Productivity Pulse",
     calculation: "RescueTime Productivity Pulse score, normalized to 2025 average baseline (99.1)",
     color: "#667eea",
-    lastUpdate: "2026-05-01",
-    nextUpdate: "2026-06-01",
+    lastUpdate: "2026-06-01",
+    nextUpdate: "2026-07-01",
   },
   "knowledge-expansion": {
     id: "knowledge-expansion",
@@ -35,8 +35,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Obsidian Vault Manual Count",
     calculation: "Total count of all markdown files in vault (daily notes, permanent notes, reference materials, MOCs)",
     color: "#10b981",
-    lastUpdate: "2026-05-01",
-    nextUpdate: "2026-06-01",
+    lastUpdate: "2026-06-01",
+    nextUpdate: "2026-07-01",
   },
   "social-capital": {
     id: "social-capital",
@@ -50,8 +50,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Multi-platform subscriber counts via platform APIs",
     calculation: "Weighted composite index of subscriber/follower counts across 11 platforms. High-value platforms (KmikeyM accounts 35%, Substack 30%) receive majority weighting, with primary social platforms (LinkedIn, X, Instagram) and medium-priority platforms (YouTube, Bluesky) contributing smaller weights. Baseline: October 2025 = 100.",
     color: "#3b82f6",
-    lastUpdate: "2026-05-01",
-    nextUpdate: "2026-06-01",
+    lastUpdate: "2026-06-01",
+    nextUpdate: "2026-07-01",
   },
   "phi": {
     id: "phi",
@@ -65,8 +65,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Personal tracking apps and devices",
     calculation: "Weighted composite of sleep quality (40%), physical activity frequency (35%), and weight management (25%). Sleep scored against 8-hour baseline, workouts against 30/month target, weight against 175lb target. Higher scores indicate better health optimization.",
     color: "#f59e0b",
-    lastUpdate: "2026-05-01",
-    nextUpdate: "2026-06-01",
+    lastUpdate: "2026-06-01",
+    nextUpdate: "2026-07-01",
   },
   "revenue": {
     id: "revenue",
@@ -80,8 +80,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Personal financial tracking/net worth calculations",
     calculation: "Total assets minus total liabilities, indexed to baseline period",
     color: "#DC143C",
-    lastUpdate: "2026-05-01",
-    nextUpdate: "2026-06-01",
+    lastUpdate: "2026-06-01",
+    nextUpdate: "2026-07-01",
   },
   "completion-rate": {
     id: "completion-rate",
@@ -95,8 +95,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Personal reading and viewing logs",
     calculation: "Combined scoring of books (2-5 points based on length) and movies (1 point each). Rewards sustained intellectual engagement with longform content across different media formats.",
     color: "#8b5cf6",
-    lastUpdate: "2026-05-01",
-    nextUpdate: "2026-06-01",
+    lastUpdate: "2026-06-01",
+    nextUpdate: "2026-07-01",
   },
 };
 

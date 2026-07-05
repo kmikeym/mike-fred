@@ -21,6 +21,13 @@ interface PageProps {
 }
 
 const REPORTS = {
+  "q2-2026": {
+    id: "q2-2026",
+    quarter: "Q2 2026",
+    title: "State of the MIKE Economy - Q2 2026",
+    publishedDate: "2026-07-04",
+    summary: "The nomadic quarter that ended in a split. A June 5 layoff drove the indicators in opposite directions for the first time: PPI fell to a record-low 83.75 while PHI set three straight all-time highs (119.5). PWI averaged 122.2, peaking at 134.2 in May before the layoff dipped it to 106.5. KBER crossed 6,000, LMV rebuilt to 11 on a USA-250 film run, and SCI stayed flat. Four of six Q2 tests confirmed.",
+  },
   "q1-2026": {
     id: "q1-2026",
     quarter: "Q1 2026",

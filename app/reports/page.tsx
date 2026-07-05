@@ -2,14 +2,22 @@ import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 
 export default function ReportsPage() {
-  const reports = [
+    const reports = [
+    {
+      id: "q2-2026",
+      quarter: "Q2 2026",
+      title: "State of the MIKE Economy - Q2 2026",
+      summary: "The nomadic quarter that ended in a split. A June 5 layoff drove the indicators in opposite directions for the first time: PPI fell to a record-low 83.75 while PHI set three straight all-time highs (119.5). PWI averaged 122.2, peaking at 134.2 in May before the layoff dipped it to 106.5. KBER crossed 6,000, LMV rebuilt to 11 on a USA-250 film run, and SCI stayed flat. Four of six Q2 tests confirmed.",
+      publishedDate: "2026-07-04",
+      status: "current",
+    },
     {
       id: "q1-2026",
       quarter: "Q1 2026",
       title: "State of the MIKE Economy - Q1 2026",
       summary: "Strongest quarter in the dataset. PWI averaged 143.5 (+193% vs Q4) — 'degen quarter' confirmed as sustained regime, not a one-month spike. PWI tripled from Q4 close (58.6) to Q1 close (189.1), up 223% over the quarter. PHI hit 93.5 in March (all-time high). PPI held above baseline through international relocation. Knowledge base added 1,104 notes. SCI finally broke 101.",
       publishedDate: "2026-04-25",
-      status: "current",
+      status: "published",
     },
     {
       id: "q4-2025",

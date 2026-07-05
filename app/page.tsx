@@ -26,15 +26,15 @@ export default async function Home() {
 
       {/* Economic Summary Banner */}
       <div className="bg-gradient-to-r from-fed-navy to-blue-900 rounded-lg p-8 mb-12 text-white">
-        <h2 className="text-2xl font-bold mb-4">Economic Overview - Q1 2026</h2>
+        <h2 className="text-2xl font-bold mb-4">Economic Overview - Q2 2026</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <div className="text-sm opacity-80 mb-1">Overall Performance</div>
-            <div className="text-3xl font-bold">Expansion</div>
+            <div className="text-3xl font-bold">Divergence</div>
           </div>
           <div>
             <div className="text-sm opacity-80 mb-1">Wealth Index</div>
-            <div className="text-3xl font-bold trend-down">90.4</div>
+            <div className="text-3xl font-bold trend-down">106.5</div>
           </div>
           <div>
             <div className="text-sm opacity-80 mb-1">Strategic Outlook</div>
@@ -102,10 +102,11 @@ export default async function Home() {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Latest Report</h3>
           <p className="text-gray-600 mb-4">
-            Q1 2026 State of the MIKE Economy — strongest quarter in the dataset. PWI averaged 143.5
-            (+193% vs Q4), PHI hit an all-time high of 93.5, SCI finally broke 101.
+            Q2 2026 State of the MIKE Economy: the nomadic quarter that ended in a split. A June layoff
+            drove the indicators in opposite directions. PPI fell to a record-low 83.75 while PHI set
+            three straight all-time highs (119.5).
           </p>
-          <Link href="/reports/q1-2026" className="text-primary hover:text-accent font-medium">
+          <Link href="/reports/q2-2026" className="text-primary hover:text-accent font-medium">
             Read Report →
           </Link>
         </div>

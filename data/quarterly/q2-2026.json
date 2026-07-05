@@ -1,0 +1,123 @@
+{
+  "quarter": "Q2 2026",
+  "reportDate": "2026-07-04",
+  "period": {
+    "start": "2026-04-01",
+    "end": "2026-06-30"
+  },
+  "indicators": {
+    "revenue": {
+      "value": 106.5,
+      "change": 6.5,
+      "changePercent": 6.5,
+      "trend": "up",
+      "note": "June value (106.5). Q2 averaged 122.2 across April (125.8), May (134.2), and June (106.5) — comfortably above Q1's new-scale close of 100 and a confirmation that the degen regime is a floor, not a spike. But the shape is the story: wealth held its peak into May, then took its first real dip since the reset when the June 5 layoff stopped the paycheck. June's 106.5 remains above the 100 baseline, so the fall has a floor beneath it, and a portion of the drag was a lumpy capital expenditure (a bike shipped to Portland and repaired) that clears in a single month. The quarter proved the regime durable and then priced in the first shock to it."
+    },
+    "knowledge-expansion": {
+      "value": 6158,
+      "change": 735,
+      "changePercent": 13.6,
+      "trend": "up",
+      "note": "June value (6,158 notes). The vault crossed the 6,000-note mark inside Q2, clearing the threshold the Q1 outlook flagged. Roughly 735 notes were added across the quarter, a step down from Q1's ~1,100 pace. Month-over-month growth decelerated to about 3.6% by June, off an April rate near 18%. This is diminishing marginal growth before it is anything else: each note is a smaller fraction of a larger base. Capture continues; the pace is cooling."
+    },
+    "phi": {
+      "value": 119.5,
+      "change": 26.0,
+      "changePercent": 27.8,
+      "trend": "up",
+      "note": "June value (119.5) — the highest PHI reading ever recorded, and the third consecutive all-time high inside the quarter. Q2 climbed every month: April 102.8, May 114.3, June 119.5, for a 112.2 average against Q1's 87.13. The June record is the notable one: it was set on worse sleep (7h22m average) and more workout volume (30 logged sessions), during the same month as the layoff. Health was the quarter's standout, and it rose right through the shock that pulled wealth and productivity down."
+    },
+    "social-capital": {
+      "value": 101.16,
+      "change": -0.07,
+      "changePercent": -0.07,
+      "trend": "neutral",
+      "note": "June value (101.16, raw weighted 3,077.09). SCI was flat across the entire quarter — 101.23, 101.22, 101.16 — and is now the fifth-through-seventh consecutive month pinned near 101. Underneath, Substack and X eroded while LinkedIn, Instagram, and registered KmikeyM accounts ticked up, and the two roughly canceled. This is the one line the quarter's turbulence did not touch, in either direction. It remains the single structural caution, and it has a dated test in Q3: the Shareholder Summit on July 11."
+    },
+    "ppi": {
+      "value": 83.75,
+      "change": -16.25,
+      "changePercent": -16.25,
+      "trend": "down",
+      "note": "June value (83.75) — the deepest sub-baseline print in the dataset. PPI spent the whole quarter under 100: April 93.75, May 96.25, June 83.75, a 91.25 average against Q1's 102.5. The June collapse is the sharpest single-month drop on record, logged as 157 hours at a productivity pulse of 67 — a job-shaped hole in the calendar filled partly with XCOM2. Productivity was the clearest casualty of the layoff. The only forward note is a methodology one: a fixed activity-rating scale invites Goodhart drift, and a future revision may let the productive-versus-distracting line reflect intent more precisely."
+    },
+    "completion-rate": {
+      "value": 11,
+      "change": 4,
+      "changePercent": 57.1,
+      "trend": "up",
+      "note": "June value (11 points). Media velocity ran flat through April and May (8, 8) before rebuilding to 11 in June — its highest reading since January. The June figure is not passive consumption: the last week of the quarter was a curated eight-film 'American' run built toward the USA 250 semiquincentennial. Q2 averaged 9.0, roughly level with Q1's 8.67. The rebuild is a leading indicator that read correctly — when the calendar opened up after the layoff, media was the first thing to fill it."
+    }
+  },
+  "narrative": {
+    "executiveSummary": "Q2 2026 was the nomadic quarter that ended in a split. Mike spent it in motion — the final Kosovo weeks, a brief return to the United States that included a court appearance, and a landing in Portland — and the period's defining event arrived on June 5, when the startup employing him let its team go. The layoff did something no prior quarter's shock had done: it drove the indicators in opposite directions at once. The lines tied to employment, wealth and productivity, fell. The lines that compound independent of any employer, health, knowledge, and media, advanced, with health setting three consecutive all-time highs. The degen wealth regime proved durable, holding a 122.2 quarterly average and peaking at 134.2 in May before the paycheck stopped, and even the June dip left PWI above its baseline. The one line that did not move, in either direction, was social capital, which remains the quarter's standing caution. Read the down-lines as the price of a clean exit rather than a deterioration: this was creative destruction at the scale of one career.",
+    "sections": [
+      {
+        "title": "The Nomadic Quarter",
+        "body": "Q2 unfolded across three settings in twelve weeks, exactly the cadence the Q1 outlook named as the quarter's defining variable. April closed out the Kosovo production window, the low-cost, low-distraction environment that had lifted health and held productivity through Q1. A brief return to the United States followed, which included a court appearance the record will note and decline to explain. The back half of the quarter landed in Portland, at a home network and rent-free housing, a re-adjustment period stacked on top of the international one.\n\nThe routine-dependent indicators felt the cadence. PPI ran below baseline all quarter, its variance widening as the settings changed. PHI, counterintuitively, did the opposite — it climbed through every move. Nomadic conditions that would normally pressure a health composite instead produced three straight records, which suggests the gains are structural rather than environmental. What the quarter did not deliver was a single steady month to test the routine-establishment thesis against. That test now moves to Q3, and it moves again, because Q3 brings another relocation."
+      },
+      {
+        "title": "The Layoff and the Split",
+        "body": "On June 5, the startup employing Mike on the marketing side let its team go. It is the first exogenous shock in the tracked history of the MIKE Economy to split the indicators cleanly. Every prior hard month pressed most of the lines down together; June pushed three up, held one flat, and pulled two down, and the two that fell were precisely the two an employer controls.\n\nThe honest framing is that the first reaction was relief. The burn rate would not have cleared the metrics a next funding round required, and the organization was not focused enough to fix that in time. The exit was clean: last known issues filed to the open-source project after the fact, thanks offered, and out. What makes this worth indexing is exactly the diversification that a single-employer income lacks. A company can lay off its staff; a life indexed across six dimensions keeps compounding on the four the employer never touched. That is idiosyncratic risk, retired one paycheck at a time, and it is the clearest demonstration yet of why a person-as-economy behaves differently from a job."
+      },
+      {
+        "title": "Wealth: Peak, Then Paycheck",
+        "body": "PWI averaged 122.2 across the quarter, above Q1's 100 close and a second consecutive quarter confirming that the degen regime is a durable floor rather than a one-quarter windfall. The arc: April 125.8, a May peak of 134.2, then June's dip to 106.5 when the paycheck stopped.\n\nTwo features keep June's dip from reading as a break. First, at 106.5 the index is still above its 100 baseline, so the fall has a floor. Second, a measurable share of the June drag was a single lumpy capital expenditure rather than run-rate erosion: a bike shipped to Portland and given a major repair, a cost that hits one month and then clears. The same bike appears with the opposite sign in the health section. One line item, two directions, is the kind of texture a personal balance sheet produces that a corporate one does not.\n\nThe quarter's verdict on the degen thesis is favorable. Two more months at or above the new floor, and the first real drawdown attributable to a specific, non-structural event. The Q3 question is whether the floor holds without income."
+      },
+      {
+        "title": "Productivity: The Casualty",
+        "body": "PPI was the quarter's clearest casualty. It held below the 100 baseline every month — April 93.75, May 96.25, June 83.75 — for a 91.25 average, down sharply from Q1's 102.5. June's reading is the deepest sub-baseline print on record and the sharpest single-month drop in the series.\n\nThe cause is not mysterious. 157 hours were logged in June at a productivity pulse of 67: distracted, not idle, a job-shaped hole in the calendar filled partly with XCOM2. There is no reframing that as hidden output. The one methodology note is that a fixed activity-rating scale is vulnerable to Goodhart drift once the number becomes a target, and a future revision of the dashboard may let the productive-versus-distracting classification reflect intent more precisely. That is a project for a later quarter, not a defense of this one. Q2's productivity number is what it is, and it is low."
+      },
+      {
+        "title": "Health: Three Straight Records",
+        "body": "PHI was the quarter's standout. It set an all-time high in every month — April 102.8, May 114.3, June 119.5 — closing the quarter at 112.2 average against Q1's 87.13. Three consecutive records is not noise; it is a trend.\n\nThe June record is the one that matters most, because it was set under adverse conditions: worse sleep than May (a 7h22m average) and the layoff landing mid-month. It rose anyway, on volume — 30 logged workout sessions, up from 24 — and the volume came from a decision rather than idle time. Mike reports feeling busier without a job than with one, so this is not a dividend of empty hours but a deliberate reprioritization under load. It also has a flywheel: a bike returned to service in Q2, and a working bike makes the next session more likely than the last. Health entered Q3 with real momentum and a compounding mechanism behind it."
+      },
+      {
+        "title": "Knowledge: 6,000 Crossed, Pace Cooling",
+        "body": "KBER cleared the 6,000-note threshold inside the quarter, closing June at 6,158 and confirming the Q1 outlook's call. The vault added roughly 735 notes across Q2, a step down from Q1's ~1,100.\n\nThe honest read is on rate, not level. Month-over-month growth cooled to about 3.6% by June, off an April rate near 18%. Some of that is arithmetic — diminishing marginal growth, where each note is a smaller share of a larger base — but the absolute monthly adds shrank too. This is steady accumulation at a decelerating pace, which is a different profile than Q1's super-linear acceleration. Whether the slowdown is a plateau or a pause is a Q3 question; the retrieval layer built in Q1 means the larger base stays usable either way."
+      },
+      {
+        "title": "Social Capital: The Unmoved Line",
+        "body": "SCI was flat across the entire quarter: 101.23, 101.22, 101.16. It is now the longest-running stall in the dataset, a line that has refused to move up or down for roughly two quarters. The composition explains the stasis — Substack and X eroded over Q2 while LinkedIn, Instagram, and registered KmikeyM accounts grew, and the two forces roughly canceled.\n\nThis is the quarter's one standing caution, and it is the same one the last several reports have named: the audiences that pay rent — shareholders and the mailing list — are not expanding. What is new is that the caution now has a dated test. The Shareholder Summit falls on July 11, inside Q3's window. If summit week does not lift shareholder accounts or mailing-list subscribers in the Q3 data, the flat line stops being a caution and becomes a verdict."
+      },
+      {
+        "title": "Media: A June Rebuild",
+        "body": "LMV ran flat through April and May at 8 points each before rebuilding to 11 in June, its highest reading since January, for a 9.0 quarterly average roughly level with Q1's 8.67.\n\nThe June figure is worth reading closely, because it is not passive consumption. The final week of the quarter was a curated program — an eight-film 'American' run screened in sequence toward the USA 250 semiquincentennial. Media velocity behaved as a leading indicator: when the layoff opened the calendar, consumption was the first line to fill it, and it filled with an intentional cultural project rather than idle viewing. The rebuild is real but its durability is untested; Q3 will show whether media velocity holds at the higher level or reverts as the calendar refills."
+      },
+      {
+        "title": "Q2 Scorecard: Four of Six",
+        "body": "The Q1 report set six explicit tests for Q2. With the quarter complete, the card reads four confirming, two missing:\n\n• PWI holds above 100 across cities — CONFIRMED. Held at 106.5 through the quarter, including a layoff the test never modeled.\n• PPI stays above 100 under production load and geographic change — MISSED, and by more than the mid-quarter read suggested. 83.75.\n• PHI sustains above 85 while traveling — EXCEEDED. Set three records, closed at 119.5.\n• SCI reaches 102 (trend confirmation) — MISSED. 101.16, flat.\n• KBER crosses 6,000 notes — CONFIRMED. 6,158.\n• LMV rebuilds as routine stabilizes — CONFIRMED. 11, on the June rebuild.\n\nThe two misses are the two lines the caution has named all along: productivity under transition, and social capital under everything. The compounders compounded. The employment-linked lines took the shock. The mix is the analyst rating in miniature — bullish on what compounds independent of an employer, cautious on the structural line that still refuses to move."
+      },
+      {
+        "title": "Year-over-Year (partial)",
+        "body": "Q2 2026 is the first Q2 with a Q2 2025 to compare against, though only three of the six indicators reach back a full year; PHI, KBER, and SCI began tracking in October 2025, so their first complete year-over-year read arrives in Q4 2026.\n\nPPI — Q2 2025 average 98.33 → Q2 2026 average 91.25, down 7.2%. Last spring was contract-work intensive; this spring ran below baseline and ended in unemployment. A real and unflattering comparison, and a fair one.\n\nLMV — Q2 2025 average 9.33 → Q2 2026 average 9.0, down 3.5%. Effectively flat at the quarter level, which is a useful caution against over-reading the monthly figure: June alone jumped 175% year-over-year (4 films to 11), but Q2 2025 front-loaded its media in a high May, so the quarters wash out to roughly even. The month tells a sharper story than the quarter.\n\nPWI — a base effect, as flagged before. Q2 2025's average of 6.47 sits on the pre-reset scale, so the year-over-year percentage marks when the regime broke rather than where it is going, and it washes out in 2027.\n\nFrom Q4 2026 forward, all six indicators carry a full year of history, and year-over-year becomes a standard section rather than a partial one.",
+        "yoyComparison": {
+          "previousQuarter": "Q2 2025",
+          "currentQuarter": "Q2 2026",
+          "indicators": [
+            { "id": "ppi", "label": "PPI", "previous": 98.33, "current": 91.25, "changePercent": -7.2, "unit": "idx" },
+            { "id": "completion-rate", "label": "LMV", "previous": 9.33, "current": 9.0, "changePercent": -3.5, "unit": "pts" }
+          ]
+        }
+      },
+      {
+        "title": "A Note on Period Alignment",
+        "body": "This report aligns its months to the same release convention the monthly Prints use: each figure is the actual activity of April, May, and June, published on the first of the following month. That places June's layoff data squarely inside Q2, where it belongs. Readers comparing quarter to quarter should note that the Q1 2026 report labeled its months on a slightly different basis; future quarterlies will use this release convention natively, and the two frames converge on the same underlying series."
+      }
+    ],
+    "outlook": {
+      "title": "Q3 2026 Outlook: Portland to Oakland",
+      "body": "Q3 is another quarter in motion, not the steady stretch the routine-establishment thesis wants to test against. July runs Portland through the Shareholder Summit, then relocates to Oakland; the Bay Area landing is the strategic destination, because it sits next to a San Francisco opportunity that now shapes the forecast. That makes a third and fourth move in the span of two quarters, so the routine-dependent lines — PPI and PHI — face continued adjustment rather than a first full month of stability.\n\nThe central forecast turns on Milton Friedman's permanent income hypothesis. Q2's health-and-media surge was funded by a windfall of hours after the layoff, and windfalls are transitory income — they do not raise the run-rate. Expect mean reversion in PHI and LMV if a new commitment refills the calendar. The question is what refills it. Mike had planned to hold still, but a San Francisco opportunity that felt perfect has him in what he expects to be a competitive process. If it lands, Q3 or Q4 flips from convalescence to a step-change: PPI pulled back toward baseline by a real work load, PWI stabilized by income. If it does not, the free-time lines hold up for a less encouraging reason.\n\nWealth faces a floor test. No income means cash burn, and the Oakland move adds costs of its own, so absent the San Francisco outcome, PWI likely drifts down again, with only the rent-free Portland stretch standing against it. Whether 100 is the floor becomes a live question rather than a rhetorical one.\n\nAnd the Summit on July 11 is the one dated catalyst for the one flat line. Social capital has stalled for two quarters; the Summit is its test.\n\nWatch list for Q3 2026:\n• Does the layoff dividend revert? PHI and LMV give back some of Q2's gains if a new commitment fills the calendar\n• PWI floor test — does wealth hold near 100 without income, or drift toward the pre-degen range\n• PPI recovery — a San Francisco yes pulls it back toward baseline; more of the same holds it at the floor\n• SCI and the Summit — July 11 either moves shareholder accounts and the mailing list, or the flat line becomes a verdict\n• San Francisco — the competitive process is the quarter's step-change variable\n• KBER — does the decelerating pace plateau or resume"
+    }
+  },
+  "summary": "The nomadic quarter that ended in a split. Q2 ran across Kosovo, a brief US return with a court appearance, and a Portland landing, and its defining event was a June 5 layoff that drove the indicators in opposite directions for the first time. Employment-linked lines fell — PPI to a record-low 83.75 (91.25 average), the sharpest drop in the series — while the independent lines advanced: PHI set three consecutive all-time highs (119.5, 112.2 average), LMV rebuilt to 11 on a curated USA-250 film run, and KBER crossed 6,000. PWI averaged 122.2, peaking at 134.2 in May before the paycheck stopped, and June's 106.5 dip held above the baseline. SCI stayed flat all quarter, the one line the shock did not touch and the standing caution into the July 11 Summit. Four of six Q2 tests confirmed; the two misses were productivity and social capital. Read as creative destruction at the scale of one career.",
+    "highlights": [
+      "First exogenous shock to split the indicators cleanly — the June 5 layoff pushed three lines up, held one flat, pulled two down",
+      "PWI averaged 122.2, peaked at 134.2 in May, then dipped to 106.5 on the layoff — first real drawdown since the degen reset, still above the 100 floor (+6.5% QoQ close)",
+      "PHI set three consecutive all-time highs — 102.8, 114.3, 119.5 — the June record logged on worse sleep and more volume, right through the layoff (+27.8%)",
+      "PPI fell below baseline all quarter and hit a record-low 83.75 in June — the sharpest single-month drop in the series (-16.25%)",
+      "KBER crossed 6,000 notes to 6,158, but growth decelerated to ~3.6% MoM off an April peak near 18% (+13.6%)",
+      "SCI flat all quarter near 101.2 — the longest stall in the dataset, with the July 11 Summit as its dated test (-0.07%)",
+      "LMV rebuilt to 11 on a curated eight-film 'American' run into USA 250 (+57.1%)"
+    ]
+}

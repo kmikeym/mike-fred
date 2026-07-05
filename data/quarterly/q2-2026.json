@@ -99,10 +99,6 @@
             { "id": "completion-rate", "label": "LMV", "previous": 9.33, "current": 9.0, "changePercent": -3.5, "unit": "pts" }
           ]
         }
-      },
-      {
-        "title": "A Note on Period Alignment",
-        "body": "This report aligns its months to the same release convention the monthly Prints use: each figure is the actual activity of April, May, and June, published on the first of the following month. That places June's layoff data squarely inside Q2, where it belongs. Readers comparing quarter to quarter should note that the Q1 2026 report labeled its months on a slightly different basis; future quarterlies will use this release convention natively, and the two frames converge on the same underlying series."
       }
     ],
     "outlook": {

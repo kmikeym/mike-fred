@@ -41,6 +41,9 @@ export default function RootLayout({
                     <a href="/reports" className="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                       Reports
                     </a>
+                    <a href="/disclosures" className="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                      Disclosures
+                    </a>
                   </div>
                 </div>
               </div>

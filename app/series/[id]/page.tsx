@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { loadIndicatorData, INDICATOR_REGISTRY, formatValue, formatChangePercent, getTrendArrow } from "@/lib/indicators";
 import { formatDate, formatDateShort, getTrendClass } from "@/lib/utils";
 import type { IndicatorId } from "@/lib/types";
-import IndicatorChart from "@/components/IndicatorChart";
+import ChartWithRange from "@/components/ChartWithRange";
 import Link from "next/link";
 
 interface PageProps {
@@ -104,24 +104,7 @@ export default async function IndicatorPage({ params }: PageProps) {
 
       {/* Chart */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">Historical Data</h2>
-          <div className="flex space-x-2 text-sm">
-            <button className="px-3 py-1 rounded-md bg-primary text-white font-medium">
-              All
-            </button>
-            <button className="px-3 py-1 rounded-md text-gray-600 hover:bg-gray-100">
-              1Y
-            </button>
-            <button className="px-3 py-1 rounded-md text-gray-600 hover:bg-gray-100">
-              6M
-            </button>
-            <button className="px-3 py-1 rounded-md text-gray-600 hover:bg-gray-100">
-              3M
-            </button>
-          </div>
-        </div>
-        <IndicatorChart data={indicator.data} color={indicator.color} unit={indicator.unit} />
+        <ChartWithRange title="Historical Data" data={indicator.data} color={indicator.color} unit={indicator.unit} />
         {hasHours && (
           <p className="text-sm text-gray-500 mt-4">
             Bars show monthly total tracked hours (RescueTime, right axis); the line is

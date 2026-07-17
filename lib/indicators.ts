@@ -58,15 +58,15 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     title: "Personal Health Index (PHI)",
     shortTitle: "Health Index",
     description:
-      "Composite health metric tracking physical wellness across three key dimensions - sleep quality, physical activity, and weight management. Measured as a weighted average with sleep optimization receiving highest priority, followed by exercise consistency and weight targets.",
-    unit: "Index",
+      "Data-driven composite of four health pillars from daily Apple Watch data, each graded against Mike's own 2023-2025 baseline (100 = normal for Mike). Recovery (HRV + resting heart rate), Sleep (duration + night-to-night consistency), Activity (energy, steps, exercise), and Fitness (VO2 max + cardio recovery). Rebuilt in 2026 as PHI 2.0; the legacy sleep/activity/weight index is preserved as PHI-Classic. See the methodology report.",
+    unit: "Index (2023-2025 avg = 100)",
     frequency: "monthly",
     category: "Health & Wellness",
-    source: "Personal tracking apps and devices",
-    calculation: "Weighted composite of sleep quality (40%), physical activity frequency (35%), and weight management (25%). Sleep scored against 8-hour baseline, workouts against 30/month target, weight against 175lb target. Higher scores indicate better health optimization.",
+    source: "Apple Watch / Apple Health (via Health Auto Export)",
+    calculation: "PHI = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness. Each metric's monthly mean is scored vs its 2023-2025 baseline (direction-corrected, capped 60-160); the index is re-based so the 2023-2025 mean = 100. Series starts 2023-01 (Apple Watch sleep-stage tracking availability). Full method: /reports/phi-2.0-methodology.",
     color: "#f59e0b",
-    lastUpdate: "2026-07-01",
-    nextUpdate: "2026-08-01",
+    lastUpdate: "2026-06-01",
+    nextUpdate: "2026-10-01",
   },
   "revenue": {
     id: "revenue",
@@ -128,6 +128,31 @@ async function parseCSV(filePath: string): Promise<DataPoint[]> {
   }
 
   return data;
+}
+
+/**
+ * Load PHI 2.0 and the preserved PHI-Classic vintage, merged by data-month for the
+ * methodology overlap chart. PHI-Classic was published on a ~1-month release lag, so
+ * its dates are shifted back one month to line up with PHI 2.0's data-month dating.
+ */
+export async function loadPhiOverlap(): Promise<{ date: string; phi2: number | null; classic: number | null }[]> {
+  const dir = path.join(process.cwd(), "data");
+  const phi2 = await parseCSV(path.join(dir, "phi.csv"));
+  const classic = await parseCSV(path.join(dir, "phi-classic.csv"));
+  const toDataMonth = (d: string) => {
+    const [ys, ms] = d.slice(0, 7).split("-");
+    const y = Number(ys), m = Number(ms);
+    return m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, "0")}`;
+  };
+  const map = new Map<string, { phi2: number | null; classic: number | null }>();
+  for (const p of phi2) map.set(p.date.slice(0, 7), { phi2: p.value, classic: null });
+  for (const p of classic) {
+    const dm = toDataMonth(p.date);
+    const cur = map.get(dm) || { phi2: null, classic: null };
+    cur.classic = p.value;
+    map.set(dm, cur);
+  }
+  return [...map.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([date, v]) => ({ date, ...v }));
 }
 
 /**

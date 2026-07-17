@@ -4,6 +4,14 @@ import { formatDate } from "@/lib/utils";
 export default function ReportsPage() {
     const reports = [
     {
+      id: "phi-2.0-methodology",
+      quarter: "Methodology",
+      title: "Personal Health Index — Rebuilt as PHI 2.0",
+      summary: "The Personal Health Index has been rebuilt on daily Apple Watch data as a four-pillar index (Recovery, Sleep, Activity, Fitness), re-based so 100 = Mike's 2023–2025 normal. The legacy series is preserved as PHI-Classic; the headline moves from 119.5 to 108 as a change of scale, not health. Includes an old-vs-new comparison.",
+      publishedDate: "2026-07-17",
+      status: "current",
+    },
+    {
       id: "q2-2026",
       quarter: "Q2 2026",
       title: "State of the MIKE Economy - Q2 2026",

@@ -13,6 +13,23 @@ export async function generateStaticParams() {
   return Object.keys(INDICATOR_REGISTRY).map((id) => ({ id }));
 }
 
+// Renders a note, turning an optional trailing `[label](url)` into a link.
+function NoteCell({ text }: { text?: string }) {
+  if (!text) return <>—</>;
+  const m = text.match(/^(.*?)\s*\[([^\]]+)\]\(([^)]+)\)\s*(.*)$/);
+  if (!m) return <>{text}</>;
+  const [, before, label, href, after] = m;
+  return (
+    <>
+      {before}{" "}
+      <Link href={href || "#"} className="text-primary hover:text-accent font-medium">
+        {label}
+      </Link>
+      {after}
+    </>
+  );
+}
+
 export default async function IndicatorPage({ params }: PageProps) {
   const { id } = await params;
 
@@ -111,6 +128,13 @@ export default async function IndicatorPage({ params }: PageProps) {
             the productivity index (left axis).
           </p>
         )}
+        {indicator.id === "phi" && (
+          <p className="text-sm mt-4">
+            <Link href="/reports/phi-2.0-methodology" className="text-primary hover:text-accent font-medium">
+              → PHI 2.0 methodology report: what changed, and the old vs. new PHI compared
+            </Link>
+          </p>
+        )}
       </div>
 
       {/* Data Table */}
@@ -161,7 +185,7 @@ export default async function IndicatorPage({ params }: PageProps) {
                     </td>
                   )}
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {point.notes || "—"}
+                    <NoteCell text={point.notes} />
                   </td>
                 </tr>
               ))}

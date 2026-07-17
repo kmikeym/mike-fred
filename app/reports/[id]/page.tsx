@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
-import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePercent, loadQuarterlyNarrative } from "@/lib/indicators";
+import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePercent, loadQuarterlyNarrative, loadPhiOverlap } from "@/lib/indicators";
 import YoYChart, { type YoYIndicator } from "@/components/YoYChart";
+import PhiOverlapChart from "@/components/PhiOverlapChart";
 
 interface YoYComparison {
   previousQuarter: string;
@@ -21,6 +22,13 @@ interface PageProps {
 }
 
 const REPORTS = {
+  "phi-2.0-methodology": {
+    id: "phi-2.0-methodology",
+    quarter: "Methodology",
+    title: "Personal Health Index — Rebuilt as PHI 2.0",
+    publishedDate: "2026-07-17",
+    summary: "The Personal Health Index has been rebuilt on daily Apple Watch data as a four-pillar index (Recovery, Sleep, Activity, Fitness), re-based so 100 = Mike's 2023–2025 normal. The legacy series is preserved as PHI-Classic; the headline moves from 119.5 to 108 as a change of scale, not health.",
+  },
   "q2-2026": {
     id: "q2-2026",
     quarter: "Q2 2026",
@@ -81,6 +89,7 @@ export default async function ReportPage({ params }: PageProps) {
   const snapshotData = await loadQuarterlySnapshot(id);
   const indicators = snapshotData || await loadAllIndicators();
   const narrative = await loadQuarterlyNarrative(id);
+  const overlap = id === "phi-2.0-methodology" ? await loadPhiOverlap() : null;
 
   return (
     <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -133,6 +142,16 @@ export default async function ReportPage({ params }: PageProps) {
           </div>
         </section>
 
+        {/* PHI overlap chart (methodology report only) */}
+        {overlap && (
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-300">
+              Old PHI vs. New PHI
+            </h2>
+            <PhiOverlapChart data={overlap} />
+          </section>
+        )}
+
         {/* Narrative Analysis Sections */}
         {narrative?.sections && narrative.sections.length > 0 && (
           <section className="mb-12">
@@ -159,7 +178,8 @@ export default async function ReportPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Indicator Performance Table */}
+        {/* Indicator Performance Table (skipped for the PHI methodology report) */}
+        {id !== "phi-2.0-methodology" && (
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-300">
             Indicator Scorecard
@@ -191,6 +211,7 @@ export default async function ReportPage({ params }: PageProps) {
             ))}
           </div>
         </section>
+        )}
 
         {/* Strategic Outlook */}
         {narrative?.outlook ? (

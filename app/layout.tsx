@@ -58,7 +58,7 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex justify-between items-center">
               <p className="text-sm text-gray-500">
-                © 2025 MIKE Economic Data. All rights reserved.
+                © 2025 MIKE Economic Data. Released under CC0 1.0 — public domain.
               </p>
               <p className="text-sm text-gray-500">
                 A <a href="https://quarterly.systems" className="text-primary hover:underline">Quarterly Systems</a> project

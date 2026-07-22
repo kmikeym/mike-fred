@@ -99,37 +99,17 @@ export default async function WidgetPage() {
           />
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">JavaScript Embed</h2>
-          <p className="text-sm text-gray-600 mb-4">
-            For more control, use our JavaScript snippet:
-          </p>
-          <pre className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-xs overflow-x-auto">
-{`<div id="mike-widget"></div>
-<script src="https://mike.quarterly.systems/widget/embed.js"></script>
-<script>
-  MIKEWidget.init({
-    container: '#mike-widget',
-    theme: 'light'
-  });
-</script>`}
-          </pre>
-          <CopyButton
-            text={`<div id="mike-widget"></div>\n<script src="https://mike.quarterly.systems/widget/embed.js"></script>\n<script>\n  MIKEWidget.init({\n    container: '#mike-widget',\n    theme: 'light'\n  });\n</script>`}
-            label="Copy JavaScript Code"
-          />
-        </div>
       </div>
 
-      {/* Customization Options */}
+      {/* What the embed actually does */}
       <div className="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Customization Options</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Embed Details</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">Theme</h3>
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">Two variants</h3>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• <code className="bg-gray-100 px-1 rounded">light</code> - Default light theme</li>
-              <li>• <code className="bg-gray-100 px-1 rounded">dark</code> - Dark mode</li>
+              <li>• <code className="bg-gray-100 px-1 rounded">/widget/embed</code> - all six indicators</li>
+              <li>• <code className="bg-gray-100 px-1 rounded">/widget/compact</code> - condensed</li>
             </ul>
           </div>
           <div>
@@ -141,11 +121,11 @@ export default async function WidgetPage() {
             </ul>
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">Auto-refresh</h3>
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">Updates</h3>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• Updates every 6 hours</li>
-              <li>• Cached for performance</li>
-              <li>• No page reload required</li>
+              <li>• Values are baked in at build time</li>
+              <li>• Refreshes when the site rebuilds</li>
+              <li>• Data releases monthly, on the 1st</li>
             </ul>
           </div>
         </div>

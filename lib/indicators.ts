@@ -40,6 +40,7 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "RescueTime Productivity Pulse",
     calculation: "RescueTime Productivity Pulse score, normalized to 2025 average baseline (99.1)",
     color: "#667eea",
+    precision: 1,
     dateConvention: "release-lag",
     valueSource: "derived",
   },
@@ -55,6 +56,7 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Obsidian Vault Manual Count",
     calculation: "Total count of all markdown files in vault (daily notes, permanent notes, reference materials, MOCs)",
     color: "#10b981",
+    precision: 0,
     dateConvention: "release-lag",
     valueSource: "external",
   },
@@ -70,6 +72,7 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Multi-platform subscriber counts via platform APIs",
     calculation: "Weighted composite index of subscriber/follower counts across 11 platforms. High-value platforms (KmikeyM accounts 35%, Substack 30%) receive majority weighting, with primary social platforms (LinkedIn, X, Instagram) and medium-priority platforms (YouTube, Bluesky) contributing smaller weights. Baseline: October 2025 = 100.",
     color: "#3b82f6",
+    precision: 1,
     dateConvention: "release-lag",
     valueSource: "derived",
   },
@@ -85,6 +88,7 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Apple Watch / Apple Health (via Health Auto Export)",
     calculation: "PHI = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness. Each metric's monthly mean is scored vs its 2023-2025 baseline (direction-corrected, capped 60-160); the index is re-based so the 2023-2025 mean = 100. Series starts 2023-01 (Apple Watch sleep-stage tracking availability). Full method: /reports/phi-2.0-methodology.",
     color: "#f59e0b",
+    precision: 1,
     dateConvention: "data-month",
     valueSource: "external",
   },
@@ -100,6 +104,7 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Personal financial tracking/net worth calculations",
     calculation: "Total assets minus total liabilities, indexed to baseline period",
     color: "#DC143C",
+    precision: 1,
     dateConvention: "release-lag",
     valueSource: "external",
   },
@@ -115,6 +120,7 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Personal reading and viewing logs",
     calculation: "Combined scoring of books (2-5 points based on length) and movies (1 point each). Rewards sustained intellectual engagement with longform content across different media formats.",
     color: "#8b5cf6",
+    precision: 1,
     dateConvention: "release-lag",
     valueSource: "external",
   },
@@ -479,13 +485,20 @@ export async function loadQuarterlyNarrative(quarterId: string): Promise<any | n
  * Format value with appropriate precision and unit
  */
 export function formatValue(value: number, indicatorId: IndicatorId): string {
-  const metadata = INDICATOR_REGISTRY[indicatorId];
+  // Precision comes from the series' own metadata rather than a rule here
+  // (STANDARDS.md §6). This previously hardcoded one decimal and special-cased
+  // knowledge-expansion by id, so adding a series with different precision meant
+  // editing this function instead of declaring it (#5).
+  //
+  // toLocaleString rather than toFixed so counts keep their thousands separators
+  // ("6,158"). For values below 1000 the two are identical, which is why this
+  // refactor changes no currently published value — pinned by a baseline test.
+  const { precision } = INDICATOR_REGISTRY[indicatorId];
 
-  if (indicatorId === "knowledge-expansion") {
-    return value.toLocaleString("en-US", { maximumFractionDigits: 0 });
-  }
-
-  return value.toFixed(1);
+  return value.toLocaleString("en-US", {
+    minimumFractionDigits: precision,
+    maximumFractionDigits: precision,
+  });
 }
 
 /**

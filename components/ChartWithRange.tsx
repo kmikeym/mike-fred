@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import IndicatorChart from "@/components/IndicatorChart";
+import { windowByMonths } from "@/lib/utils";
 import type { DataPoint } from "@/lib/types";
 
 const RANGES: { label: string; months: number }[] = [
@@ -16,7 +17,8 @@ export default function ChartWithRange({
 }: { title: string; data: DataPoint[]; color: string; unit: string }) {
   const [range, setRange] = useState("ALL");
   const months = RANGES.find((r) => r.label === range)?.months ?? Infinity;
-  const filtered = months === Infinity ? data : data.slice(-months);
+  // Filter by calendar months, not row count — see windowByMonths.
+  const filtered = windowByMonths(data, months);
 
   return (
     <>

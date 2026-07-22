@@ -59,6 +59,15 @@ export interface IndicatorMetadata {
    * is what stops the retired PHI-Classic formula being used for PHI 2.0.
    */
   valueSource: "derived" | "external";
+
+  /**
+   * Decimal places when the value is displayed.
+   *
+   * STANDARDS.md §6: rounding is stated in metadata, not applied silently. This
+   * replaces a hardcoded `toFixed(1)` with one series special-cased by id.
+   * KBER is a whole-number count (0); the index series carry one decimal.
+   */
+  precision: number;
 }
 
 export interface Indicator extends IndicatorMetadata {

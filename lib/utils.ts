@@ -66,6 +66,34 @@ export function getTimeAgo(date: string | Date): string {
 }
 
 /**
+ * Keep only the observations falling in the last `months` calendar months.
+ *
+ * Powers the ALL/1Y/6M/3M selector on series charts. This used to be
+ * `data.slice(-months)`, which counts *rows* rather than months — identical
+ * while every series is monthly and gapless, and silently wrong the moment one
+ * is not. A gap would have made a 3-month window quietly span five, which is
+ * precisely the distortion a range selector exists to expose (#5).
+ *
+ * Anchored to the last observation rather than to today, so the window means the
+ * same thing regardless of when the page is built.
+ *
+ * @param months number of calendar months to keep; `Infinity` keeps everything
+ */
+export function windowByMonths<T extends { date: string }>(data: T[], months: number): T[] {
+  if (!Number.isFinite(months) || data.length === 0) return data;
+
+  const last = data[data.length - 1]!.date;
+  const [year, month] = last.split("-").map(Number) as [number, number];
+
+  // Start of the window: the last point's month, minus (months - 1).
+  const start = new Date(Date.UTC(year, month - 1, 1));
+  start.setUTCMonth(start.getUTCMonth() - (months - 1));
+  const cutoff = start.toISOString().slice(0, 10);
+
+  return data.filter((p) => p.date >= cutoff);
+}
+
+/**
  * Generate CSS class for trend
  */
 export function getTrendClass(change: number): string {

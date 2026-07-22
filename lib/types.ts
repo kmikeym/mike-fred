@@ -63,6 +63,21 @@ export interface EconomicOverview {
   lastUpdated: string;
 }
 
+/**
+ * A dated addendum appended to an already-published report.
+ *
+ * Published figures and prose are never edited; when a number is later restated
+ * (a methodology rebuild, a baseline rebase) or an error is found, it is
+ * disclosed by adding one of these. Rendered above the original text, newest
+ * first. See issue #11.
+ */
+export interface ReportUpdate {
+  date: string; // ISO 8601 date the update was made — not the report's publishedDate
+  title: string;
+  body: string;
+  link?: { href: string; label: string };
+}
+
 export interface QuarterlyReport {
   id: string; // e.g., "q4-2025"
   quarter: string; // e.g., "Q4 2025"

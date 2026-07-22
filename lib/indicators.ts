@@ -306,6 +306,33 @@ export async function loadQuarterlySnapshot(quarterId: string): Promise<Indicato
 }
 
 /**
+ * Shape a parsed quarterly snapshot into the narrative the report page renders.
+ *
+ * Kept pure and separate from file IO so it can be tested directly.
+ *
+ * `updates` are dated addenda appended to an already-published report (see #11).
+ * Published figures are never edited; a restatement is disclosed by adding an
+ * entry here. Note that q1/q2/q3-2025 carry no `narrative` block at all, so
+ * updates must survive that shape — hence this returns null only when there is
+ * neither narrative nor updates.
+ */
+export function buildNarrative(snapshot: any): any | null {
+  const updates = [...(snapshot?.updates || [])].sort((a: any, b: any) =>
+    String(b.date).localeCompare(String(a.date)),
+  );
+
+  if (!snapshot?.narrative && updates.length === 0) return null;
+
+  return {
+    executiveSummary: snapshot.narrative?.executiveSummary,
+    sections: snapshot.narrative?.sections || [],
+    outlook: snapshot.narrative?.outlook || null,
+    highlights: snapshot.highlights || [],
+    updates,
+  };
+}
+
+/**
  * Load quarterly narrative data (executive summary, analysis sections, outlook)
  */
 export async function loadQuarterlyNarrative(quarterId: string): Promise<any | null> {
@@ -313,16 +340,7 @@ export async function loadQuarterlyNarrative(quarterId: string): Promise<any | n
 
   try {
     const content = await fs.readFile(snapshotPath, "utf-8");
-    const snapshot = JSON.parse(content);
-
-    if (!snapshot.narrative) return null;
-
-    return {
-      executiveSummary: snapshot.narrative.executiveSummary,
-      sections: snapshot.narrative.sections || [],
-      outlook: snapshot.narrative.outlook || null,
-      highlights: snapshot.highlights || [],
-    };
+    return buildNarrative(JSON.parse(content));
   } catch {
     return null;
   }

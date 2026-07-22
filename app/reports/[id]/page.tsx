@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePercent, loadQuarterlyNarrative, loadPhiOverlap } from "@/lib/indicators";
+import type { ReportUpdate } from "@/lib/types";
 import YoYChart, { type YoYIndicator } from "@/components/YoYChart";
 import PhiOverlapChart from "@/components/PhiOverlapChart";
 
@@ -112,12 +113,53 @@ export default async function ReportPage({ params }: PageProps) {
           </div>
         </div>
 
+        {/* Dated addenda. Published figures are never edited — a restatement or
+            correction is disclosed by appending an entry here (see #11). Placed
+            directly under the masthead so a reader meets it before the original
+            analysis, and visually distinct so it never reads as original text. */}
+        {narrative?.updates && narrative.updates.length > 0 && (
+          <section className="mb-12">
+            {narrative.updates.map((u: ReportUpdate, i: number) => (
+              <div
+                key={i}
+                className="bg-amber-50 border border-amber-300 border-l-4 border-l-amber-500 p-6 mb-4 print:border-black"
+              >
+                <div className="flex flex-wrap items-baseline gap-x-3 mb-2">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-amber-800">
+                    Update
+                  </span>
+                  <time dateTime={u.date} className="text-sm text-amber-800">
+                    {formatDate(u.date)}
+                  </time>
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{u.title}</h3>
+                <div className="text-gray-800 leading-relaxed whitespace-pre-line">{u.body}</div>
+                {u.link && (
+                  <Link
+                    href={u.link.href}
+                    className="inline-block mt-3 text-sm font-medium text-primary hover:text-accent"
+                  >
+                    {u.link.label} →
+                  </Link>
+                )}
+              </div>
+            ))}
+            <p className="text-xs text-gray-500 italic">
+              Figures below are as originally published. Updates above describe subsequent
+              restatements and corrections.
+            </p>
+          </section>
+        )}
+
         {/* Executive Summary */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-300">
             Executive Summary
           </h2>
-          {narrative ? (
+          {/* A report may now carry updates without a narrative block (the 2025
+              quarters), so key the fallback on the summary itself, not on
+              `narrative` being present. */}
+          {narrative?.executiveSummary ? (
             <div className="text-lg text-gray-700 leading-relaxed mb-6 whitespace-pre-line">
               {narrative.executiveSummary}
             </div>
@@ -130,7 +172,7 @@ export default async function ReportPage({ params }: PageProps) {
             <p className="text-gray-800">
               <strong>Key Highlights:</strong>
             </p>
-            {narrative?.highlights ? (
+            {narrative?.highlights?.length ? (
               <ul className="mt-3 space-y-1 text-gray-800">
                 {narrative.highlights.map((h: string, i: number) => (
                   <li key={i}>• {h}</li>

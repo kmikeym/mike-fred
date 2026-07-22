@@ -13,15 +13,15 @@ import { nextReleaseDate, loadIndicatorData, INDICATOR_REGISTRY } from "./indica
 import type { IndicatorId } from "./types";
 
 test("a monthly series releases the following month", () => {
-  expect(nextReleaseDate("2026-07-01", "monthly")).toBe("2026-08-01");
+  expect(nextReleaseDate("2026-07-01", "monthly", "release-lag")).toBe("2026-08-01");
 });
 
 test("a monthly series crosses the year boundary", () => {
-  expect(nextReleaseDate("2026-12-01", "monthly")).toBe("2027-01-01");
+  expect(nextReleaseDate("2026-12-01", "monthly", "release-lag")).toBe("2027-01-01");
 });
 
 test("a quarterly series releases three months out", () => {
-  expect(nextReleaseDate("2026-07-01", "quarterly")).toBe("2026-10-01");
+  expect(nextReleaseDate("2026-07-01", "quarterly", "release-lag")).toBe("2026-10-01");
 });
 
 test("every indicator is monthly", () => {
@@ -36,7 +36,7 @@ test("every indicator's next update is derived from its own last data point", as
 
   for (const id of ids) {
     const indicator = await loadIndicatorData(id);
-    const expected = nextReleaseDate(indicator.lastUpdate, indicator.frequency);
+    const expected = nextReleaseDate(indicator.lastUpdate, indicator.frequency, indicator.dateConvention);
     expect(`${id}:${indicator.nextUpdate}`).toBe(`${id}:${expected}`);
   }
 });
@@ -45,5 +45,5 @@ test("PHI no longer advertises an October release", async () => {
   const phi = await loadIndicatorData("phi");
 
   expect(phi.nextUpdate).not.toBe("2026-10-01");
-  expect(phi.nextUpdate).toBe(nextReleaseDate(phi.lastUpdate, "monthly"));
+  expect(phi.nextUpdate).toBe(nextReleaseDate(phi.lastUpdate, "monthly", "data-month"));
 });

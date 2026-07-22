@@ -31,6 +31,34 @@ export interface IndicatorMetadata {
   source: string;
   calculation?: string;
   color: string; // Hex color for charts
+
+  /**
+   * Where a row's date sits relative to the month it measures.
+   *
+   * `release-lag` — the row is dated the month AFTER the data (the 2026-07-01
+   *   PPI row reports June). Five of the six series.
+   * `data-month` — the row is dated the month it measures (the 2026-06-01 PHI
+   *   row IS June). PHI 2.0 only.
+   *
+   * This is typed data rather than prose because prose drifted: the convention
+   * was stated in five places and was wrong in three of them. Both the site and
+   * the monthly append script read this field. See STANDARDS.md §3 and #12.
+   */
+  dateConvention: "release-lag" | "data-month";
+
+  /**
+   * Whether this repository can compute the value, or must be handed one.
+   *
+   * `derived` — the formula lives here and is trivial (PPI `pulse × 1.25`,
+   *   SCI `raw / 3041.9 × 100`).
+   * `external` — computed elsewhere. PHI 2.0 needs per-day HRV, sleep stages
+   *   and VO2 max plus 2023-2025 baselines from the Apple Health pipeline;
+   *   no generator for it exists in this repo.
+   *
+   * The append script refuses to derive a value for an `external` series, which
+   * is what stops the retired PHI-Classic formula being used for PHI 2.0.
+   */
+  valueSource: "derived" | "external";
 }
 
 export interface Indicator extends IndicatorMetadata {

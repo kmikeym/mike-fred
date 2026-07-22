@@ -20,6 +20,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "RescueTime Productivity Pulse",
     calculation: "RescueTime Productivity Pulse score, normalized to 2025 average baseline (99.1)",
     color: "#667eea",
+    dateConvention: "release-lag",
+    valueSource: "derived",
   },
   "knowledge-expansion": {
     id: "knowledge-expansion",
@@ -33,6 +35,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Obsidian Vault Manual Count",
     calculation: "Total count of all markdown files in vault (daily notes, permanent notes, reference materials, MOCs)",
     color: "#10b981",
+    dateConvention: "release-lag",
+    valueSource: "external",
   },
   "social-capital": {
     id: "social-capital",
@@ -46,6 +50,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Multi-platform subscriber counts via platform APIs",
     calculation: "Weighted composite index of subscriber/follower counts across 11 platforms. High-value platforms (KmikeyM accounts 35%, Substack 30%) receive majority weighting, with primary social platforms (LinkedIn, X, Instagram) and medium-priority platforms (YouTube, Bluesky) contributing smaller weights. Baseline: October 2025 = 100.",
     color: "#3b82f6",
+    dateConvention: "release-lag",
+    valueSource: "derived",
   },
   "phi": {
     id: "phi",
@@ -59,6 +65,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Apple Watch / Apple Health (via Health Auto Export)",
     calculation: "PHI = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness. Each metric's monthly mean is scored vs its 2023-2025 baseline (direction-corrected, capped 60-160); the index is re-based so the 2023-2025 mean = 100. Series starts 2023-01 (Apple Watch sleep-stage tracking availability). Full method: /reports/phi-2.0-methodology.",
     color: "#f59e0b",
+    dateConvention: "data-month",
+    valueSource: "external",
   },
   "revenue": {
     id: "revenue",
@@ -72,6 +80,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Personal financial tracking/net worth calculations",
     calculation: "Total assets minus total liabilities, indexed to baseline period",
     color: "#DC143C",
+    dateConvention: "release-lag",
+    valueSource: "external",
   },
   "completion-rate": {
     id: "completion-rate",
@@ -85,6 +95,8 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Personal reading and viewing logs",
     calculation: "Combined scoring of books (2-5 points based on length) and movies (1 point each). Rewards sustained intellectual engagement with longform content across different media formats.",
     color: "#8b5cf6",
+    dateConvention: "release-lag",
+    valueSource: "external",
   },
 };
 
@@ -185,12 +197,39 @@ const PERIOD_DAYS: Record<IndicatorMetadata["frequency"], number> = {
  * are not indicators. Deriving this instead of hardcoding it is STANDARDS.md §9 —
  * the hand-typed version drifted and published a wrong date for PHI (issue #4).
  */
-export function nextReleaseDate(lastDate: string, frequency: IndicatorMetadata["frequency"]): string {
+export function nextReleaseDate(
+  lastDate: string,
+  frequency: IndicatorMetadata["frequency"],
+  convention: IndicatorMetadata["dateConvention"],
+): string {
+  // A release-lag row is published in the month it is dated, so the next one is a
+  // period away. A data-month row is dated the month it measures and cannot exist
+  // until that month closes — so its next *publication* is two periods out.
+  const periods = convention === "data-month" ? 2 : 1;
   const [year, month, day] = lastDate.split("-").map(Number) as [number, number, number];
   const next = new Date(Date.UTC(year, month - 1, day));
-  next.setUTCMonth(next.getUTCMonth() + PERIOD_MONTHS[frequency]);
-  next.setUTCDate(next.getUTCDate() + PERIOD_DAYS[frequency]);
+  next.setUTCMonth(next.getUTCMonth() + PERIOD_MONTHS[frequency] * periods);
+  next.setUTCDate(next.getUTCDate() + PERIOD_DAYS[frequency] * periods);
   return next.toISOString().slice(0, 10);
+}
+
+/**
+ * The row date a series uses for the release published in `releaseMonth` (YYYY-MM).
+ *
+ * Single source of truth for the monthly write path: the append script calls this
+ * rather than assuming one convention for all six series (#12).
+ *
+ *   rowDateForRelease("ppi", "2026-08")  ->  "2026-08-01"   (August release, July data)
+ *   rowDateForRelease("phi", "2026-08")  ->  "2026-07-01"   (same data, dated by month)
+ */
+export function rowDateForRelease(id: IndicatorId, releaseMonth: string): string {
+  const [year, month] = releaseMonth.split("-").map(Number) as [number, number];
+  if (INDICATOR_REGISTRY[id].dateConvention === "release-lag") {
+    return `${releaseMonth}-01`;
+  }
+  const d = new Date(Date.UTC(year, month - 1, 1));
+  d.setUTCMonth(d.getUTCMonth() - 1);
+  return d.toISOString().slice(0, 10);
 }
 
 /**
@@ -226,7 +265,7 @@ export async function loadIndicatorData(id: IndicatorId): Promise<Indicator> {
   return {
     ...metadata,
     lastUpdate: lastDataPoint.date,
-    nextUpdate: nextReleaseDate(lastDataPoint.date, metadata.frequency),
+    nextUpdate: nextReleaseDate(lastDataPoint.date, metadata.frequency, metadata.dateConvention),
     currentValue,
     previousValue,
     change,
@@ -269,7 +308,7 @@ export async function loadQuarterlySnapshot(quarterId: string): Promise<Indicato
       const asOf = snapshot.period.end as string;
       const schedule = {
         lastUpdate: asOf,
-        nextUpdate: nextReleaseDate(asOf, metadata.frequency),
+        nextUpdate: nextReleaseDate(asOf, metadata.frequency, metadata.dateConvention),
       };
 
       // For indicators with no data (null values), create a placeholder

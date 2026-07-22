@@ -10,8 +10,13 @@
 # Pass --write to apply. It NEVER commits and NEVER pushes — review the diff and push
 # yourself. Release/deploy stays a human decision (Cloudflare auto-deploys on push to main).
 #
-# RELEASE-DATE CONVENTION: a release on the 1st of month M reports month M-1's actuals.
-# The row date is M-01 (the release date). For the July-1 release of June data: --month 2026-07.
+# DATE CONVENTIONS: --month is always the RELEASE month. Each series' row date comes from
+# INDICATOR_REGISTRY.dateConvention (the same source the site reads), not from an assumption
+# here:
+#   release-lag (5 series) - row dated the release month; the 2026-08 release reports July
+#                            in a row dated 2026-08-01.
+#   data-month  (PHI only)  - row dated the month it MEASURES; that same July data is dated
+#                            2026-07-01. PHI rows for an incomplete month are refused.
 #
 # Usage:
 #   ./scripts/mike-fred-append-month.sh --month 2026-07 [per-series inputs] [--write]
@@ -20,7 +25,11 @@
 #   PPI   --pulse N            [--hours H]  [--ppi-note "..."]   value = pulse * 1.25
 #   KBER  --kber N                          [--kber-note "..."]  value = N (raw vault note count)
 #   SCI   --followers R                     [--sci-note "..."]   value = R / 3041.9 * 100
-#   PHI   --sleep-h X --workout-days D --weight W  [--phi-note]  (or --phi-value V to set directly)
+#   PHI   --phi-value V                     [--phi-note "..."]   PHI 2.0 is generated from the
+#                                                                Apple Health archive, NOT here.
+#                                                                The old --sleep-h/--workout-days/
+#                                                                --weight flags computed the retired
+#                                                                PHI-Classic index and now error.
 #   PWI   --wealth V                        [--pwi-note "..."]   value = V (wealth index, ask Mike)
 #   LMV   --lmv-value V                     [--lmv-note "..."]   value = V (books+films points)
 #
@@ -66,25 +75,67 @@ done
 
 [ -n "$MONTH" ] || { echo "ERROR: --month YYYY-MM is required." >&2; exit 2; }
 echo "$MONTH" | grep -qE '^[0-9]{4}-[0-9]{2}$' || { echo "ERROR: --month must be YYYY-MM (e.g. 2026-07)." >&2; exit 2; }
-ROWDATE="${MONTH}-01"
+ROWDATE="${MONTH}-01"   # the release date itself (used for the app/page.tsx header)
+
+# Per-series conventions come from INDICATOR_REGISTRY — the same source the site
+# reads — so the write path can never drift from it (#12). One bun call, ~20ms.
+CONVENTIONS=$(cd "$REPO" && bun -e "
+import { INDICATOR_REGISTRY, rowDateForRelease } from './lib/indicators.ts';
+for (const id of Object.keys(INDICATOR_REGISTRY)) {
+  const m = INDICATOR_REGISTRY[id];
+  console.log([id, rowDateForRelease(id, '$MONTH'), m.dateConvention, m.valueSource].join(' '));
+}" 2>&1) || { echo "ERROR: could not read INDICATOR_REGISTRY (is bun installed?)" >&2; echo "$CONVENTIONS" >&2; exit 1; }
+
+field_for()       { echo "$CONVENTIONS" | awk -v i="$1" -v n="$2" '$1==i {print $n}'; }
+rowdate_for()     { field_for "$1" 2; }
+convention_for()  { field_for "$1" 3; }
+valuesource_for() { field_for "$1" 4; }
+
+THIS_MONTH=$(date +%Y-%m)
+
+# A series whose value is computed elsewhere must be HANDED a value; this script
+# must never derive one. Called before any derivation, so the rule is enforced
+# from registry data rather than by remembering which series is special.
+require_derivable() {  # $1 = id
+  if [ "$(valuesource_for "$1")" = "external" ]; then
+    echo "ERROR: $1 values are not computed in this repository (valueSource: external)." >&2
+    echo "       Pass the computed value directly rather than derivation inputs." >&2
+    exit 2
+  fi
+}
 
 # Notes may contain commas — the parser claims trailing numeric columns from the right,
 # so the note keeps its punctuation (STANDARDS.md §7). Newlines would still break the
 # one-row-per-line format, so collapse those.
 scrub() { printf '%s' "$1" | tr '\n\r' '  '; }
 
-# guard: refuse to double-append a month already present in a file
-present() { [ -f "$1" ] && cut -d, -f1 "$1" | grep -qx "$ROWDATE"; }
+# guard: refuse to double-append a date already present in a file
+present() { [ -f "$1" ] && cut -d, -f1 "$1" | grep -qx "$2"; }
 
 declare -a PLAN_FILE PLAN_ROW
-add_plan() {  # $1 file, $2 row
-  local f="$DATA/$1"
-  if present "$f"; then
-    echo "  SKIP $1 — $ROWDATE already present (idempotency guard)"
+add_plan() {  # $1 = indicator id, $2 = row content AFTER the date
+  local id="$1" rest="$2"
+  local f="$DATA/$id.csv"
+  local rd; rd=$(rowdate_for "$id")
+
+  if [ -z "$rd" ]; then
+    echo "ERROR: no row date for '$id' — is it in INDICATOR_REGISTRY?" >&2; exit 1
+  fi
+
+  # A data-month row is dated the month it MEASURES, so that month must be over.
+  # This is the check that would have caught a PHI row generated mid-month.
+  if [ "$(convention_for "$id")" = "data-month" ] && ! [ "${rd:0:7}" \< "$THIS_MONTH" ]; then
+    echo "ERROR: refusing to write $id.csv row for $rd — ${rd:0:7} is not complete." >&2
+    echo "       $id is dated by the month it measures, not the release month." >&2
+    exit 2
+  fi
+
+  if present "$f" "$rd"; then
+    echo "  SKIP $id.csv — $rd already present (idempotency guard)"
     return
   fi
-  PLAN_FILE+=("$f"); PLAN_ROW+=("$2")
-  echo "  $1  +  $2"
+  PLAN_FILE+=("$f"); PLAN_ROW+=("${rd},${rest}")
+  echo "  $id.csv  +  ${rd},${rest}   [$(convention_for "$id")]"
 }
 
 echo "=== MIKE FRED append month: $ROWDATE  (mode: $([ $WRITE -eq 1 ] && echo WRITE || echo DRY-RUN)) ==="
@@ -92,45 +143,53 @@ echo
 
 # --- PPI: value = pulse * 1.25 ; cols date,value,notes,pulse,hours ---
 if [ -n "$PULSE" ]; then
+  require_derivable "ppi"
   PVAL=$(awk "BEGIN{printf \"%.2f\", $PULSE*1.25}")
   note=$(scrub "${PPI_NOTE:-Release}")
-  add_plan "ppi.csv" "${ROWDATE},${PVAL},${note},${PULSE},${HOURS}"
+  add_plan "ppi" "${PVAL},${note},${PULSE},${HOURS}"
 fi
 
 # --- KBER: raw vault note count ---
 if [ -n "$KBER" ]; then
   note=$(scrub "${KBER_NOTE:-vault snapshot}")
-  add_plan "knowledge-expansion.csv" "${ROWDATE},${KBER},${note}"
+  add_plan "knowledge-expansion" "${KBER},${note}"
 fi
 
 # --- SCI: index = raw / 3041.9 * 100 ; note default 'Measured growth (raw: R)' ---
 if [ -n "$FOLLOWERS" ]; then
+  require_derivable "social-capital"
   SVAL=$(awk "BEGIN{printf \"%.2f\", $FOLLOWERS/3041.9*100}")
   note=$(scrub "${SCI_NOTE:-Measured growth (raw: $FOLLOWERS)}")
-  add_plan "social-capital.csv" "${ROWDATE},${SVAL},${note}"
+  add_plan "social-capital" "${SVAL},${note}"
 fi
 
-# --- PHI: sleep% x0.4 + activity% x0.35 + weight% x0.25 (or --phi-value direct) ---
-if [ -n "$PHI_VALUE" ] || { [ -n "$SLEEP_H" ] && [ -n "$WORKOUT" ] && [ -n "$WEIGHT" ]; }; then
-  if [ -n "$PHI_VALUE" ]; then
-    HVAL="$PHI_VALUE"; note=$(scrub "${PHI_NOTE:-Release}")
-  else
-    HVAL=$(awk "BEGIN{sp=$SLEEP_H/8*100; ap=$WORKOUT/30*100; wp=100-(($WEIGHT-175)/175*100); printf \"%.1f\", sp*0.4+ap*0.35+wp*0.25}")
-    note=$(scrub "${PHI_NOTE:-Sleep ${SLEEP_H}h avg; ${WORKOUT} workout days; weight ${WEIGHT}}")
-  fi
-  add_plan "phi.csv" "${ROWDATE},${HVAL},${note}"
+# --- PHI 2.0: value only. Computed from the Apple Health archive, not here. ---
+# The legacy flags computed PHI-Classic (sleep/activity/weight). That index is
+# retired; using it to produce a PHI 2.0 row silently writes a legacy-scale
+# number into the live series, so the flags are now a hard error rather than a
+# silent wrong answer.
+if [ -n "$SLEEP_H" ] || [ -n "$WORKOUT" ] || [ -n "$WEIGHT" ]; then
+  echo "ERROR: --sleep-h/--workout-days/--weight computed the retired PHI-Classic index" >&2
+  echo "       (sleep%*0.4 + activity%*0.35 + weight%*0.25). PHI 2.0 is a four-pillar" >&2
+  echo "       composite generated from the Apple Health archive and is NOT derived here." >&2
+  echo "       Pass the computed index with --phi-value instead." >&2
+  exit 2
+fi
+
+if [ -n "$PHI_VALUE" ]; then
+  add_plan "phi" "${PHI_VALUE},$(scrub "${PHI_NOTE:-Release}")"
 fi
 
 # --- PWI (revenue): wealth index value, direct ---
 if [ -n "$WEALTH" ]; then
   note=$(scrub "${PWI_NOTE:-Release}")
-  add_plan "revenue.csv" "${ROWDATE},${WEALTH},${note}"
+  add_plan "revenue" "${WEALTH},${note}"
 fi
 
 # --- LMV (completion-rate): books+films points, direct ---
 if [ -n "$LMV_VALUE" ]; then
   note=$(scrub "${LMV_NOTE:-Media velocity}")
-  add_plan "completion-rate.csv" "${ROWDATE},${LMV_VALUE},${note}"
+  add_plan "completion-rate" "${LMV_VALUE},${note}"
 fi
 
 echo

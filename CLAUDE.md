@@ -71,27 +71,32 @@ Updates are due on the 1st of each month. Two things to update:
 
 | CSV | What to ask Mike | Format | Notes |
 |-----|-----------------|--------|-------|
-| `ppi.csv` | RescueTime Productivity Pulse score + total tracked hours | `date,value,notes,pulse,hours` (5 cols) | **Index `value` = `pulse × 1.25`** (80 pulse = 100 baseline). `hours` (col 5) drives the "Total Hours Tracked" bar chart on the PPI page — leave blank for months with no hours. Notes must not contain commas (breaks positional parsing — use `;`) |
+| `ppi.csv` | RescueTime Productivity Pulse score + total tracked hours | `date,value,notes,pulse,hours` (5 cols) | **Index `value` = `pulse × 1.25`** (80 pulse = 100 baseline). `hours` (col 5) drives the "Total Hours Tracked" bar chart on the PPI page — leave blank for months with no hours. Notes may contain commas — the parser claims trailing numeric columns from the right (STANDARDS.md §7) |
 | `knowledge-expansion.csv` | Total Obsidian vault note count | `date,value,notes` | Raw count |
 | `social-capital.csv` | Raw follower total across platforms | `date,value,notes` | Index = raw / 3041.9 × 100. Note format: `Measured growth (raw: XXXX.XX)` |
-| `phi.csv` | Sleep avg (h), workout days, weight avg | `date,value,notes` | Formula: sleep% × 0.4 + activity% × 0.35 + weight% × 0.25. Sleep% = avg/8×100. Activity% = days/30×100. Weight% = 100-((avg-175)/175×100). Note format: `Sleep Xh avg, N workout days, weight X avg` |
+| `phi.csv` | **The computed PHI 2.0 index** (ask Mike) | `date,value,notes` | ⚠️ **NOT derived in this repo.** PHI 2.0 = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness, computed from the Apple Health archive against 2023-2025 baselines. ⚠️ **`phi.csv` is data-month dated** — the row for July's data is dated `2026-07-01`, unlike the five release-lag series. |
 | `revenue.csv` | Wealth index value | `date,value,notes` | Ask Mike directly |
 | `completion-rate.csv` | Books and films consumed | `date,value,notes` | Books = 2-5 pts by length, films = 1 pt each. Note format: `N books, N films` |
 
 **Fast path — vault-derivable metrics (`scripts/mike-fred-vault-pull.sh`):**
-- Run `./scripts/mike-fred-vault-pull.sh [YYYY-MM]` (defaults to last month). It computes **KBER** (vault note count) and the **PHI sleep input** (avg nightly sleep) automatically, and prints the 5 values still needed from Mike. This collapses a 6-source gather into "fill in what the script can't reach."
+- Run `./scripts/mike-fred-vault-pull.sh [YYYY-MM]` (defaults to last month). It computes **KBER** (vault note count) automatically and prints the values still needed from Mike. It also reports an average nightly sleep figure — that is a **PHI-Classic** input, kept for reference only; it is *not* used by PHI 2.0.
 
-**How to calculate PHI from daily notes (example for February):**
-- Sleep: the script does this (first `sleep Xh Ym` per daily note → monthly avg). Or grep `Sleep.*\d+h` manually.
-- Grep exercise entries across daily notes → count days with activity
-- Grep `Today:.*\d{3}` weight entries → average lbs (weight is rarely logged; usually ask Mike)
-- Plug into formula above. Mike often just gives the final PHI index directly.
+**How to get PHI:** ask Mike for the computed PHI 2.0 index. Do **not** calculate it.
+
+The old sleep/activity/weight formula computed **PHI-Classic**, which was retired in July 2026 and preserved as `data/phi-classic.csv`. Using it now writes a legacy-scale number into the live PHI 2.0 series — a ~10-point error on a different baseline. The append script refuses the old `--sleep-h/--workout-days/--weight` flags for exactly this reason (#12).
+
+PHI 2.0 needs per-day HRV, resting heart rate, sleep stages, energy, steps, exercise minutes, VO2 max and cardio recovery, plus 2023-2025 baseline statistics. None of that lives in this repo; it comes from Mike's Apple Health pipeline.
 
 **How to calculate Social Capital Index:**
 - Get raw follower total from Mike
 - Divide by baseline 3041.9, multiply by 100
 
-**Date convention (release lag):** A row dated month N reports month **N-1**'s actuals (e.g. the `2026-02-01` row is noted "January productivity uptick"; April's data lives in the `2026-05-01` row). Keep each month's pulse and hours together in the same row. Charts label the x-axis by row date, so a bar reads one month ahead of the data it shows — known and accepted as of 2026-05.
+**Date conventions — two of them.** The authoritative source is `INDICATOR_REGISTRY[id].dateConvention` in `lib/indicators.ts`, which both the site and the append script read. Do not restate the rule from memory; check the field.
+
+- **`release-lag`** (PPI, KBER, SCI, PWI, LMV) — a row dated month N reports month **N-1**'s actuals. April's data lives in the `2026-05-01` row. Charts label the x-axis by row date, so a bar reads one month ahead of the data it shows — known and accepted as of 2026-05.
+- **`data-month`** (PHI only) — the row is dated the month it **measures**. June's data is the `2026-06-01` row, and no row exists for a month until that month is over.
+
+This split is why `./scripts/mike-fred-append-month.sh --month 2026-08` writes the five release-lag series at `2026-08-01` and PHI at `2026-07-01`. Keep each month's pulse and hours together in the same row.
 
 **2. Update `app/page.tsx`:**
 - Lines ~21-23 have hardcoded "Last Updated" and "Next Update" dates in the homepage header

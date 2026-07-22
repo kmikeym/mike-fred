@@ -2,7 +2,7 @@
 # mike-fred-vault-pull.sh
 # Computes the two MIKE FRED indicators that are derivable from the Obsidian vault:
 #   - KBER (knowledge-expansion): total .md count in the vault
-#   - PHI sleep input: average nightly sleep across the target month's daily notes
+#   - Average nightly sleep (a PHI-CLASSIC input, reference only — PHI 2.0 does not use it)
 # Everything else (RescueTime PPI, Wealth Index, follower total, books/films, weight,
 # workout-day count) is NOT in the vault and must come from Mike — see the project CLAUDE.md.
 #
@@ -67,7 +67,7 @@ for d in "$DAILY/$MONTH"-*.md; do
   mins=$((h*60+m))
   total=$((total+mins)); n=$((n+1))
 done
-echo "PHI sleep input:"
+echo "Average nightly sleep (PHI-Classic input — reference only, NOT used by PHI 2.0):"
 if [ "$n" -gt 0 ]; then
   avg=$((total/n))
   sleep_h=$(awk "BEGIN{printf \"%.2f\", $avg/60}")

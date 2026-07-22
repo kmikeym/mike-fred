@@ -74,6 +74,17 @@ Both conventions are legitimate; leaving a consumer to guess which is in play is
 `date_convention` is one of `release-lag` | `data-month`. Consumers comparing series
 MUST align on `period`, never on `date`.
 
+**The authoritative declaration is `INDICATOR_REGISTRY[id].dateConvention`** in
+`lib/indicators.ts` — typed data, read by the site, the monthly append script, and
+(under issue #6) the API. It is typed rather than prose because prose drifted: the
+convention was stated in five places and was wrong in three of them. As of 2026-07,
+PHI is the only `data-month` series; the other five are `release-lag`.
+
+A related field, `valueSource`, declares whether this repository can compute a
+series' value (`derived`) or must be handed one (`external`). The write path
+refuses to derive a value for an `external` series, which is what prevents a
+retired formula being used to produce a current-index row.
+
 All timestamps are ISO 8601. All dates are rendered timezone-independently — never
 via `new Date("YYYY-MM-DD").toLocaleDateString()`, which parses as UTC midnight and
 then formats locally, shifting the day (and, for month-start data, the month).

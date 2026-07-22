@@ -123,9 +123,50 @@ wrong PHI release date — see issue #4 and STANDARDS.md §9.
 
 1. Push changes to `main` branch
 2. Cloudflare Pages detects the push
-3. Runs `npm run pages:build` command
+3. Runs `npm ci`, then `npm run pages:build`
 4. Deploys `.vercel/output/static` directory
 5. Site is live at https://mike.quarterly.systems
+
+### ⚠️ Verify deploys against production, not against a local build
+
+**A green local build does not mean the deploy succeeded.** Cloudflare runs
+`npm ci` first, and nothing in the local workflow does — `npm run build`,
+`npx tsc --noEmit`, and `bun test` can all pass while the deploy fails outright.
+
+After pushing, confirm the change is actually live:
+
+```bash
+curl -s https://mike.quarterly.systems/series/ppi | grep -oE 'Last Updated.{0,90}'
+```
+
+**A frozen site is a failed build, not a slow one.** Cloudflare serves the last
+*successful* deploy, so if production still shows the state from before your
+commit, the build errored — waiting longer will not help. Check the Cloudflare
+Pages build log.
+
+Reproduce Cloudflare's install step locally with `npm ci --dry-run` (exit 0 = the
+lockfile is in sync). This is the check that catches the failure below.
+
+### ⚠️ `npm run pages:build` rewrites package-lock.json
+
+`@cloudflare/next-on-pages` runs its own install as a side effect, which can
+leave `package.json` and `package-lock.json` out of sync. `npm ci` then refuses
+to install — it asserts the two already agree rather than reconciling them, the
+way `npm install` would — and **every subsequent deploy fails** until the
+lockfile is repaired.
+
+This has broken production once (see c140db4; adding a devDependency rewrote the
+lockfile and froze the live site for four commits).
+
+So: **after running `pages:build` locally, always check**
+
+```bash
+git diff --stat package-lock.json    # expect no output
+npm ci --dry-run                     # expect exit 0
+```
+
+and never commit an unintended lockfile change. Adding or removing a dependency
+is the other way into this state — verify with `npm ci --dry-run` before pushing.
 
 ## Project Structure
 
@@ -163,6 +204,21 @@ wrong PHI release date — see issue #4 and STANDARDS.md §9.
 
 **Issue**: Changes to CSV files don't appear on live site
 - **Solution**: CSV data is read at build time. Push to GitHub triggers a new build. Wait 2-5 minutes for deployment.
+- **If it's been longer than that, stop waiting** — see the next entry.
+
+**Issue**: Production is stuck on an old commit; pushes have no effect
+- **Diagnosis**: Cloudflare serves the last *successful* build, so a site frozen at
+  a pre-existing state means builds are **failing**, not queuing. Identify the last
+  good commit by what production still shows.
+- **First thing to check**: `npm ci --dry-run` (exit 0 = lockfile in sync). Cloudflare
+  runs `npm ci`, which fails outright when `package.json` and `package-lock.json`
+  disagree — and no local command (`npm run build`, `tsc`, `bun test`) reproduces it.
+- **Common cause**: an unintended `package-lock.json` change, either from adding a
+  dependency or as a side effect of `npm run pages:build`. See the Deployment Process
+  warnings above.
+- **Fix**: restore the lockfile from the last successfully deployed commit —
+  `git checkout <good-sha> -- package-lock.json` — then confirm `npm ci --dry-run`
+  exits 0 before pushing.
 
 **Issue**: Build fails with "wrangler.toml" errors
 - **Solution**: Cloudflare Pages doesn't use wrangler.toml. Remove it or ensure it only has `compatibility_flags = ["nodejs_compat"]`.

@@ -94,7 +94,7 @@ then formats locally, shifting the day (and, for month-start data, the month).
 ## 4. Vintages
 
 When an indicator's methodology is rebuilt, the old series is **preserved, not
-overwritten**. The superseded series remains fetchable and the current series points
+overwritten**. The superseded series is kept in full and the current series points
 at it:
 
 ```json
@@ -107,6 +107,12 @@ at it:
 ```
 
 A vintage is a full series document in its own right and follows every rule here.
+
+A vintage is **closed**: it keeps its published observations and receives no new ones.
+Where it is reachable depends on what exists — today PHI-Classic is published as
+`data/phi-classic.csv` and rendered in the PHI 2.0 methodology comparison; it has no
+series page. Under issue #6 the `url` above becomes a real endpoint. Do not describe a
+vintage as "available" at a location that does not serve it.
 
 Rationale: revisions are normal in economic data — this is why FRED has ALFRED. Without
 vintages, a methodology change silently rewrites history, and any agent that cached the

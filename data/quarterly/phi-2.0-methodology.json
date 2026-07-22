@@ -27,7 +27,7 @@
     ],
     "outlook": {
       "title": "Reading PHI Going Forward",
-      "body": "PHI is published monthly, rolled up quarterly, with a one- or two-line note on each quarter explaining the move. 100 always means Mike's 2023–2025 normal, so the number is comparable across time. The full method — pillars, weights, normalization, and the base period — is open and documented. PHI-Classic remains available as the historical vintage."
+      "body": "PHI is published monthly, rolled up quarterly, with a one- or two-line note on each quarter explaining the move. 100 always means Mike's 2023–2025 normal, so the number is comparable across time. The full method — pillars, weights, normalization, and the base period — is open and documented. PHI-Classic is preserved in full: plotted against PHI 2.0 in the comparison above, and published as `data/phi-classic.csv` in the open data repository. It is closed — no new PHI-Classic readings are recorded, and the series ends with June 2026."
     }
   }
 }

@@ -48,6 +48,12 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    // Tests run under `bun test`, which supplies `bun:test` at runtime. They are not
+    // part of the Next.js app, and type-checking them here would require adding
+    // @types/bun — a devDependency whose install rewrote package-lock.json out of
+    // sync and broke the Cloudflare `npm ci` step. Keep the lockfile untouched.
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ]
 }

@@ -93,16 +93,16 @@ Updates are due on the 1st of each month. Two things to update:
 
 **Date convention (release lag):** A row dated month N reports month **N-1**'s actuals (e.g. the `2026-02-01` row is noted "January productivity uptick"; April's data lives in the `2026-05-01` row). Keep each month's pulse and hours together in the same row. Charts label the x-axis by row date, so a bar reads one month ahead of the data it shows — known and accepted as of 2026-05.
 
-**2. Update `lib/indicators.ts`:**
-- Change `lastUpdate` to current month's date (e.g., `"2026-04-01"`)
-- Change `nextUpdate` to next month's date (e.g., `"2026-05-01"`)
-- These are hardcoded strings in `INDICATOR_REGISTRY` — there are 6 entries to update (use find-and-replace)
-
-**3. Update `app/page.tsx`:**
+**2. Update `app/page.tsx`:**
 - Lines ~21-23 have hardcoded "Last Updated" and "Next Update" dates in the homepage header
 - Change both to match the current/next month
 
-**4. Commit and push to `main`.** Cloudflare auto-rebuilds in 2-5 minutes.
+**3. Commit and push to `main`.** Cloudflare auto-rebuilds in 2-5 minutes.
+
+**No longer needed:** `lib/indicators.ts` requires no date edit. Each indicator's
+`lastUpdate` comes from its last data row and `nextUpdate` from `lastUpdate` +
+frequency (all six are monthly). The old hardcoded pairs drifted and published a
+wrong PHI release date — see issue #4 and STANDARDS.md §9.
 
 ### Adding New Data Points
 
@@ -110,8 +110,9 @@ Updates are due on the 1st of each month. Two things to update:
 > §7 (notes). §12 has the new-indicator checklist.
 
 1. Open the relevant CSV file in `/data/`
-2. Add a new row with the correct format (see table above — PPI has 4 columns, others have 3)
-3. Update `lastUpdate`/`nextUpdate` in `lib/indicators.ts`
+2. Add a new row with the correct format (see table above — PPI has 5 columns, others have 3).
+   Notes may contain commas; the parser claims trailing numeric columns from the right.
+3. Run `npm test` — the round-trip guard catches malformed rows before they ship
 4. Commit all changes and push to `main`
 5. Cloudflare Pages will auto-rebuild (2-5 minutes)
 6. Updated data appears on live site

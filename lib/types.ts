@@ -31,11 +31,13 @@ export interface IndicatorMetadata {
   source: string;
   calculation?: string;
   color: string; // Hex color for charts
-  lastUpdate: string; // ISO 8601 date
-  nextUpdate: string; // ISO 8601 date
 }
 
 export interface Indicator extends IndicatorMetadata {
+  // Derived, never hardcoded (STANDARDS.md §9): lastUpdate comes from the data,
+  // nextUpdate from lastUpdate + frequency.
+  lastUpdate: string; // ISO 8601 date
+  nextUpdate: string; // ISO 8601 date
   currentValue: number;
   previousValue: number;
   change: number; // Absolute change

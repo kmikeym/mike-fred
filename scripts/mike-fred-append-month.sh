@@ -3,8 +3,8 @@
 # The WRITE half of the monthly MIKE FRED update. Companion to mike-fred-vault-pull.sh
 # (which GATHERS the vault-derivable inputs). This script takes the raw monthly inputs,
 # applies each indicator's formula, appends a correctly-formatted row to the six CSVs in
-# data/, and bumps the three hardcoded date locations (lib/indicators.ts x6 pairs +
-# app/page.tsx header). It turns a 9-location hand-edit into one command.
+# data/, and bumps the one remaining hardcoded date location (the app/page.tsx header).
+# Indicator lastUpdate/nextUpdate are derived at load time and need no edit.
 #
 # SAFETY: dry-run by default (prints exactly what it WOULD change, touches nothing).
 # Pass --write to apply. It NEVER commits and NEVER pushes — review the diff and push
@@ -144,7 +144,6 @@ NEXTMONTH=$(date -j -v+1m -f "%Y-%m-%d" "$ROWDATE" +%Y-%m-01 2>/dev/null || echo
 HUMAN=$(date -j -f "%Y-%m-%d" "$ROWDATE" "+%B 1, %Y" 2>/dev/null || echo "$ROWDATE")
 HUMAN_NEXT=$(date -j -f "%Y-%m-%d" "$NEXTMONTH" "+%B 1, %Y" 2>/dev/null || echo "$NEXTMONTH")
 echo "Date bumps:"
-echo "  lib/indicators.ts : lastUpdate -> \"$ROWDATE\" , nextUpdate -> \"$NEXTMONTH\" (all 6 pairs)"
 echo "  app/page.tsx      : Last Updated: $HUMAN , Next Update: $HUMAN_NEXT"
 echo
 
@@ -161,8 +160,8 @@ while [ $i -lt "${#PLAN_FILE[@]}" ]; do
   printf '%s\n' "$row" >> "$f"
   i=$((i+1))
 done
-# bump lib/indicators.ts (all lastUpdate/nextUpdate pairs)
-sed -i '' -E "s/lastUpdate: \"[0-9-]+\"/lastUpdate: \"$ROWDATE\"/g; s/nextUpdate: \"[0-9-]+\"/nextUpdate: \"$NEXTMONTH\"/g" "$REPO/lib/indicators.ts"
+# lib/indicators.ts needs no bump: lastUpdate/nextUpdate are derived from the data
+# at load time (STANDARDS.md §9). Only the homepage header is still hand-written.
 # bump app/page.tsx header
 sed -i '' -E "s/Last Updated: [A-Za-z]+ [0-9]+, [0-9]{4}/Last Updated: $HUMAN/; s/Next Update: [A-Za-z]+ [0-9]+, [0-9]{4}/Next Update: $HUMAN_NEXT/" "$REPO/app/page.tsx"
 

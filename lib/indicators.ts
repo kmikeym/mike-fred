@@ -20,8 +20,6 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "RescueTime Productivity Pulse",
     calculation: "RescueTime Productivity Pulse score, normalized to 2025 average baseline (99.1)",
     color: "#667eea",
-    lastUpdate: "2026-07-01",
-    nextUpdate: "2026-08-01",
   },
   "knowledge-expansion": {
     id: "knowledge-expansion",
@@ -35,8 +33,6 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Obsidian Vault Manual Count",
     calculation: "Total count of all markdown files in vault (daily notes, permanent notes, reference materials, MOCs)",
     color: "#10b981",
-    lastUpdate: "2026-07-01",
-    nextUpdate: "2026-08-01",
   },
   "social-capital": {
     id: "social-capital",
@@ -50,8 +46,6 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Multi-platform subscriber counts via platform APIs",
     calculation: "Weighted composite index of subscriber/follower counts across 11 platforms. High-value platforms (KmikeyM accounts 35%, Substack 30%) receive majority weighting, with primary social platforms (LinkedIn, X, Instagram) and medium-priority platforms (YouTube, Bluesky) contributing smaller weights. Baseline: October 2025 = 100.",
     color: "#3b82f6",
-    lastUpdate: "2026-07-01",
-    nextUpdate: "2026-08-01",
   },
   "phi": {
     id: "phi",
@@ -65,8 +59,6 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Apple Watch / Apple Health (via Health Auto Export)",
     calculation: "PHI = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness. Each metric's monthly mean is scored vs its 2023-2025 baseline (direction-corrected, capped 60-160); the index is re-based so the 2023-2025 mean = 100. Series starts 2023-01 (Apple Watch sleep-stage tracking availability). Full method: /reports/phi-2.0-methodology.",
     color: "#f59e0b",
-    lastUpdate: "2026-06-01",
-    nextUpdate: "2026-10-01",
   },
   "revenue": {
     id: "revenue",
@@ -80,8 +72,6 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Personal financial tracking/net worth calculations",
     calculation: "Total assets minus total liabilities, indexed to baseline period",
     color: "#DC143C",
-    lastUpdate: "2026-07-01",
-    nextUpdate: "2026-08-01",
   },
   "completion-rate": {
     id: "completion-rate",
@@ -95,8 +85,6 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     source: "Personal reading and viewing logs",
     calculation: "Combined scoring of books (2-5 points based on length) and movies (1 point each). Rewards sustained intellectual engagement with longform content across different media formats.",
     color: "#8b5cf6",
-    lastUpdate: "2026-07-01",
-    nextUpdate: "2026-08-01",
   },
 };
 
@@ -175,6 +163,36 @@ export async function loadPhiOverlap(): Promise<{ date: string; phi2: number | n
   return [...map.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([date, v]) => ({ date, ...v }));
 }
 
+const PERIOD_MONTHS: Record<IndicatorMetadata["frequency"], number> = {
+  daily: 0,
+  weekly: 0,
+  monthly: 1,
+  quarterly: 3,
+};
+
+const PERIOD_DAYS: Record<IndicatorMetadata["frequency"], number> = {
+  daily: 1,
+  weekly: 7,
+  monthly: 0,
+  quarterly: 0,
+};
+
+/**
+ * When the next release of a series is due, derived from its last observation and
+ * its publication frequency.
+ *
+ * All six MIKE stats are monthly; quarterly *reports* are a separate artifact and
+ * are not indicators. Deriving this instead of hardcoding it is STANDARDS.md §9 —
+ * the hand-typed version drifted and published a wrong date for PHI (issue #4).
+ */
+export function nextReleaseDate(lastDate: string, frequency: IndicatorMetadata["frequency"]): string {
+  const [year, month, day] = lastDate.split("-").map(Number) as [number, number, number];
+  const next = new Date(Date.UTC(year, month - 1, day));
+  next.setUTCMonth(next.getUTCMonth() + PERIOD_MONTHS[frequency]);
+  next.setUTCDate(next.getUTCDate() + PERIOD_DAYS[frequency]);
+  return next.toISOString().slice(0, 10);
+}
+
 /**
  * Calculate trend direction
  */
@@ -208,6 +226,7 @@ export async function loadIndicatorData(id: IndicatorId): Promise<Indicator> {
   return {
     ...metadata,
     lastUpdate: lastDataPoint.date,
+    nextUpdate: nextReleaseDate(lastDataPoint.date, metadata.frequency),
     currentValue,
     previousValue,
     change,
@@ -245,10 +264,19 @@ export async function loadQuarterlySnapshot(quarterId: string): Promise<Indicato
 
       const data = indicatorData as any;
 
+      // A snapshot is a frozen historical quarter: it "last updated" at the close of
+      // its own period, and its next release followed one period later.
+      const asOf = snapshot.period.end as string;
+      const schedule = {
+        lastUpdate: asOf,
+        nextUpdate: nextReleaseDate(asOf, metadata.frequency),
+      };
+
       // For indicators with no data (null values), create a placeholder
       if (data.value === null) {
         indicators.push({
           ...metadata,
+          ...schedule,
           currentValue: 0,
           previousValue: 0,
           change: 0,
@@ -259,6 +287,7 @@ export async function loadQuarterlySnapshot(quarterId: string): Promise<Indicato
       } else {
         indicators.push({
           ...metadata,
+          ...schedule,
           currentValue: data.value,
           previousValue: data.value - data.change,
           change: data.change,

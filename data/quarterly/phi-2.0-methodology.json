@@ -1,20 +1,20 @@
 {
   "highlights": [
     "PHI rebuilt on daily Apple Watch data — four pillars: Recovery, Sleep, Activity, Fitness",
-    "Re-based so 100 = Mike's 2023–2025 normal; the latest reading is 108 (8% above baseline)",
+    "Re-based so 100 = Mike's 2023–2025 normal; the latest reading is 106.0 (6% above baseline)",
     "The legacy sleep/activity/weight index is preserved as PHI-Classic — no published number was rewritten",
     "The series now reaches back to January 2023 (versus late 2025 before)"
   ],
   "narrative": {
-    "executiveSummary": "The Personal Health Index has been rebuilt. The original PHI was a simple monthly estimate — sleep, activity, and weight, often hand-tallied. With a complete daily record now flowing from Apple Watch, PHI 2.0 replaces it with a four-pillar, data-driven index graded against Mike's own baseline: 100 means \"normal for Mike\" (his 2023–2025 average).\n\nThis is a methodology change handled the way a statistical agency handles one: the old series is preserved intact as PHI-Classic, the new series is re-based to a documented baseline, and the two are shown side by side so the change is transparent. The headline number moves from PHI-Classic's 119.5 to PHI 2.0's 108 — that is a change of scale, not of health.",
+    "executiveSummary": "The Personal Health Index has been rebuilt. The original PHI was a simple monthly estimate — sleep, activity, and weight, often hand-tallied. With a complete daily record now flowing from Apple Watch, PHI 2.0 replaces it with a four-pillar, data-driven index graded against Mike's own baseline: 100 means \"normal for Mike\" (his 2023–2025 average).\n\nThis is a methodology change handled the way a statistical agency handles one: the old series is preserved intact as PHI-Classic, the new series is re-based to a documented baseline, and the two are shown side by side so the change is transparent. The headline number moves from PHI-Classic's 119.5 to PHI 2.0's 106.0 — that is a change of scale, not of health.",
     "sections": [
       {
         "title": "Old PHI vs. New PHI",
         "body": "Both indices tell the same story through late 2025 and 2026 — a dip into the winter, then a climb. They sit at different levels because they are measured on different scales: PHI-Classic on its own legacy baseline, PHI 2.0 re-based so that 100 equals Mike's 2023–2025 normal. The parallel trajectory is the point: the rebuild sharpened the resolution without inventing a different history."
       },
       {
-        "title": "Why the headline moved from 119.5 to 108",
-        "body": "Nothing declined. PHI-Classic and PHI 2.0 are different rulers. PHI-Classic's 119.5 was a number on an open-ended legacy scale; PHI 2.0's 108 means \"8% above Mike's normal,\" because the index is now anchored so that the 2023–2025 average is exactly 100. Re-basing to a fixed baseline is standard index practice (it is why the Consumer Price Index has a base year) — it makes every future number instantly legible: above 100 is better than normal, below is worse."
+        "title": "Why the headline moved from 119.5 to 106",
+        "body": "Nothing declined. PHI-Classic and PHI 2.0 are different rulers. PHI-Classic's 119.5 was a number on an open-ended legacy scale; PHI 2.0's 106.0 means \"6% above Mike's normal,\" because the index is now anchored so that the 2023–2025 average is exactly 100. Re-basing to a fixed baseline is standard index practice (it is why the Consumer Price Index has a base year) — it makes every future number instantly legible: above 100 is better than normal, below is worse."
       },
       {
         "title": "The four pillars",
@@ -22,7 +22,7 @@
       },
       {
         "title": "What the rebuilt series shows",
-        "body": "With history now reaching back to 2023, PHI 2.0 surfaces a real inflection: a decline through the second half of 2025 that bottomed in the fourth quarter — a period when a relocation disrupted the training routine — followed by the strongest quarter on record in mid-2026. Where a single month was extreme enough to hit the index's floor, the quarterly note says so, so the headline never understates a story quietly."
+        "body": "With history now reaching back to 2023, PHI 2.0 surfaces a real inflection: a decline through the second half of 2025 that bottomed in the fourth quarter — a period when a relocation disrupted the training routine — followed by a sharp recovery into mid-2026. Q2 averaged 106.93, among the strongest quarters in the series and just short of the 2023 and 2024 first-quarter peaks. Where a single month was extreme enough to hit the index's floor, the quarterly note says so, so the headline never understates a story quietly."
       }
     ],
     "outlook": {

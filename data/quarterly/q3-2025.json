@@ -1,6 +1,11 @@
 {
+  "title": "State of the MIKE Economy - Q3 2025",
   "quarter": "Q3 2025",
+  "status": "published",
+  "publishedDate": "2025-10-15",
   "reportDate": "2025-10-15",
+  "blurb": "High-growth productivity quarter with major financial restructuring. PPI surged +6.3% to 105 (peak 2025 performance).",
+  "summary": "High-growth productivity quarter with major financial restructuring. PPI surged +6.3% to 105 (peak 2025 performance, averaging 101.67), PWI declined -61.4% to 22.9 (August debt refactoring, stabilized with full-time employment), Longform Media Velocity dropped -50% to 5 points (4 pts/month average - focus shifted to career momentum). Quarter marked by productivity peak, financial reset for stability, and reduced leisure engagement.",
   "period": {
     "start": "2025-07-01",
     "end": "2025-09-30"
@@ -49,7 +54,6 @@
       "note": "September value (5 points: 5 films). Significant drop in engagement averaging 4 points/month. July (4 films), August (1 book), September (5 films). Focus shifted to career transition and productivity optimization over longform media consumption."
     }
   },
-  "summary": "High-growth productivity quarter with major financial restructuring. PPI surged +6.3% to 105 (peak 2025 performance, averaging 101.67), PWI declined -61.4% to 22.9 (August debt refactoring, stabilized with full-time employment), Longform Media Velocity dropped -50% to 5 points (4 pts/month average - focus shifted to career momentum). Quarter marked by productivity peak, financial reset for stability, and reduced leisure engagement.",
   "highlights": [
     "PPI reached 2025 peak at 105, up 6.3% - best productivity quarter of the year",
     "New role momentum in August with dual projects, systems optimization in September",
@@ -59,13 +63,15 @@
     "Three indicators (KBER, SCI, PHI) not yet tracking in Q3 period",
     "Financial reset positioned for long-term stability despite short-term net worth decline"
   ],
-
   "updates": [
     {
       "date": "2026-07-22",
       "title": "Correction: the Health Index does cover this quarter",
       "body": "This report records no Health Index data for Q3 2025 and states that tracking began in October 2025. That was true of PHI-Classic, the index in publication at the time, whose series starts in October 2025.\n\nPHI was rebuilt in July 2026 as PHI 2.0, a four-pillar composite of Recovery, Sleep, Activity and Fitness computed from Mike's Apple Health archive and re-based so 100 equals his 2023 to 2025 normal. That archive reaches back to January 2023, so PHI 2.0 does cover this quarter: July 97.9, August 97.6, September 84.8, averaging 93.43.\n\nSeptember is the figure worth noting. At 84.8 it is the month activity floored amid relocation upheaval, and it opens the decline that runs through Q4 2025, the weakest quarter in the rebuilt series. This report reads Q3 as a productivity peak with a financial reset underneath it. The health line had already turned down.\n\nThis is a correction rather than a restatement. There was no figure in this report to restate; the report recorded an absence, and the absence no longer holds. PHI 2.0 is dated by the month it measures, so these three months are the three months of the reporting period.",
-      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+      "link": {
+        "href": "/reports/phi-2.0-methodology",
+        "label": "PHI 2.0 methodology"
+      }
     }
   ]
 }

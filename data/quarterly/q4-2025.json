@@ -1,6 +1,11 @@
 {
+  "title": "State of the MIKE Economy - Q4 2025",
   "quarter": "Q4 2025",
+  "status": "published",
+  "publishedDate": "2026-01-15",
   "reportDate": "2026-01-15",
+  "blurb": "Recovery and stabilization quarter. PWI surged +155.9% to 58.6, Media Velocity hit 16 (best month of 2025), Knowledge Base crossed 3,400 notes. All six indicators now actively tracking.",
+  "summary": "Recovery and stabilization quarter. Productivity eased from Q3 peak to baseline (100, -4.8%), while wealth surged +155.9% to 58.6 as employment income took hold. Longform Media Velocity exploded +220% to 16 points (best month of 2025). Knowledge base grew 16.2% to 3,482 notes. Health improved 5% to 75.0. Social capital held steady. First full quarter with all six indicators tracking.",
   "period": {
     "start": "2025-10-01",
     "end": "2025-12-31"
@@ -12,7 +17,11 @@
       "changePercent": -4.8,
       "trend": "down",
       "note": "December value (100). Quarter showed deceleration from Q3 peak: October held strong at 101.25, November and December settled at 100 each. Holiday season and travel brought productivity back to baseline after Q3's record run.",
-      "monthlyValues": [101.25, 100, 100],
+      "monthlyValues": [
+        101.25,
+        100,
+        100
+      ],
       "quarterAverage": 100.42
     },
     "knowledge-expansion": {
@@ -21,7 +30,11 @@
       "changePercent": 16.2,
       "trend": "up",
       "note": "December value (3,482 notes). Strong growth from October baseline of 2,975. Averaging ~169 new notes/month as knowledge capture systems mature.",
-      "monthlyValues": [2975, 3135, 3482],
+      "monthlyValues": [
+        2975,
+        3135,
+        3482
+      ],
       "quarterAverage": 3197
     },
     "social-capital": {
@@ -30,7 +43,11 @@
       "changePercent": 0.4,
       "trend": "neutral",
       "note": "December value (100.4, raw: 3053.92). Slow but steady growth from October baseline (100). Audience reach expanding incrementally across platforms.",
-      "monthlyValues": [100, 100.1, 100.4],
+      "monthlyValues": [
+        100,
+        100.1,
+        100.4
+      ],
       "quarterAverage": 100.17
     },
     "phi": {
@@ -39,7 +56,11 @@
       "changePercent": 5.0,
       "trend": "up",
       "note": "December value (75.0). Peaked at 77.9 in November before slight dip. Overall improvement from October's 71.4.",
-      "monthlyValues": [71.4, 77.9, 75.0],
+      "monthlyValues": [
+        71.4,
+        77.9,
+        75.0
+      ],
       "quarterAverage": 74.77
     },
     "revenue": {
@@ -48,7 +69,11 @@
       "changePercent": 155.9,
       "trend": "up",
       "note": "December value (58.6). Major recovery from Q3's restructuring period. October (49.8) through November dip (38.4) to strong December close (58.6).\n\n**Rebase note (added 2026-04-25):** PWI was rebased after this report was published. Values here reflect the original-publication scale, which contained a ~4× scale break between November and December 2025 that inflated the reported +155.9% quarterly change. Under the new baseline (Mar 2026 = 100, where 1 PWI point = $376.24 net worth), Q4 2025's monthly values are [6.6, 5.1, 31.0] ending at 31.0 — the Dec uptick remains a real recovery, but the scale-break artifact is removed. See the Q1 2026 report for the rebase rationale.",
-      "monthlyValues": [49.8, 38.4, 58.6],
+      "monthlyValues": [
+        49.8,
+        38.4,
+        58.6
+      ],
       "quarterAverage": 48.93
     },
     "completion-rate": {
@@ -57,10 +82,23 @@
       "changePercent": 220.0,
       "trend": "up",
       "note": "December value (16 points). Best single month of 2025. October (12), November dipped (9), December surged to 16.",
-      "monthlyValues": [12, 9, 16],
+      "monthlyValues": [
+        12,
+        9,
+        16
+      ],
       "quarterAverage": 12.33
     }
   },
+  "highlights": [
+    "PWI surged 155.9% to 58.6 — strongest financial quarter, full employment income flowing",
+    "Longform Media Velocity hit 16 points in December — highest single month of 2025",
+    "Knowledge base crossed 3,400 notes, growing ~169 notes/month",
+    "PHI improved 5% as health habits strengthened from October baseline",
+    "PPI settled at baseline (100) after Q3 peak — natural post-sprint deceleration",
+    "All six indicators now actively tracking for first full-data quarter",
+    "Social capital flat at +0.4% — weakest performer, needs strategic attention"
+  ],
   "narrative": {
     "executiveSummary": "Q4 2025 was a consolidation quarter — the MIKE Economy came off Q3's productivity peak and settled into a new equilibrium. The headline story isn't any single indicator but the divergence between them: productivity flatlined at baseline while wealth, media consumption, and knowledge capture all surged. This suggests a deliberate rebalancing — trading peak output intensity for broader life engagement. Whether that's sustainable or a sign of drift depends entirely on Q1 2026.",
     "sections": [
@@ -94,35 +132,33 @@
       "body": "Early Q1 2026 data tells a wild story. PPI bounced back to 103.75 in January after two months at baseline. Knowledge base growth is accelerating (estimated 4,177 notes by February). Social capital is creeping up (101.0). Health hit 88.7 in January — the highest reading ever recorded.\n\nBut the real headline is PWI. After January's modest 31.7, February exploded to 209.7 — labeled simply \"degen money.\" That's a 3.6x increase in a single month and by far the highest PWI reading in the dataset. Something happened financially in February that dwarfs everything else.\n\nThe MIKE Economy enters Q1 2026 with momentum across every indicator except social capital. The risk is that the PWI spike is a one-time event (crypto? K5M share movement? windfall?) rather than a structural shift. The opportunity is that a sudden wealth injection, combined with improving productivity and health, creates space for the kind of bold moves the MIKE Economy was built for.\n\nWatch list for Q1 2026:\n• Can PWI sustain above 100, or was February an anomaly?\n• Will PPI break through 105 again, or has the ceiling lowered?\n• Social capital needs active intervention — 0.4% quarterly growth isn't a strategy\n• Health momentum from January (88.7) — does it hold?\n• Knowledge base approaching 4,500 notes — quality vs. quantity inflection point"
     }
   },
-  "summary": "Recovery and stabilization quarter. Productivity eased from Q3 peak to baseline (100, -4.8%), while wealth surged +155.9% to 58.6 as employment income took hold. Longform Media Velocity exploded +220% to 16 points (best month of 2025). Knowledge base grew 16.2% to 3,482 notes. Health improved 5% to 75.0. Social capital held steady. First full quarter with all six indicators tracking.",
-  "highlights": [
-    "PWI surged 155.9% to 58.6 — strongest financial quarter, full employment income flowing",
-    "Longform Media Velocity hit 16 points in December — highest single month of 2025",
-    "Knowledge base crossed 3,400 notes, growing ~169 notes/month",
-    "PHI improved 5% as health habits strengthened from October baseline",
-    "PPI settled at baseline (100) after Q3 peak — natural post-sprint deceleration",
-    "All six indicators now actively tracking for first full-data quarter",
-    "Social capital flat at +0.4% — weakest performer, needs strategic attention"
-  ],
-
   "updates": [
     {
       "date": "2026-07-22",
       "title": "Health Index figures restated under PHI 2.0",
       "body": "The Health Index figures in this report are PHI-Classic, the index in publication when the report was released. PHI was rebuilt in July 2026 as PHI 2.0, a four-pillar composite of Recovery, Sleep, Activity and Fitness computed from Mike's Apple Health archive and re-based so 100 equals his 2023 to 2025 normal.\n\nUnder PHI 2.0 this quarter reads October 85.8, November 85.5, December 90.7, averaging 87.33 and closing at 90.7. As published it read 71.4, 77.9 and 75.0, averaging 74.77 and closing at 75.0. The two indices sit on different baselines, so the level difference is a change of scale rather than a change in health. The shape differs too: PHI-Classic put the quarter's peak in the middle and closed lower, PHI 2.0 closes the quarter at its high. Note that this report also dates its monthly figures one month late, which is disclosed separately below.\n\nOne finding the report could not have reached. At 87.33 this is the weakest quarter in the entire PHI 2.0 series, which now runs from January 2023 to the present. The report describes a mild dip with November as the health peak. With three years of context behind it, the relocation quarter reads as the deepest health trough on record rather than a wobble, and the recovery that begins in Q1 2026 starts from a lower place than anyone knew at the time.",
-      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+      "link": {
+        "href": "/reports/phi-2.0-methodology",
+        "label": "PHI 2.0 methodology"
+      }
     },
     {
       "date": "2026-07-22",
       "title": "Wealth Index figures predate the March 2026 rebase",
       "body": "The Wealth Index figures in this report are on the original open-ended scale. PWI was rebased on 2026-04-24 (commit 4dc6be2) so that March 2026 equals 100, where one index point is $376.24 of net worth.\n\nAs published, the quarter read 49.8, 38.4 and 58.6, closing at 58.6. On the current scale it reads 6.6, 5.1 and 31.0, closing at 31.0. December's recovery is real on both scales. What does not survive the rebase is the reported +155.9% quarterly change, which was inflated by a roughly fourfold scale break between the November and December readings on the old scale.\n\nA note to this effect was added inline to the Wealth Index commentary on 2026-04-25, before this site adopted dated addenda. That note is left in place; this entry restates the mapping in the standard format so the correction appears alongside the others.",
-      "link": { "href": "/reports/q1-2026", "label": "Q1 2026 report, where the rebase was published" }
+      "link": {
+        "href": "/reports/q1-2026",
+        "label": "Q1 2026 report, where the rebase was published"
+      }
     },
     {
       "date": "2026-07-22",
       "title": "Correction: the monthly figures are dated one month late",
       "body": "This report reads each data row's date as the month the data describes. It is not. MIKE publishes most series on a release lag, where a row dated month N carries month N-1's actuals.\n\nSo the figures labeled October, November and December in this report are September, October and November. This applies across the report, not only to health: PPI, KBER, SCI, PWI, LMV and the PHI-Classic figures were all release-lag dated at the time. The values themselves are correct. Only the months they belong to move.\n\nThe quarterly averages and the direction of every trend are unaffected, and the Q2 2026 report is the first to read the convention correctly. PHI 2.0, by contrast, is dated by the month it measures, which is why the restated health figures above line up with the calendar quarter and the published ones do not.",
-      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+      "link": {
+        "href": "/reports/phi-2.0-methodology",
+        "label": "PHI 2.0 methodology"
+      }
     }
   ]
 }

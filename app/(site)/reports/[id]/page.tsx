@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
-import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePercent, loadQuarterlyNarrative, loadPhiOverlap } from "@/lib/indicators";
+import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePercent, loadQuarterlyNarrative, loadPhiOverlap, loadReport, loadReportIndex } from "@/lib/indicators";
 import type { ReportUpdate } from "@/lib/types";
 import YoYChart, { type YoYIndicator } from "@/components/YoYChart";
 import PhiOverlapChart from "@/components/PhiOverlapChart";
@@ -22,65 +22,16 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-const REPORTS = {
-  "phi-2.0-methodology": {
-    id: "phi-2.0-methodology",
-    quarter: "Methodology",
-    title: "Personal Health Index — Rebuilt as PHI 2.0",
-    publishedDate: "2026-07-17",
-    summary: "The Personal Health Index has been rebuilt on daily Apple Watch data as a four-pillar index (Recovery, Sleep, Activity, Fitness), re-based so 100 = Mike's 2023–2025 normal. The legacy series is preserved as PHI-Classic; the headline moves from 119.5 to 106.0 as a change of scale, not health.",
-  },
-  "q2-2026": {
-    id: "q2-2026",
-    quarter: "Q2 2026",
-    title: "State of the MIKE Economy - Q2 2026",
-    publishedDate: "2026-07-04",
-    summary: "The nomadic quarter that ended in a split. A June 5 layoff drove the indicators in opposite directions for the first time: PPI fell to a record-low 83.75 while PHI set three straight all-time highs (119.5). PWI averaged 122.2, peaking at 134.2 in May before the layoff dipped it to 106.5. KBER crossed 6,000, LMV rebuilt to 11 on a USA-250 film run, and SCI stayed flat. Four of six Q2 tests confirmed.",
-  },
-  "q1-2026": {
-    id: "q1-2026",
-    quarter: "Q1 2026",
-    title: "State of the MIKE Economy - Q1 2026",
-    publishedDate: "2026-04-25",
-    summary: "Strongest quarter in the dataset. Five of six indicators advanced; three set all-time records. PWI averaged 143.5 (+193% vs Q4) — 'degen quarter' confirmed as sustained regime. PWI tripled from Q4 close (58.6) to Q1 close (189.1), up 223% over the quarter. PHI hit 93.5 in March (all-time high). PPI held above baseline at 102.5 average through international relocation. Knowledge base added 1,104 notes (+31.7%). SCI finally broke 101. Only LMV retreated — attributable to Kosovo departure logistics.",
-  },
-  "q4-2025": {
-    id: "q4-2025",
-    quarter: "Q4 2025",
-    title: "State of the MIKE Economy - Q4 2025",
-    publishedDate: "2026-01-15",
-    summary: "Recovery and stabilization quarter. Productivity eased from Q3 peak to baseline (100, -4.8%), while wealth surged +155.9% to 58.6 as employment income took hold. Longform Media Velocity exploded +220% to 16 points (best month of 2025). Knowledge base grew 16.2% to 3,482 notes. Health improved 5% to 75.0. Social capital held steady. First full quarter with all six indicators tracking.",
-  },
-  "q3-2025": {
-    id: "q3-2025",
-    quarter: "Q3 2025",
-    title: "State of the MIKE Economy - Q3 2025",
-    publishedDate: "2025-10-15",
-    summary: "High-growth productivity quarter with major financial restructuring. PPI surged +6.3% to 105 (peak 2025 performance, averaging 101.67), PWI declined -61.4% to 22.9 (August debt refactoring, stabilized with full-time employment), Longform Media Velocity dropped -50% to 5 points (4 pts/month average - focus shifted to career momentum). Quarter marked by productivity peak, financial reset for stability, and reduced leisure engagement.",
-  },
-  "q2-2025": {
-    id: "q2-2025",
-    quarter: "Q2 2025",
-    title: "State of the MIKE Economy - Q2 2025",
-    publishedDate: "2025-07-15",
-    summary: "Stabilization quarter following Q1 employment transition. PPI flat at 98.75 (stable productivity averaging 97.92), PWI recovered +6.5% to 59.3 (volatile April spike from shareholder purchase), Longform Media Velocity strong at 12 points/month average. Foundation solidified with contract work focus and consistent intellectual engagement.",
-  },
-  "q1-2025": {
-    id: "q1-2025",
-    quarter: "Q1 2025",
-    title: "State of the MIKE Economy - Q1 2025",
-    publishedDate: "2025-04-15",
-    summary: "Transitional quarter marked by employment change and strategic repositioning. PPI averaged 95.8 (volatile: 102.5→86.3→98.8), PWI declined -22% (employment transition), Longform Media Velocity strong at 11.3 points/month average. Foundation-setting period with mixed productivity signals and financial adjustment.",
-  },
-};
+// Report metadata lives in data/quarterly/*.json, not here — see loadReportIndex
+// for why (#13).
 
 export async function generateStaticParams() {
-  return Object.keys(REPORTS).map((id) => ({ id }));
+  return (await loadReportIndex()).map(({ id }) => ({ id }));
 }
 
 export default async function ReportPage({ params }: PageProps) {
   const { id } = await params;
-  const report = REPORTS[id as keyof typeof REPORTS];
+  const report = await loadReport(id);
 
   if (!report) {
     notFound();

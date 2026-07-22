@@ -1,6 +1,11 @@
 {
+  "title": "State of the MIKE Economy - Q1 2026",
   "quarter": "Q1 2026",
+  "status": "published",
+  "publishedDate": "2026-04-25",
   "reportDate": "2026-04-25",
+  "blurb": "Strongest quarter in the dataset. PWI averaged 143.5 (+193% vs Q4) — 'degen quarter' confirmed as sustained regime, not a one-month spike. PWI tripled from Q4 close (58.6) to Q1 close (189.1), up 223% over the quarter. PHI hit 93.5 in March (all-time high). PPI held above baseline through international relocation. Knowledge base added 1,104 notes. SCI finally broke 101.",
+  "summary": "Strongest quarter in the dataset. Five of six indicators advanced; three set all-time records. PWI averaged 143.5 (+193% vs Q4) — 'degen quarter' confirmed as sustained regime. PWI tripled from Q4 close (58.6) to Q1 close (189.1), up 223% over the quarter. PHI hit 93.5 in March (all-time high). PPI held above baseline at 102.5 average through international relocation. Knowledge base added 1,104 notes (+31.7%). SCI finally broke 101. Only LMV retreated — attributable to Kosovo departure logistics.",
   "period": {
     "start": "2026-01-01",
     "end": "2026-03-31"
@@ -49,6 +54,15 @@
       "note": "March value (7 points). After December's all-time high of 16, LMV pulled back: January 14, February 5, March 7. Q1 average of 8.67 is below Q4's 12.33. The drawdown coincides with Kosovo departure preparation in March — travel logistics crowded out media consumption time."
     }
   },
+  "highlights": [
+    "PWI averaged 143.5 — 2.9x Q4 average, highest quarterly reading ever (+222.7%)",
+    "PWI tripled from Q4 close (58.6) to Q1 close (189.1) — +223% over the quarter",
+    "Knowledge base added 1,104 notes — growth rate doubled from Q4's 169/month to 368/month (+31.7%); RAG retrieval layer went live",
+    "PHI set an all-time high of 93.5 in March — better sleep + weight, fewer exercise days (+24.7%)",
+    "SCI broke 101 for the first time — Q4's flat line is over (+0.83%); Vibes YouTube channel grew 40 → 700+ subs over the employment window (parallel track)",
+    "PPI held above 100 baseline through international relocation + major personal transition (102.5 average, neutral)",
+    "LMV down to 8.67 average — Kosovo departure logistics compressed media consumption (-56.3%)"
+  ],
   "narrative": {
     "executiveSummary": "Q1 2026 was the strongest quarter in the tracked history of the MIKE Economy — and also one of the hardest. Mike's 9-year relationship with Kathryn ended during the quarter, which sits in tension with what the indicators show: five of six advanced, three set all-time records, and only one (Longform Media Velocity) retreated. Productivity held above baseline without burning out. Wealth tripled its Q4 average across two consecutive months, turning the Q4 outlook's 'degen spike' warning into a confirmed regime. Health hit an all-time high. Knowledge base growth accelerated. Social capital finally broke 101. This is what a compounding quarter looks like, and it's worth naming the personal context alongside it: indicators measure observable outputs, not the weight of a decade.",
     "sections": [
@@ -87,9 +101,30 @@
           "previousQuarter": "Q1 2025",
           "currentQuarter": "Q1 2026",
           "indicators": [
-            { "id": "revenue", "label": "PWI", "previous": 8.93, "current": 75.9, "changePercent": 750, "unit": "idx" },
-            { "id": "ppi", "label": "PPI", "previous": 95.8, "current": 102.5, "changePercent": 7.0, "unit": "idx" },
-            { "id": "completion-rate", "label": "LMV", "previous": 11.3, "current": 8.67, "changePercent": -23.3, "unit": "pts" }
+            {
+              "id": "revenue",
+              "label": "PWI",
+              "previous": 8.93,
+              "current": 75.9,
+              "changePercent": 750,
+              "unit": "idx"
+            },
+            {
+              "id": "ppi",
+              "label": "PPI",
+              "previous": 95.8,
+              "current": 102.5,
+              "changePercent": 7.0,
+              "unit": "idx"
+            },
+            {
+              "id": "completion-rate",
+              "label": "LMV",
+              "previous": 11.3,
+              "current": 8.67,
+              "changePercent": -23.3,
+              "unit": "pts"
+            }
           ]
         }
       }
@@ -99,35 +134,33 @@
       "body": "Q2 2026 is a nomadic quarter. Mike stays in Kosovo through early June, returns briefly to LA for a criminal case hearing, then spends the summer in Portland. Three cities in twelve weeks — and that cadence itself becomes the quarter's defining variable. Two of the three tensions below trace directly back to it.\n\nFirst, can PWI hold above 100? Q1's 143.5 average is a new floor until proven otherwise. Nomadic phases historically pressure PWI — not because travel reduces income, but because travel adds variance (flights, gear, settling-in costs in each new city). A Q2 return to Q4-range (below 60) would recharacterize Q1 as an anomaly. A Q2 that holds triple digits across three locations would confirm a structural shift in the MIKE Economy's financial profile.\n\nSecond, does productivity survive the Kosovo production sprint and the travel that follows it? The three stops have very different productivity profiles. Kosovo is designed for output (in-person editor, low distraction, cheap cost of living). LA is a brief stop anchored to the court appearance — not a work phase. Portland is where the variable enters: free housing at Mike's brother's house keeps burn low, but Mike has a deep network there and summer brings more social obligations than a typical work month. Mike has planned a 'Phase 3' for his content which is the highest-output content plan yet. But we've seen Mike overplan in the past, and high activity does not always mean high PPI — especially in a city with competing social demand. Q1 showed the operating system can handle load; Q2 will test its ceiling across three very different environments.\n\nThird, will SCI finally compound? Two consecutive quarters of positive movement is not yet a trend. Q2 needs a 1.5% gain to establish one. The Q1 2026 content should drive measurable follower growth if the strategy is working.\n\nWatch list for Q2 2026:\n• PWI holds above 100 across three cities — or the degen thesis breaks\n• PPI stays above 100 under production load + geographic changes\n• PHI sustains above 85 while traveling\n• SCI reaches 102 (trend confirmation)\n• KBER crosses 6,000 notes (quality inflection point)\n• LMV rebuilds as Kosovo routine stabilizes; may dip again around the moves"
     }
   },
-  "summary": "Strongest quarter in the dataset — against a backdrop of a 9-year relationship ending during the quarter. Five of six indicators advanced; three set all-time records. PWI exploded to 143.5 average (+193% vs Q4) — confirming the 'degen quarter' as a sustained regime, not a one-month spike. PWI tripled from Q4 close of 58.6 to Q1 close of 189.1 (+223%). PHI hit 93.5 in March (all-time high). PPI held above baseline at 102.5 average through an international relocation. KBER acceleration continued to 4,586 notes (+1,104 Q1) alongside a new RAG retrieval layer. SCI finally broke 101. Only LMV retreated — attributable to Kosovo departure logistics.",
-  "highlights": [
-    "PWI averaged 143.5 — 2.9x Q4 average, highest quarterly reading ever (+222.7%)",
-    "PWI tripled from Q4 close (58.6) to Q1 close (189.1) — +223% over the quarter",
-    "Knowledge base added 1,104 notes — growth rate doubled from Q4's 169/month to 368/month (+31.7%); RAG retrieval layer went live",
-    "PHI set an all-time high of 93.5 in March — better sleep + weight, fewer exercise days (+24.7%)",
-    "SCI broke 101 for the first time — Q4's flat line is over (+0.83%); Vibes YouTube channel grew 40 → 700+ subs over the employment window (parallel track)",
-    "PPI held above 100 baseline through international relocation + major personal transition (102.5 average, neutral)",
-    "LMV down to 8.67 average — Kosovo departure logistics compressed media consumption (-56.3%)"
-  ],
-
   "updates": [
     {
       "date": "2026-07-22",
       "title": "Health Index figures restated under PHI 2.0",
       "body": "The Health Index figures in this report are PHI-Classic, the index in publication when the report was released. PHI was rebuilt in July 2026 as PHI 2.0, a four-pillar composite of Recovery, Sleep, Activity and Fitness computed from Mike's Apple Health archive and re-based so 100 equals his 2023 to 2025 normal.\n\nUnder PHI 2.0 this quarter reads January 91.2, February 102.7, March 102.6, averaging 98.83 and closing at 102.6. As published it read 88.7, 79.2 and 93.5, averaging 87.13 and closing at 93.5. The two indices sit on different baselines, so the level difference is a change of scale rather than a change in health.\n\nThe shape is a different matter. This report describes a February dip to 79.2 during travel and pre-Kosovo transition. That figure is January's data carrying a February label, for the reason disclosed in the dating correction below, and PHI 2.0 shows no January decline: 91.2 against December's 90.7. What both indices agree on is the rise into February and the flat, near-normal finish. The dip the narrative explains is largely an artifact of how the row was dated.\n\nThe quarter's standing also changes. On PHI-Classic this was a record-setting quarter. On PHI 2.0 it is a recovery quarter, 98.83 against Q4 2025's 87.33, climbing back to normal from the weakest stretch in the series rather than breaking new ground.",
-      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+      "link": {
+        "href": "/reports/phi-2.0-methodology",
+        "label": "PHI 2.0 methodology"
+      }
     },
     {
       "date": "2026-07-22",
       "title": "Wealth Index figures are on the pre-rebase scale",
       "body": "The Wealth Index figures in the body of this report are on the original open-ended scale. The rebase that retired that scale was published with this report and is described in the Wealth Index commentary: from 2026-04-24 (commit 4dc6be2), March 2026 equals 100, where one index point is $376.24 of net worth.\n\nRestated in one place for readers arriving from the other quarterly reports: as published the quarter read 31.7, 209.7 and 189.1, averaging 143.5 and closing at 189.1. On the current scale it reads 16.8, 110.9 and 100.0, averaging 75.9 and closing at 100.0.\n\nThis entry adds no new information to the report. It exists so the scale change is disclosed in the same format on every report it touches, rather than only in the one report that happened to announce it.",
-      "link": { "href": "/series/revenue", "label": "PWI series, current scale" }
+      "link": {
+        "href": "/series/revenue",
+        "label": "PWI series, current scale"
+      }
     },
     {
       "date": "2026-07-22",
       "title": "Corrections: three claims that no longer hold",
       "body": "Dating. This report reads each data row's date as the month the data describes. It is not. Most MIKE series publish on a release lag, where a row dated month N carries month N-1's actuals. The figures labeled January, February and March are December, January and February, across every indicator in the report and not only health. The values are correct; the months they belong to move. Q2 2026 is the first report to read the convention correctly.\n\nThe record claim. This report calls March's 93.5 the highest PHI reading ever recorded. That was true of PHI-Classic when published, and it is not true of the index now in publication: under PHI 2.0 the highest month of this quarter is February at 102.7, and the highest reading in the series through Q1 2026 is January 2023 at 112.4. Two things about the 93.5 are worth recording. It was read from the 2026-03-01 row, which at the time carried the note \"March, all-time high\" and the same value as the row that followed it. February 2026 was never recorded in PHI-Classic; that row now carries a flagged interpolation of 86.4, and the 93.5 belongs to the March release alone.\n\nYear-over-year availability. This report states that KBER, SCI and PHI will have full year-over-year reads starting Q4 2026. That still holds for KBER and SCI. It does not hold for PHI, whose rebuilt series reaches back to January 2023: Q1 2025 averaged 98.20 against Q1 2026's 98.83, a gain of 0.6%. A year of upheaval and recovery that lands almost exactly where it started.",
-      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+      "link": {
+        "href": "/reports/phi-2.0-methodology",
+        "label": "PHI 2.0 methodology"
+      }
     }
   ]
 }

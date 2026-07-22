@@ -1,6 +1,11 @@
 {
+  "title": "State of the MIKE Economy - Q1 2025",
   "quarter": "Q1 2025",
+  "status": "published",
+  "publishedDate": "2025-04-15",
   "reportDate": "2025-04-15",
+  "blurb": "Transitional quarter marked by employment change. PPI averaged 95.8 (volatile), PWI declined -28.6% during job transition.",
+  "summary": "Transitional quarter marked by employment change and strategic repositioning. PPI averaged 95.8 (volatile: 102.5→86.3→98.8), PWI declined -22% (employment transition), Longform Media Velocity strong at 11.3 points/month average. Foundation-setting period with mixed productivity signals and financial adjustment.",
   "period": {
     "start": "2025-01-01",
     "end": "2025-03-31"
@@ -49,7 +54,6 @@
       "note": "March value (11 points). Dropped from exceptional January (20 points: 6 books, 6 films) to March (11 points: 2 books, 5 films). February had minimal engagement (3 points)."
     }
   },
-  "summary": "Transitional quarter marked by employment change and strategic repositioning. PPI volatile but stable (averaged 95.8, ended 98.75). PWI declined 29% due to job transition. Longform Media Velocity averaged 11.3 points/month. Foundation-setting period with mixed signals.",
   "highlights": [
     "Strong January productivity (PPI 102.5) followed by February adjustment",
     "Employment transition drove PWI decline of 29% over the quarter",
@@ -57,13 +61,15 @@
     "March showed recovery signs: PPI back to 98.75, media engagement at 11 points",
     "Three indicators (KBER, SCI, PHI) not yet tracking in Q1 period"
   ],
-
   "updates": [
     {
       "date": "2026-07-22",
       "title": "Correction: the Health Index does cover this quarter",
       "body": "This report records no Health Index data for Q1 2025 and states that tracking began in October 2025. That was true of PHI-Classic, the index in publication at the time, whose series starts in October 2025.\n\nPHI was rebuilt in July 2026 as PHI 2.0, a four-pillar composite of Recovery, Sleep, Activity and Fitness computed from Mike's Apple Health archive and re-based so 100 equals his 2023 to 2025 normal. That archive reaches back to January 2023, so PHI 2.0 does cover this quarter: January 95.0, February 100.4, March 99.2, averaging 98.20. The quarter ran a little under normal, with no month far from it.\n\nThis is a correction rather than a restatement. There was no figure in this report to restate; the report recorded an absence, and the absence no longer holds. PHI 2.0 is dated by the month it measures, so these three months are the three months of the reporting period.",
-      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+      "link": {
+        "href": "/reports/phi-2.0-methodology",
+        "label": "PHI 2.0 methodology"
+      }
     }
   ]
 }

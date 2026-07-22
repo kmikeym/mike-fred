@@ -441,6 +441,80 @@ export async function loadQuarterlySnapshot(
 }
 
 /**
+ * Metadata describing a published report, as opposed to the data inside it.
+ *
+ * `blurb` is the short line on listing cards and teasers; `summary` is the full
+ * prose, which the report page falls back to when a report has no narrative
+ * block (the 2025 quarters use it for both Executive Summary and Strategic
+ * Outlook).
+ */
+export interface ReportMeta {
+  id: string;
+  title: string;
+  quarter: string;
+  publishedDate: string;
+  blurb: string;
+  summary: string;
+  status: string;
+  updateCount: number;
+}
+
+/**
+ * Every published report, newest first.
+ *
+ * ## Why this exists
+ *
+ * This metadata used to live in two hand-maintained `REPORTS` constants — one in
+ * the listing page, one in the report page — *and* in the quarterly JSON. Three
+ * copies, none authoritative. The JSON copy was never read, so it drifted from
+ * the rendered text in three of six reports without anyone noticing, and the two
+ * TSX copies drifted from each other. When a restated figure needed correcting,
+ * both TSX copies went stale at once, twice (#13, and 56636b4 / 3190ac6).
+ *
+ * The JSON is now the single source: published prose about a report lives with
+ * the report's data, never in a component (STANDARDS.md §9).
+ *
+ * Ordering is derived from `publishedDate` rather than configured, which happens
+ * to reproduce the previous hand-maintained array order exactly.
+ *
+ * A malformed report file throws rather than being skipped — a report vanishing
+ * from the archive is exactly the kind of silent loss #5 was about.
+ */
+export async function loadReportIndex(): Promise<ReportMeta[]> {
+  const dir = path.join(process.cwd(), "data", "quarterly");
+  const files = (await fs.readdir(dir)).filter((f) => f.endsWith(".json"));
+
+  const reports = await Promise.all(
+    files.map(async (file) => {
+      const id = file.replace(/\.json$/, "");
+      let raw: any;
+      try {
+        raw = JSON.parse(await fs.readFile(path.join(dir, file), "utf-8"));
+      } catch (error: any) {
+        throw new Error(`Failed to read report ${id}: ${error?.message ?? error}`, { cause: error });
+      }
+      return {
+        id,
+        title: raw.title,
+        quarter: raw.quarter,
+        publishedDate: raw.publishedDate,
+        blurb: raw.blurb,
+        summary: raw.summary,
+        status: raw.status,
+        updateCount: raw.updates?.length ?? 0,
+      } satisfies ReportMeta;
+    }),
+  );
+
+  return reports.sort((a, b) => b.publishedDate.localeCompare(a.publishedDate));
+}
+
+/** One report's metadata, or null if no such report exists. */
+export async function loadReport(id: string): Promise<ReportMeta | null> {
+  return (await loadReportIndex()).find((r) => r.id === id) ?? null;
+}
+
+/**
  * Shape a parsed quarterly snapshot into the narrative the report page renders.
  *
  * Kept pure and separate from file IO so it can be tested directly.

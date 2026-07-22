@@ -1,76 +1,13 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
-import { loadQuarterlyNarrative } from "@/lib/indicators";
+import { loadReportIndex } from "@/lib/indicators";
 
 export default async function ReportsPage() {
-    const reports = [
-    {
-      id: "phi-2.0-methodology",
-      quarter: "Methodology",
-      title: "Personal Health Index — Rebuilt as PHI 2.0",
-      summary: "The Personal Health Index has been rebuilt on daily Apple Watch data as a four-pillar index (Recovery, Sleep, Activity, Fitness), re-based so 100 = Mike's 2023–2025 normal. The legacy series is preserved as PHI-Classic; the headline moves from 119.5 to 106.0 as a change of scale, not health. Includes an old-vs-new comparison.",
-      publishedDate: "2026-07-17",
-      status: "current",
-    },
-    {
-      id: "q2-2026",
-      quarter: "Q2 2026",
-      title: "State of the MIKE Economy - Q2 2026",
-      summary: "The nomadic quarter that ended in a split. A June 5 layoff drove the indicators in opposite directions for the first time: PPI fell to a record-low 83.75 while PHI set three straight all-time highs (119.5). PWI averaged 122.2, peaking at 134.2 in May before the layoff dipped it to 106.5. KBER crossed 6,000, LMV rebuilt to 11 on a USA-250 film run, and SCI stayed flat. Four of six Q2 tests confirmed.",
-      publishedDate: "2026-07-04",
-      status: "current",
-    },
-    {
-      id: "q1-2026",
-      quarter: "Q1 2026",
-      title: "State of the MIKE Economy - Q1 2026",
-      summary: "Strongest quarter in the dataset. PWI averaged 143.5 (+193% vs Q4) — 'degen quarter' confirmed as sustained regime, not a one-month spike. PWI tripled from Q4 close (58.6) to Q1 close (189.1), up 223% over the quarter. PHI hit 93.5 in March (all-time high). PPI held above baseline through international relocation. Knowledge base added 1,104 notes. SCI finally broke 101.",
-      publishedDate: "2026-04-25",
-      status: "published",
-    },
-    {
-      id: "q4-2025",
-      quarter: "Q4 2025",
-      title: "State of the MIKE Economy - Q4 2025",
-      summary: "Recovery and stabilization quarter. PWI surged +155.9% to 58.6, Media Velocity hit 16 (best month of 2025), Knowledge Base crossed 3,400 notes. All six indicators now actively tracking.",
-      publishedDate: "2026-01-15",
-      status: "published",
-    },
-    {
-      id: "q3-2025",
-      quarter: "Q3 2025",
-      title: "State of the MIKE Economy - Q3 2025",
-      summary: "High-growth productivity quarter with major financial restructuring. PPI surged +6.3% to 105 (peak 2025 performance).",
-      publishedDate: "2025-10-15",
-      status: "published",
-    },
-    {
-      id: "q2-2025",
-      quarter: "Q2 2025",
-      title: "State of the MIKE Economy - Q2 2025",
-      summary: "Stabilization quarter following Q1 employment transition. PPI flat at 98.75, PWI recovered +6.5% to 59.3.",
-      publishedDate: "2025-07-15",
-      status: "published",
-    },
-    {
-      id: "q1-2025",
-      quarter: "Q1 2025",
-      title: "State of the MIKE Economy - Q1 2025",
-      summary: "Transitional quarter marked by employment change. PPI averaged 95.8 (volatile), PWI declined -28.6% during job transition.",
-      publishedDate: "2025-04-15",
-      status: "published",
-    },
-  ];
+  // Report metadata comes from data/quarterly/*.json — the same source the report
+  // pages read. It used to be a hardcoded array here and a second one in
+  // [id]/page.tsx, which drifted from each other and from the JSON (#13).
+  const reports = await loadReportIndex();
 
-  // A published report's summary is never edited, so a summary can quote a figure
-  // that has since been restated (see #11). The listing signals that instead: any
-  // report carrying dated addenda gets a badge and a line saying the summary is as
-  // originally published. The correction itself lives on the report page.
-  const updateCounts: Record<string, number> = {};
-  for (const report of reports) {
-    const narrative = await loadQuarterlyNarrative(report.id);
-    updateCounts[report.id] = narrative?.updates?.length ?? 0;
-  }
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -92,7 +29,7 @@ export default async function ReportsPage() {
             <span className="text-sm opacity-80">Published {formatDate(reports[0].publishedDate)}</span>
           </div>
           <h2 className="text-3xl font-bold mb-3">{reports[0].title}</h2>
-          <p className="text-lg opacity-90 mb-6">{reports[0].summary}</p>
+          <p className="text-lg opacity-90 mb-6">{reports[0].blurb}</p>
           <Link
             href={`/reports/${reports[0].id}`}
             className="inline-flex items-center px-6 py-3 bg-white text-fed-navy rounded-lg font-semibold hover:bg-gray-100 transition-colors"
@@ -121,19 +58,19 @@ export default async function ReportsPage() {
                         Current
                       </span>
                     )}
-                    {(updateCounts[report.id] ?? 0) > 0 && (
+                    {report.updateCount > 0 && (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
                         Updated
                       </span>
                     )}
                   </div>
                   <p className="text-lg text-gray-700 mb-2">{report.title}</p>
-                  <p className="text-sm text-gray-600">{report.summary}</p>
-                  {(updateCounts[report.id] ?? 0) > 0 && (
+                  <p className="text-sm text-gray-600">{report.blurb}</p>
+                  {report.updateCount > 0 && (
                     <p className="text-xs text-amber-800 mt-2">
                       Summary as originally published. This report carries{" "}
-                      {updateCounts[report.id]} dated{" "}
-                      {updateCounts[report.id] === 1 ? "addendum" : "addenda"} describing
+                      {report.updateCount} dated{" "}
+                      {report.updateCount === 1 ? "addendum" : "addenda"} describing
                       subsequent restatements and corrections.
                     </p>
                   )}

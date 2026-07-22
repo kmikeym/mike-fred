@@ -203,6 +203,20 @@ a report may show a figure alongside an addendum explaining that the figure is s
 The single exception is a **methodology document**, which exists to describe the current
 method rather than to record a past view. A wrong number there is a bug; fix it directly.
 
+**Published prose lives with the report's data, never in a component.** A report's
+title, dates, card blurb and summary belong in `data/quarterly/<id>.json`, not in a
+constant inside a page. Text duplicated into a component cannot be corrected by the
+addendum mechanism above, and it drifts: this metadata previously existed in the JSON
+*and* in two hand-maintained `REPORTS` constants, the JSON copy went unread and
+diverged from the rendered text in three of six reports, and both component copies
+went stale together twice when a figure was restated (#13).
+
+One exception, deliberate: **navigation and teaser copy is written fresh, not
+inherited from a published summary.** A report's summary is frozen as published, so
+piping it into a homepage teaser would resurface superseded figures — the Q2 2026
+summary still reads "PHI set three straight all-time highs (119.5)", which is
+correct as history and wrong as a current claim.
+
 **Derived beats hand-maintained.** Any value that *can* be computed from the data MUST be,
 rather than hardcoded. `nextUpdate` was hand-typed in six registry entries, drifted, and
 told the public for weeks that PHI updates in October 2026 (issue #4). Every hardcoded

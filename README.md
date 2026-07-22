@@ -244,7 +244,11 @@ NEXT_PUBLIC_API_URL=https://mike-api.quarterly.systems
 
 ## 📄 License
 
-Private project - © 2025 K5M. All rights reserved.
+**CC0-1.0** — data and code are released into the public domain. No conditions, no
+attribution required. Copy it, fork it, build on it. See [`LICENSE`](LICENSE).
+
+Data conventions and the machine-readable API contract are documented in
+[`STANDARDS.md`](STANDARDS.md).
 
 ## 🔗 Related Projects
 

@@ -8,6 +8,24 @@ This is a Next.js 15 project deployed to Cloudflare Pages that displays personal
 - **Deployment**: Cloudflare Pages (auto-deploy on push to `main`)
 - **Data Source**: CSV files in `/data` directory
 - **Live URL**: https://mike.quarterly.systems
+- **License**: CC0-1.0 (data and code) — see `LICENSE`
+
+## ⚠️ Read STANDARDS.md before touching data
+
+**`STANDARDS.md` is the normative reference for all MIKE data conventions** — date
+semantics, vintages, series identity, note formatting, provenance, and the `/api/v1/`
+machine-readable surface. It is the rule; the code implements it.
+
+Read it before:
+
+- adding an indicator, a CSV column, or an API field
+- changing how a value is calculated or dated
+- publishing anything under `/api/`
+
+**Update `STANDARDS.md` in the same commit** as any change that introduces or alters a
+convention. A conventions doc that lags the code is worse than none — this repo has
+already shipped a hardcoded `nextUpdate` that drifted into telling the public the wrong
+release date.
 
 ## Cloudflare Pages Deployment
 
@@ -87,6 +105,9 @@ Updates are due on the 1st of each month. Two things to update:
 **4. Commit and push to `main`.** Cloudflare auto-rebuilds in 2-5 minutes.
 
 ### Adding New Data Points
+
+> Read `STANDARDS.md` first — especially §3 (date conventions), §6 (values, nulls) and
+> §7 (notes). §12 has the new-indicator checklist.
 
 1. Open the relevant CSV file in `/data/`
 2. Add a new row with the correct format (see table above — PPI has 4 columns, others have 3)

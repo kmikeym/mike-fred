@@ -42,3 +42,6 @@ Thumbs.db
 
 # Bun
 bun.lockb
+
+# Claude Code plugin harnesses (not project code)
+.claude/workflows/

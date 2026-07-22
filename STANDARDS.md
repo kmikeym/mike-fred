@@ -1,0 +1,204 @@
+# MIKE Data Standards
+
+Normative conventions for MIKE economic data — the CSVs, the quarterly reports, and the
+machine-readable API at `/api/v1/`.
+
+**This document is the rule; the code implements it.** If `scripts/build-api.ts` or a CSV
+disagrees with this file, the code is wrong. Read this before adding an indicator, a data
+column, or an API field, and update it in the same commit as the change.
+
+Status: **draft** — ratified conventions, API not yet built. See issue #6.
+
+---
+
+## 1. Scope and audience
+
+MIKE publishes the same data twice:
+
+| Surface | Audience | Format |
+|---|---|---|
+| `mike.quarterly.systems` | humans | HTML, charts, quarterly reports |
+| `/api/v1/` | agents, scripts, LLMs | JSON + JSON Schema |
+
+Both are generated from one source of truth (`data/*.csv` + `lib/indicators.ts`) in one
+build. A machine surface that is hand-maintained alongside the site will drift from it;
+this has already happened once (see §9).
+
+---
+
+## 2. Document envelope
+
+Every JSON document served under `/api/v1/` carries:
+
+```json
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-22T00:00:00Z",
+  "commit": "4372959",
+  "license": "CC0-1.0",
+  "docs": "https://mike.quarterly.systems/api"
+}
+```
+
+- `schema_version` — semver for the document schema, not the data.
+- `generated_at` — ISO 8601 UTC, build time.
+- `commit` — git SHA the build was cut from. Makes any published number reproducible
+  against git history, and lets a consumer cite a specific vintage of the whole dataset.
+- `license` — see §10.
+
+---
+
+## 3. Dates are never ambiguous
+
+MIKE publishes on a **release lag**: a release dated month N reports month N−1's actuals.
+PHI 2.0 instead uses **data-month** dating, where the row date is the month measured.
+Both conventions are legitimate; leaving a consumer to guess which is in play is not.
+
+**Every series declares its convention. Every observation carries both dates.**
+
+```json
+{
+  "date_convention": "release-lag",
+  "observations": [
+    { "date": "2026-07-01",
+      "period": { "start": "2026-06-01", "end": "2026-06-30" },
+      "value": 83.75,
+      "notes": "Severe drop: XCOM2 + Claude Code customizations" }
+  ]
+}
+```
+
+- `date` — when the value was published (the CSV row date).
+- `period` — the span the value actually measures.
+
+`date_convention` is one of `release-lag` | `data-month`. Consumers comparing series
+MUST align on `period`, never on `date`.
+
+All timestamps are ISO 8601. All dates are rendered timezone-independently — never
+via `new Date("YYYY-MM-DD").toLocaleDateString()`, which parses as UTC midnight and
+then formats locally, shifting the day (and, for month-start data, the month).
+
+---
+
+## 4. Vintages
+
+When an indicator's methodology is rebuilt, the old series is **preserved, not
+overwritten**. The superseded series remains fetchable and the current series points
+at it:
+
+```json
+"vintages": [
+  { "id": "phi-classic",
+    "superseded_on": "2026-07-04",
+    "reason": "Rebuilt on Apple Watch recovery/sleep/activity/fitness data (PHI 2.0)",
+    "url": "/api/v1/series/phi-classic.json" }
+]
+```
+
+A vintage is a full series document in its own right and follows every rule here.
+
+Rationale: revisions are normal in economic data — this is why FRED has ALFRED. Without
+vintages, a methodology change silently rewrites history, and any agent that cached the
+old numbers now disagrees with the source for reasons it cannot discover.
+
+---
+
+## 5. Identity
+
+- Series IDs are **permanent**. `ppi` means Personal Productivity Index forever.
+- IDs are lowercase kebab-case, stable across renames. `title` may change freely.
+- A retired ID is **never** reused for a different meaning.
+- Adding a new indicator means adding a registry entry; it appears in the API
+  automatically, with no second edit anywhere.
+
+---
+
+## 6. Values
+
+- Numbers are JSON numbers, never strings.
+- `NaN` and `Infinity` are forbidden — both are invalid JSON and break strict parsers.
+- A missing observation has `"value": null`. It is **never** omitted and **never** `0`.
+  "No data" and "scored zero" must stay distinguishable.
+- Rounding is stated in the series metadata, not applied silently.
+
+---
+
+## 7. Notes
+
+- Free-text UTF-8. May contain commas, em-dashes, semicolons, any punctuation.
+- May be `null`. Never an empty string.
+- **Never truncated.** Note text MUST round-trip byte-for-byte from the CSV to the API.
+
+This is enforced by a build check, because it has failed before: positional
+`split(",")` parsing silently cut every note at its first comma, and the monthly append
+script worked around it by rewriting commas as semicolons — corrupting prose to fit a
+parser bug. See issue #2.
+
+---
+
+## 8. Provenance
+
+Every series states enough for an agent to explain a number, not merely repeat it:
+
+- `unit` — e.g. `Index (2025 avg = 100)`
+- `baseline` — what 100 means and when it was set
+- `calculation` — the formula in prose
+- `source` — where the raw input came from (RescueTime, Apple Health, …)
+- `frequency` — `daily` | `weekly` | `monthly` | `quarterly`
+
+---
+
+## 9. Evolution
+
+**Additive changes are free.** Adding a field is non-breaking and needs no version bump;
+consumers must ignore unknown fields.
+
+**Breaking changes get a new path.** Removing a field, changing its type, or changing what
+it means requires `/api/v2/`, served alongside v1 during a stated overlap.
+
+**Nothing vanishes silently.** Retired fields and series are marked `"deprecated": true`
+with a `sunset` date before removal.
+
+**Derived beats hand-maintained.** Any value that *can* be computed from the data MUST be,
+rather than hardcoded. `nextUpdate` was hand-typed in six registry entries, drifted, and
+told the public for weeks that PHI updates in October 2026 (issue #4). Every hardcoded
+date is a future inconsistency.
+
+---
+
+## 10. Licensing
+
+Everything in this repository — data and code — is released under **CC0-1.0**: public
+domain, no conditions, no attribution required. Copy it, fork it, build on it, sell it.
+No permission needed.
+
+- **Data** (`data/**`, everything under `/api/`): CC0-1.0. Matches the norm for public
+  statistical data.
+- **Code**: CC0-1.0. Noted trade-off: some corporate open-source policies disallow
+  CC0-licensed *software* because CC0 expressly declines to grant patent rights, where
+  MIT is silent on them. If broad corporate reuse ever becomes a goal, relicensing the
+  code half to MIT is the conventional fix.
+
+---
+
+## 11. Compatibility promise
+
+Within a major version, MIKE will not:
+
+- rename or repurpose a series ID
+- change the meaning of an existing field
+- remove a field without a deprecation period
+- alter a historical value without publishing the prior series as a vintage
+
+MIKE makes **no** uptime or latency guarantee. The API is static JSON on a CDN; treat it
+as files, cache it freely, and expect it to change only when a build runs.
+
+---
+
+## 12. Checklist: adding a new indicator
+
+1. Add the CSV to `data/`, following §3 (declare the date convention) and §7 (notes).
+2. Add the `INDICATOR_REGISTRY` entry with full §8 provenance.
+3. Confirm no hardcoded dates were introduced (§9).
+4. Run the build; the validator confirms the new series appears in the API.
+5. Update this document if the addition introduced a new convention.

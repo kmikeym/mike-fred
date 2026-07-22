@@ -106,3 +106,14 @@ test("every note in every shipped CSV round-trips byte-for-byte", async () => {
     });
   }
 });
+
+test("estimated values are flagged so they cannot be mistaken for measurements", async () => {
+  // STANDARDS.md §6: an interpolated or back-filled value must announce itself.
+  // Regression guard for phi-classic's February 2026 row (#9 D2), which was a
+  // duplicate of March before it was replaced with a flagged interpolation.
+  const dir = path.join(process.cwd(), "data");
+  const feb = (await parseCSV(path.join(dir, "phi-classic.csv"))).find((p) => p.date === "2026-03-01");
+
+  expect(feb!.notes?.startsWith("ESTIMATED")).toBe(true);
+  expect(feb!.notes).toContain("midpoint");
+});

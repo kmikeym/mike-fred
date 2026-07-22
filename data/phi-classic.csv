@@ -4,7 +4,7 @@ date,value,notes
 2025-12-01,75.0,November health data
 2026-01-01,88.7,December health data
 2026-02-01,79.2,Sleep 7.25h avg, 16 workout days, weight 180.2 avg
-2026-03-01,93.5,March — all-time high (better sleep + lower weight)
+2026-03-01,86.4,ESTIMATED — not a measurement. February 2026 was never recorded; this row originally duplicated March's value and note. Interpolated as the midpoint of Jan (79.2) and Mar (93.5) = 86.35, rounded to 86.4.
 2026-04-01,93.5,April release — March data (better sleep + lower weight)
 2026-05-01,102.8,May release — sleep 7h35m avg
 2026-06-01,114.3,Sleep 8h09m avg (28 logged days); strong health month

@@ -130,6 +130,16 @@ old numbers now disagrees with the source for reasons it cannot discover.
 - `NaN` and `Infinity` are forbidden — both are invalid JSON and break strict parsers.
 - A missing observation has `"value": null`. It is **never** omitted and **never** `0`.
   "No data" and "scored zero" must stay distinguishable.
+- An **estimated** value — interpolated, back-filled, or otherwise not measured — MUST
+  begin its note with `ESTIMATED` and state the method and inputs. Prefer `null` where a
+  gap is acceptable; estimate only when a break would misrepresent a series (for example
+  a hole in a chart implying a collapse rather than a missing reading). The marker exists
+  so an estimate is detectable by machine, not only by a human reading prose: an
+  unflagged interpolation is indistinguishable from a measurement, which is worse than
+  an honest gap.
+
+  Currently one row carries this marker: `phi-classic.csv` `2026-03-01` (February 2026,
+  never recorded — the row originally duplicated March).
 - Rounding is stated in the series metadata, not applied silently.
 
 ---

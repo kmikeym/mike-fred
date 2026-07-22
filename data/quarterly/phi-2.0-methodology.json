@@ -10,7 +10,7 @@
     "sections": [
       {
         "title": "Old PHI vs. New PHI",
-        "body": "Both indices tell the same story through late 2025 and 2026 — a dip into the winter, then a climb. They sit at different levels because they are measured on different scales: PHI-Classic on its own legacy baseline, PHI 2.0 re-based so that 100 equals Mike's 2023–2025 normal. The parallel trajectory is the point: the rebuild sharpened the resolution without inventing a different history."
+        "body": "Both indices tell the same story through late 2025 and 2026 — a dip into the winter, then a climb. They sit at different levels because they are measured on different scales: PHI-Classic on its own legacy baseline, PHI 2.0 re-based so that 100 equals Mike's 2023–2025 normal. The parallel trajectory is the point: the rebuild sharpened the resolution without inventing a different history.\n\nOne caveat on the comparison: PHI-Classic's February 2026 reading was never recorded — the published row duplicated March's value. Rather than leave a hole in the line, that point is shown as the midpoint of January and March (86.4) and is flagged as an estimate in the underlying data. It is the only interpolated point in either series."
       },
       {
         "title": "Why the headline moved from 119.5 to 106",

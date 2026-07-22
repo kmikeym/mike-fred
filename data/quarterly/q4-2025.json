@@ -103,5 +103,26 @@
     "PPI settled at baseline (100) after Q3 peak — natural post-sprint deceleration",
     "All six indicators now actively tracking for first full-data quarter",
     "Social capital flat at +0.4% — weakest performer, needs strategic attention"
+  ],
+
+  "updates": [
+    {
+      "date": "2026-07-22",
+      "title": "Health Index figures restated under PHI 2.0",
+      "body": "The Health Index figures in this report are PHI-Classic, the index in publication when the report was released. PHI was rebuilt in July 2026 as PHI 2.0, a four-pillar composite of Recovery, Sleep, Activity and Fitness computed from Mike's Apple Health archive and re-based so 100 equals his 2023 to 2025 normal.\n\nUnder PHI 2.0 this quarter reads October 85.8, November 85.5, December 90.7, averaging 87.33 and closing at 90.7. As published it read 71.4, 77.9 and 75.0, averaging 74.77 and closing at 75.0. The two indices sit on different baselines, so the level difference is a change of scale rather than a change in health. The shape differs too: PHI-Classic put the quarter's peak in the middle and closed lower, PHI 2.0 closes the quarter at its high. Note that this report also dates its monthly figures one month late, which is disclosed separately below.\n\nOne finding the report could not have reached. At 87.33 this is the weakest quarter in the entire PHI 2.0 series, which now runs from January 2023 to the present. The report describes a mild dip with November as the health peak. With three years of context behind it, the relocation quarter reads as the deepest health trough on record rather than a wobble, and the recovery that begins in Q1 2026 starts from a lower place than anyone knew at the time.",
+      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+    },
+    {
+      "date": "2026-07-22",
+      "title": "Wealth Index figures predate the March 2026 rebase",
+      "body": "The Wealth Index figures in this report are on the original open-ended scale. PWI was rebased on 2026-04-24 (commit 4dc6be2) so that March 2026 equals 100, where one index point is $376.24 of net worth.\n\nAs published, the quarter read 49.8, 38.4 and 58.6, closing at 58.6. On the current scale it reads 6.6, 5.1 and 31.0, closing at 31.0. December's recovery is real on both scales. What does not survive the rebase is the reported +155.9% quarterly change, which was inflated by a roughly fourfold scale break between the November and December readings on the old scale.\n\nA note to this effect was added inline to the Wealth Index commentary on 2026-04-25, before this site adopted dated addenda. That note is left in place; this entry restates the mapping in the standard format so the correction appears alongside the others.",
+      "link": { "href": "/reports/q1-2026", "label": "Q1 2026 report, where the rebase was published" }
+    },
+    {
+      "date": "2026-07-22",
+      "title": "Correction: the monthly figures are dated one month late",
+      "body": "This report reads each data row's date as the month the data describes. It is not. MIKE publishes most series on a release lag, where a row dated month N carries month N-1's actuals.\n\nSo the figures labeled October, November and December in this report are September, October and November. This applies across the report, not only to health: PPI, KBER, SCI, PWI, LMV and the PHI-Classic figures were all release-lag dated at the time. The values themselves are correct. Only the months they belong to move.\n\nThe quarterly averages and the direction of every trend are unaffected, and the Q2 2026 report is the first to read the convention correctly. PHI 2.0, by contrast, is dated by the month it measures, which is why the restated health figures above line up with the calendar quarter and the published ones do not.",
+      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+    }
   ]
 }

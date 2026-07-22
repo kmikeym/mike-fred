@@ -56,5 +56,14 @@
     "Exceptional reading/viewing in January (20 points) not sustained",
     "March showed recovery signs: PPI back to 98.75, media engagement at 11 points",
     "Three indicators (KBER, SCI, PHI) not yet tracking in Q1 period"
+  ],
+
+  "updates": [
+    {
+      "date": "2026-07-22",
+      "title": "Correction: the Health Index does cover this quarter",
+      "body": "This report records no Health Index data for Q1 2025 and states that tracking began in October 2025. That was true of PHI-Classic, the index in publication at the time, whose series starts in October 2025.\n\nPHI was rebuilt in July 2026 as PHI 2.0, a four-pillar composite of Recovery, Sleep, Activity and Fitness computed from Mike's Apple Health archive and re-based so 100 equals his 2023 to 2025 normal. That archive reaches back to January 2023, so PHI 2.0 does cover this quarter: January 95.0, February 100.4, March 99.2, averaging 98.20. The quarter ran a little under normal, with no month far from it.\n\nThis is a correction rather than a restatement. There was no figure in this report to restate; the report recorded an absence, and the absence no longer holds. PHI 2.0 is dated by the month it measures, so these three months are the three months of the reporting period.",
+      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+    }
   ]
 }

@@ -6,11 +6,7 @@ export default async function EmbedWidget() {
   const indicators = await loadAllIndicators();
 
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>MIKE At a Glance</title>
+    <>
         <style dangerouslySetInnerHTML={{ __html: `
           * {
             margin: 0;
@@ -95,8 +91,6 @@ export default async function EmbedWidget() {
             text-decoration: underline;
           }
         `}} />
-      </head>
-      <body>
         <div className="widget">
           <div className="header">
             <a href="https://mike.quarterly.systems" target="_blank" rel="noopener noreferrer">
@@ -139,7 +133,6 @@ export default async function EmbedWidget() {
             </a>
           </div>
         </div>
-      </body>
-    </html>
+    </>
   );
 }

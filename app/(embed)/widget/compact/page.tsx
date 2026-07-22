@@ -6,11 +6,7 @@ export default async function CompactWidget() {
   const indicators = await loadAllIndicators();
 
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>MIKE Economy Widget</title>
+    <>
         <style dangerouslySetInnerHTML={{ __html: `
           * {
             margin: 0;
@@ -91,8 +87,6 @@ export default async function CompactWidget() {
             }
           }
         `}} />
-      </head>
-      <body>
         <div className="widget">
           <div className="header">
             <img src="/mike-logo-w150.png" alt="MIKE Economic Data" className="logo" />
@@ -117,7 +111,6 @@ export default async function CompactWidget() {
             ))}
           </div>
         </div>
-      </body>
-    </html>
+    </>
   );
 }

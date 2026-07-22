@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
+import { loadQuarterlyNarrative } from "@/lib/indicators";
 
-export default function ReportsPage() {
+export default async function ReportsPage() {
     const reports = [
     {
       id: "phi-2.0-methodology",
@@ -61,6 +62,16 @@ export default function ReportsPage() {
     },
   ];
 
+  // A published report's summary is never edited, so a summary can quote a figure
+  // that has since been restated (see #11). The listing signals that instead: any
+  // report carrying dated addenda gets a badge and a line saying the summary is as
+  // originally published. The correction itself lives on the report page.
+  const updateCounts: Record<string, number> = {};
+  for (const report of reports) {
+    const narrative = await loadQuarterlyNarrative(report.id);
+    updateCounts[report.id] = narrative?.updates?.length ?? 0;
+  }
+
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-8">
@@ -110,9 +121,22 @@ export default function ReportsPage() {
                         Current
                       </span>
                     )}
+                    {(updateCounts[report.id] ?? 0) > 0 && (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
+                        Updated
+                      </span>
+                    )}
                   </div>
                   <p className="text-lg text-gray-700 mb-2">{report.title}</p>
                   <p className="text-sm text-gray-600">{report.summary}</p>
+                  {(updateCounts[report.id] ?? 0) > 0 && (
+                    <p className="text-xs text-amber-800 mt-2">
+                      Summary as originally published. This report carries{" "}
+                      {updateCounts[report.id]} dated{" "}
+                      {updateCounts[report.id] === 1 ? "addendum" : "addenda"} describing
+                      subsequent restatements and corrections.
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">

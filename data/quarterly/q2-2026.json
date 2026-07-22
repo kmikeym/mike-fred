@@ -115,5 +115,20 @@
       "KBER crossed 6,000 notes to 6,158, but growth decelerated to ~3.6% MoM off an April peak near 18% (+13.6%)",
       "SCI flat all quarter near 101.2 — the longest stall in the dataset, with the July 11 Summit as its dated test (-0.07%)",
       "LMV rebuilt to 11 on a curated eight-film 'American' run into USA 250 (+57.1%)"
-    ]
+    ],
+
+  "updates": [
+    {
+      "date": "2026-07-22",
+      "title": "Health Index figures restated under PHI 2.0",
+      "body": "The Health Index figures in this report are PHI-Classic, the index in publication when the report was released two weeks before the rebuild. PHI was rebuilt in July 2026 as PHI 2.0, a four-pillar composite of Recovery, Sleep, Activity and Fitness computed from Mike's Apple Health archive and re-based so 100 equals his 2023 to 2025 normal.\n\nUnder PHI 2.0 this quarter reads April 101.6, May 113.2, June 106.0, averaging 106.93 and closing at 106.0. As published it read 102.8, 114.3 and 119.5, averaging 112.2 and closing at 119.5. This report dates its months correctly, so the two sets line up month for month.\n\nThe quarter's central finding changes. As published, health climbed every month and set a record in each, rising through a layoff, three settings and a court appearance. Under PHI 2.0, April declined slightly from March's 102.6, May set the record at 113.2, and June gave part of it back at 106.0. One record in the quarter, not three. The claim survives in weaker form and is still the quarter's best line: health held above normal through serious disruption, and June's 106.0 is above the 2023 to 2025 baseline. But \"rose right through the shock\" becomes \"rose, then softened as the shock landed.\"\n\nJune is worth reading closely, because it is the clearest worked example of why the index was rebuilt. PHI-Classic scored June an all-time high precisely because of workout volume, 30 logged sessions, and it discounted the worse sleep that came with them. PHI 2.0 scored June down, because its Sleep pillar is 0.60 times duration plus 0.40 times consistency, and June's 30 logged nights averaged about 7.14 hours with several between 2.7 and 5.7. Sleep scored 90.8, soft. Same month, same underlying life, opposite verdicts. The disagreement is exactly the signal the old index could not see.",
+      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+    },
+    {
+      "date": "2026-07-22",
+      "title": "Corrections: the record claims and the year-over-year note",
+      "body": "The record claims. This report calls June's 119.5 the highest PHI reading ever recorded and the third consecutive all-time high inside the quarter, and states that PHI set an all-time high in every month. All three statements were true of PHI-Classic when published. None is true of the index now in publication. Under PHI 2.0, April declined, June declined, and the quarter contains one record: May at 113.2. That one is a genuine series high, above January 2023's 112.4 and the highest reading in the rebuilt series.\n\nYear-over-year availability. This report states that PHI, KBER and SCI began tracking in October 2025, so their first complete year-over-year read arrives in Q4 2026. That still holds for KBER and SCI. It does not hold for PHI, whose rebuilt series reaches back to January 2023: Q2 2025 averaged 103.13 against Q2 2026's 106.93, a gain of 3.7%. The strongest quarter of 2025 and the strongest quarter of 2026 to date, under four points apart.\n\nThese are corrections to claims, not restatements of figures. The figures are restated in the entry above; the sentences that described them stay as published.",
+      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+    }
+  ]
 }

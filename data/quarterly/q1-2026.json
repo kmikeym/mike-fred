@@ -108,5 +108,26 @@
     "SCI broke 101 for the first time — Q4's flat line is over (+0.83%); Vibes YouTube channel grew 40 → 700+ subs over the employment window (parallel track)",
     "PPI held above 100 baseline through international relocation + major personal transition (102.5 average, neutral)",
     "LMV down to 8.67 average — Kosovo departure logistics compressed media consumption (-56.3%)"
+  ],
+
+  "updates": [
+    {
+      "date": "2026-07-22",
+      "title": "Health Index figures restated under PHI 2.0",
+      "body": "The Health Index figures in this report are PHI-Classic, the index in publication when the report was released. PHI was rebuilt in July 2026 as PHI 2.0, a four-pillar composite of Recovery, Sleep, Activity and Fitness computed from Mike's Apple Health archive and re-based so 100 equals his 2023 to 2025 normal.\n\nUnder PHI 2.0 this quarter reads January 91.2, February 102.7, March 102.6, averaging 98.83 and closing at 102.6. As published it read 88.7, 79.2 and 93.5, averaging 87.13 and closing at 93.5. The two indices sit on different baselines, so the level difference is a change of scale rather than a change in health.\n\nThe shape is a different matter. This report describes a February dip to 79.2 during travel and pre-Kosovo transition. That figure is January's data carrying a February label, for the reason disclosed in the dating correction below, and PHI 2.0 shows no January decline: 91.2 against December's 90.7. What both indices agree on is the rise into February and the flat, near-normal finish. The dip the narrative explains is largely an artifact of how the row was dated.\n\nThe quarter's standing also changes. On PHI-Classic this was a record-setting quarter. On PHI 2.0 it is a recovery quarter, 98.83 against Q4 2025's 87.33, climbing back to normal from the weakest stretch in the series rather than breaking new ground.",
+      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+    },
+    {
+      "date": "2026-07-22",
+      "title": "Wealth Index figures are on the pre-rebase scale",
+      "body": "The Wealth Index figures in the body of this report are on the original open-ended scale. The rebase that retired that scale was published with this report and is described in the Wealth Index commentary: from 2026-04-24 (commit 4dc6be2), March 2026 equals 100, where one index point is $376.24 of net worth.\n\nRestated in one place for readers arriving from the other quarterly reports: as published the quarter read 31.7, 209.7 and 189.1, averaging 143.5 and closing at 189.1. On the current scale it reads 16.8, 110.9 and 100.0, averaging 75.9 and closing at 100.0.\n\nThis entry adds no new information to the report. It exists so the scale change is disclosed in the same format on every report it touches, rather than only in the one report that happened to announce it.",
+      "link": { "href": "/series/revenue", "label": "PWI series, current scale" }
+    },
+    {
+      "date": "2026-07-22",
+      "title": "Corrections: three claims that no longer hold",
+      "body": "Dating. This report reads each data row's date as the month the data describes. It is not. Most MIKE series publish on a release lag, where a row dated month N carries month N-1's actuals. The figures labeled January, February and March are December, January and February, across every indicator in the report and not only health. The values are correct; the months they belong to move. Q2 2026 is the first report to read the convention correctly.\n\nThe record claim. This report calls March's 93.5 the highest PHI reading ever recorded. That was true of PHI-Classic when published, and it is not true of the index now in publication: under PHI 2.0 the highest month of this quarter is February at 102.7, and the highest reading in the series through Q1 2026 is January 2023 at 112.4. Two things about the 93.5 are worth recording. It was read from the 2026-03-01 row, which at the time carried the note \"March, all-time high\" and the same value as the row that followed it. February 2026 was never recorded in PHI-Classic; that row now carries a flagged interpolation of 86.4, and the 93.5 belongs to the March release alone.\n\nYear-over-year availability. This report states that KBER, SCI and PHI will have full year-over-year reads starting Q4 2026. That still holds for KBER and SCI. It does not hold for PHI, whose rebuilt series reaches back to January 2023: Q1 2025 averaged 98.20 against Q1 2026's 98.83, a gain of 0.6%. A year of upheaval and recovery that lands almost exactly where it started.",
+      "link": { "href": "/reports/phi-2.0-methodology", "label": "PHI 2.0 methodology" }
+    }
   ]
 }

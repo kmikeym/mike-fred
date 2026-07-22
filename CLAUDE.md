@@ -27,6 +27,55 @@ convention. A conventions doc that lags the code is worse than none — this rep
 already shipped a hardcoded `nextUpdate` that drifted into telling the public the wrong
 release date.
 
+## Comment the *why*, in the code
+
+**Every exported function in `lib/` carries a docblock explaining why it exists,
+not just what it does.** Keep it that way. Several of this project's worst bugs
+were invisible precisely because the reasoning lived nowhere:
+
+- `parseCSV` looks over-engineered until you know notes contain commas and the
+  naive version silently truncated them on the live site (#2).
+- `loadQuarterlySnapshot` returning `null` looks like a swallowed error until you
+  know `null` means "this document wants live values" (#5).
+- `INDICATOR_REGISTRY.dateConvention` looks redundant until you know the
+  convention was stated in prose in five places and wrong in three (#12).
+
+Rules of thumb:
+
+1. **Document the decision, not the syntax.** `// increment i` is noise;
+   `// claimed from the right, because a note never parses as a bare number` is
+   the thing a reader cannot reconstruct.
+2. **Name the failure it prevents.** If a line exists because something broke,
+   say so and cite the issue. That is what stops a future cleanup from "tidying"
+   it away.
+3. **Record what `null`/empty/absent means.** Sentinel values are where intent
+   goes to hide.
+4. **When behaviour is non-obvious, add a test that states it** — a test is a
+   comment that fails when it becomes untrue.
+
+### Where each kind of knowledge lives
+
+| Knowledge | Home |
+|---|---|
+| Why a function works this way | docblock on the function |
+| Why a line exists | inline comment citing the issue |
+| Data conventions and rules | `STANDARDS.md` (normative) |
+| How to run/update/deploy the project | this file |
+| What changed and why | commit messages |
+
+### How report pages get their data
+
+Worth knowing before touching `/reports`:
+
+- A **quarterly report** renders indicator values frozen in
+  `data/quarterly/<id>.json` at publication, so an old report shows that
+  quarter's numbers, not today's.
+- A report with **no `indicators` key** (only the PHI 2.0 methodology report)
+  renders **live** values on purpose.
+- A **corrupt** snapshot throws and fails the build. It used to fall back to live
+  data silently, which made a 2025 report display 2026 numbers (#5).
+- **Addenda** (`updates`) are appended, never edited — see `STANDARDS.md` §9.
+
 ## Cloudflare Pages Deployment
 
 This project requires the `@cloudflare/next-on-pages` adapter to convert Next.js SSG output to Cloudflare Workers format.

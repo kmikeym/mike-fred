@@ -87,6 +87,11 @@ export default async function ReportPage({ params }: PageProps) {
   }
 
   // Load quarterly snapshot data and narrative
+  // A published report shows the values frozen at publication, so it reads as a
+  // record rather than a dashboard. `null` means this document has no snapshot
+  // and wants live values — the PHI 2.0 methodology report is the only one, since
+  // it describes the index as it stands now rather than reporting a quarter.
+  // A corrupt snapshot now throws rather than landing here; see loadQuarterlySnapshot.
   const snapshotData = await loadQuarterlySnapshot(id);
   const indicators = snapshotData || await loadAllIndicators();
   const narrative = await loadQuarterlyNarrative(id);

@@ -6,7 +6,27 @@ import type { IndicatorId, IndicatorMetadata, DataPoint, Indicator, TrendDirecti
 import { promises as fs } from "fs";
 import path from "path";
 
-// Indicator metadata registry
+/**
+ * The single source of truth for what each indicator IS.
+ *
+ * Everything describing a series lives here — title, units, provenance, and two
+ * fields that are load-bearing rather than descriptive:
+ *
+ * - `dateConvention` — whether a row is dated by its release month or the month
+ *   it measures. Read by the site *and* by `scripts/mike-fred-append-month.sh`
+ *   (via `bun -e`), so the write path cannot drift from the read path.
+ * - `valueSource` — whether this repo can compute the value. The append script
+ *   refuses to derive one for an `external` series.
+ *
+ * Both are typed rather than documented in prose because prose drifted: the date
+ * convention was stated in five places and was wrong in three of them (#12).
+ * TypeScript now requires a new indicator to declare both, so a seventh series
+ * cannot silently inherit the wrong one.
+ *
+ * Deliberately absent: `lastUpdate` and `nextUpdate`. Both are derived from the
+ * data at load time. Hardcoding them is how PHI came to advertise an October
+ * release date for weeks (#4). See STANDARDS.md §9.
+ */
 export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
   "ppi": {
     id: "ppi",
@@ -100,11 +120,31 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
   },
 };
 
-/**
- * Parse CSV data file
- */
 const NUMERIC = /^-?\d+(\.\d+)?$/;
 
+/**
+ * Parse one indicator's CSV into data points.
+ *
+ * ## Why this isn't a one-line `split(",")`
+ *
+ * Notes are free prose and routinely contain commas ("3 books, 3 films";
+ * "Based in Koreatown, LA."). The original parser took field 2 as the note,
+ * which silently truncated every such note at its first comma — live on the
+ * site, and worked around by a script that rewrote commas as semicolons,
+ * corrupting the prose to fit the bug (#2).
+ *
+ * So the note is not a field, it is *everything between* the leading columns and
+ * the trailing ones. The header tells us how many trailing columns there are:
+ * `date,value,notes` for most series, `date,value,notes,pulse,hours` for ppi.
+ * Those trailing columns are claimed from the right, which stays unambiguous
+ * because a note never parses as a bare number.
+ *
+ * Empty counts as a trailing column, because an omitted optional value may be
+ * written either as `...,80,` or `...,80` — the append script emits the former.
+ *
+ * Invariant, enforced by test: note text round-trips byte-for-byte from the CSV
+ * (STANDARDS.md §7).
+ */
 export async function parseCSV(filePath: string): Promise<DataPoint[]> {
   const content = await fs.readFile(filePath, "utf-8");
   const lines = content.trim().split("\n");
@@ -285,15 +325,68 @@ export async function loadAllIndicators(): Promise<Indicator[]> {
 }
 
 /**
- * Load quarterly snapshot data
+ * Load the frozen indicator values for a published report.
+ *
+ * ## Why this exists
+ *
+ * A quarterly report is a *record*, not a dashboard. Its six indicator cards must
+ * show what was true in that quarter — Q1 2025 shows PWI at its 2025 level, not
+ * today's. Those values are frozen in `data/quarterly/<id>.json` when the report
+ * is published, and this reads them back. Without it, opening an old report would
+ * silently show current numbers, which is the same "gaslighting" problem the
+ * annotate-only rule guards against (STANDARDS.md §9).
+ *
+ * ## What `null` means
+ *
+ * `null` is a real answer, not a failure: **render live values instead**. The
+ * caller does `snapshotData || await loadAllIndicators()`. Exactly one document
+ * relies on this — the PHI 2.0 methodology report, which is not a quarter. It has
+ * narrative and highlights but no `indicators` key, and its cards *should* show
+ * current values, because it describes the index as it stands now.
+ *
+ * ## The three states, and why they are separated
+ *
+ * | input                     | result | meaning                        |
+ * |---------------------------|--------|--------------------------------|
+ * | snapshot with `indicators`| frozen | show the historical quarter    |
+ * | no `indicators` key       | `null` | deliberate — show live values  |
+ * | missing file (ENOENT)     | `null` | no snapshot exists yet         |
+ * | malformed / unreadable    | throws | fail the build, loudly         |
+ *
+ * These used to be two states, not four: reading `snapshot.indicators` on an
+ * absent key threw a TypeError, which the same catch-all swallowed as malformed
+ * JSON. So a one-character typo in a quarterly file made a 2025 report render
+ * 2026 numbers — with a green build and no warning (#5). The "no indicators"
+ * case is now an explicit check, which frees the catch to be strict.
+ *
+ * @param quarterId report id, matching the filename in `data/quarterly/`
+ * @param dir       override the data directory (tests only)
  */
-export async function loadQuarterlySnapshot(quarterId: string): Promise<Indicator[] | null> {
-  const snapshotPath = path.join(process.cwd(), "data", "quarterly", `${quarterId}.json`);
+export async function loadQuarterlySnapshot(
+  quarterId: string,
+  dir?: string,
+): Promise<Indicator[] | null> {
+  const snapshotPath = path.join(dir ?? path.join(process.cwd(), "data", "quarterly"), `${quarterId}.json`);
 
+  let snapshot: any;
   try {
-    const content = await fs.readFile(snapshotPath, "utf-8");
-    const snapshot = JSON.parse(content);
+    snapshot = JSON.parse(await fs.readFile(snapshotPath, "utf-8"));
+  } catch (error: any) {
+    // A missing file is expected — not every report has a snapshot. Anything
+    // else (malformed JSON, unreadable file) is a real fault and must not be
+    // downgraded into "just show live data".
+    if (error?.code === "ENOENT") return null;
+    throw new Error(`Failed to read quarterly snapshot ${quarterId}: ${error?.message ?? error}`, {
+      cause: error,
+    });
+  }
 
+  // Not every report is a quarter. A document without an `indicators` section is
+  // asking for live values, which the caller supplies. This must be checked
+  // before the loop below, or an absent key throws and looks like corruption.
+  if (!snapshot.indicators) return null;
+
+  {
     // Transform snapshot data into Indicator[] format
     const indicators: Indicator[] = [];
 
@@ -338,9 +431,6 @@ export async function loadQuarterlySnapshot(quarterId: string): Promise<Indicato
     }
 
     return indicators;
-  } catch (error) {
-    // If snapshot doesn't exist, return null to fall back to current data
-    return null;
   }
 }
 

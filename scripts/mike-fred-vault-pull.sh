@@ -14,8 +14,28 @@
 
 set -euo pipefail
 
-VAULT="/Users/kmikeym/Documents/K5M"
-DAILY="$VAULT/1. Daily Notes"
+# Vault location. Override either value in the environment; both default to the
+# layout this repo's author uses, expressed relative to $HOME so the script is
+# portable to anyone who clones it.
+#
+#   MIKE_FRED_VAULT       path to the Obsidian vault      (default ~/Documents/K5M)
+#   MIKE_FRED_DAILY_DIR   daily-notes dir inside the vault (default "1. Daily Notes")
+VAULT="${MIKE_FRED_VAULT:-$HOME/Documents/K5M}"
+DAILY="$VAULT/${MIKE_FRED_DAILY_DIR:-1. Daily Notes}"
+
+if [ ! -d "$VAULT" ]; then
+  echo "error: no Obsidian vault at $VAULT" >&2
+  echo "set MIKE_FRED_VAULT to your vault path, e.g." >&2
+  echo "  MIKE_FRED_VAULT=\"\$HOME/Obsidian/MyVault\" $0 ${1:-}" >&2
+  exit 1
+fi
+
+if [ ! -d "$DAILY" ]; then
+  echo "error: no daily-notes directory at $DAILY" >&2
+  echo "set MIKE_FRED_DAILY_DIR to its name inside the vault, e.g." >&2
+  echo "  MIKE_FRED_DAILY_DIR=\"Daily\" $0 ${1:-}" >&2
+  exit 1
+fi
 
 # Default to last month (zsh/bash portable-ish; uses BSD date on macOS).
 if [ "${1:-}" != "" ]; then

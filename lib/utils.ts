@@ -2,12 +2,29 @@
  * MIKE Federal Reserve - Utility Functions
  */
 
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Parse a date for display.
+ *
+ * `new Date("2026-07-01")` parses as UTC midnight, so formatting it in a
+ * negative-UTC-offset zone renders the previous day — and since every MIKE
+ * observation falls on the 1st, that shifts the month (and at January, the
+ * year). Date-only strings are therefore parsed as local calendar dates, so a
+ * given YYYY-MM-DD always renders as itself. See STANDARDS.md §3.
+ */
+function toCalendarDate(date: string | Date): Date {
+  if (typeof date !== "string") return date;
+  if (!DATE_ONLY.test(date)) return new Date(date);
+  const [year, month, day] = date.split("-").map(Number) as [number, number, number];
+  return new Date(year, month - 1, day);
+}
+
 /**
  * Format date for display
  */
 export function formatDate(date: string | Date): string {
-  const d = typeof date === "string" ? new Date(date) : date;
-  return d.toLocaleDateString("en-US", {
+  return toCalendarDate(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -18,8 +35,7 @@ export function formatDate(date: string | Date): string {
  * Format date as short version
  */
 export function formatDateShort(date: string | Date): string {
-  const d = typeof date === "string" ? new Date(date) : date;
-  return d.toLocaleDateString("en-US", {
+  return toCalendarDate(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",

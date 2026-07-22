@@ -24,7 +24,7 @@
 #   PWI   --wealth V                        [--pwi-note "..."]   value = V (wealth index, ask Mike)
 #   LMV   --lmv-value V                     [--lmv-note "..."]   value = V (books+films points)
 #
-# Notes must not contain commas (positional CSV parsing) — any commas are auto-converted to ';'.
+# Notes may contain commas and ordinary punctuation (STANDARDS.md §7). Newlines are collapsed.
 
 set -euo pipefail
 
@@ -68,8 +68,10 @@ done
 echo "$MONTH" | grep -qE '^[0-9]{4}-[0-9]{2}$' || { echo "ERROR: --month must be YYYY-MM (e.g. 2026-07)." >&2; exit 2; }
 ROWDATE="${MONTH}-01"
 
-# scrub commas out of a note field (positional CSV)
-scrub() { echo "$1" | tr ',' ';'; }
+# Notes may contain commas — the parser claims trailing numeric columns from the right,
+# so the note keeps its punctuation (STANDARDS.md §7). Newlines would still break the
+# one-row-per-line format, so collapse those.
+scrub() { printf '%s' "$1" | tr '\n\r' '  '; }
 
 # guard: refuse to double-append a month already present in a file
 present() { [ -f "$1" ] && cut -d, -f1 "$1" | grep -qx "$ROWDATE"; }

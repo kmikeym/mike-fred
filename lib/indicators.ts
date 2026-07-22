@@ -103,10 +103,17 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
 /**
  * Parse CSV data file
  */
-async function parseCSV(filePath: string): Promise<DataPoint[]> {
+const NUMERIC = /^-?\d+(\.\d+)?$/;
+
+export async function parseCSV(filePath: string): Promise<DataPoint[]> {
   const content = await fs.readFile(filePath, "utf-8");
   const lines = content.trim().split("\n");
   const headers = lines[0]?.split(",") || [];
+
+  // Layouts are date,value,notes (most series) and date,value,notes,pulse,hours (ppi).
+  // The header tells us how many numeric columns trail the note; everything between
+  // column 2 and those trailing columns IS the note, commas included (STANDARDS.md §7).
+  const trailingColumns = Math.max(0, headers.length - 3);
 
   const data: DataPoint[] = [];
 
@@ -115,13 +122,26 @@ async function parseCSV(filePath: string): Promise<DataPoint[]> {
     if (!line) continue;
     const values = line.split(",");
     if (values.length >= 2 && values[0] && values[1]) {
-      // ppi.csv layout: date,value,notes,pulse,hours — capture hours (col 5) when present
-      const hoursRaw = values[4]?.trim();
+      // Claim trailing numeric-or-empty fields from the right. A note never parses as
+      // a bare number, so this stays unambiguous even when the note contains commas.
+      // Empty counts because an omitted optional column may be written either as a
+      // trailing empty field (`...,80,`) or by stopping early (`...,80`).
+      const trailing: string[] = [];
+      let end = values.length;
+      while (trailing.length < trailingColumns && end > 3) {
+        const field = values[end - 1]!.trim();
+        if (field !== "" && !NUMERIC.test(field)) break;
+        trailing.unshift(field);
+        end--;
+      }
+
+      const hoursRaw = trailing.length === trailingColumns ? trailing[trailingColumns - 1] : undefined;
       const hours = hoursRaw ? parseFloat(hoursRaw) : NaN;
+
       data.push({
         date: values[0].trim(),
         value: parseFloat(values[1].trim()),
-        notes: values[2]?.trim() || undefined,
+        notes: values.slice(2, end).join(",").trim() || undefined,
         hours: Number.isNaN(hours) ? undefined : hours,
       });
     }

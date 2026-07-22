@@ -186,6 +186,23 @@ it means requires `/api/v2/`, served alongside v1 during a stated overlap.
 **Nothing vanishes silently.** Retired fields and series are marked `"deprecated": true`
 with a `sunset` date before removal.
 
+**Published reports are corrected by addition, never by edit.** Once a quarterly report is
+published, its figures and prose are permanent. When a number is later restated — a
+methodology rebuild, a baseline rebase — or an outright error is found, it is disclosed by
+appending a dated addendum, not by changing what the report said.
+
+This holds for plain factual errors too, not only for restatements. There is no exception
+for "that sentence was a fact rather than analysis", because deciding which sentences
+qualify is a judgment call that gets applied inconsistently. One rule: add, never swap.
+
+The reason is a reader's trust, not archival purity. Someone who remembers what a report
+said must still find it saying that; silently corrected history makes a reader doubt their
+own memory, which costs more than the wrong number did. Accept the odd-looking result —
+a report may show a figure alongside an addendum explaining that the figure is superseded.
+
+The single exception is a **methodology document**, which exists to describe the current
+method rather than to record a past view. A wrong number there is a bug; fix it directly.
+
 **Derived beats hand-maintained.** Any value that *can* be computed from the data MUST be,
 rather than hardcoded. `nextUpdate` was hand-typed in six registry entries, drifted, and
 told the public for weeks that PHI updates in October 2026 (issue #4). Every hardcoded

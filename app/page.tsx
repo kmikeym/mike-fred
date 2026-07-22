@@ -103,8 +103,8 @@ export default async function Home() {
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Latest Report</h3>
           <p className="text-gray-600 mb-4">
             Q2 2026 State of the MIKE Economy: the nomadic quarter that ended in a split. A June layoff
-            drove the indicators in opposite directions. PPI fell to a record-low 83.75 while PHI set
-            three straight all-time highs (119.5).
+            drove the indicators in opposite directions. PPI fell to a record-low 83.75 while health
+            climbed to its strongest reading on record in May, before softening in June.
           </p>
           <Link href="/reports/q2-2026" className="text-primary hover:text-accent font-medium">
             Read Report →

@@ -101,7 +101,10 @@ export default function IndicatorChart({ data, color, unit, trends, baseline }: 
             }}
             labelStyle={{ fontWeight: 600, marginBottom: "8px" }}
             formatter={(value: number, name: string) =>
-              name === "Total Hours" ? [`${value.toFixed(0)} h`, name] : [value.toFixed(2), unit]
+              // Label each row by its own series name, so raw, 3-month and 6-month
+              // are distinguishable when trends are on (they'd otherwise all read
+              // as the unit). The raw line's name IS the unit, so it's unchanged.
+              name === "Total Hours" ? [`${value.toFixed(0)} h`, name] : [value.toFixed(2), name]
             }
           />
           {hasHours && (

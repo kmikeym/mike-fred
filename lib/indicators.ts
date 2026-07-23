@@ -118,7 +118,7 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     unit: "Points",
     frequency: "monthly",
     category: "Learning & Growth",
-    source: "Personal reading and viewing logs",
+    source: "Goodreads (books) + Letterboxd (films)",
     calculation: "Combined scoring of books (2-5 points based on length) and movies (1 point each). Rewards sustained intellectual engagement with longform content across different media formats.",
     color: "#8b5cf6",
     precision: 1,

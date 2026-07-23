@@ -323,7 +323,7 @@ Management above); PHI is computed by an external pipeline and handed in.
 | **SCI** — Social Capital | Subscriber/follower counts across LinkedIn, X, Instagram, YouTube, Bluesky, Substack, KmikeyM | weighted composite index, Oct 2025 = 100 |
 | **PHI** — Health | Apple Watch / Apple Health (via Health Auto Export) | four-pillar composite (Recovery, Sleep, Activity, Fitness), computed externally |
 | **PWI** — Wealth | Personal net-worth tracking | net worth, indexed (Mar 2026 = 100) |
-| **LMV** — Media Velocity | Personal reading/viewing logs | books (2–5 pts by length) + films (1 pt) |
+| **LMV** — Media Velocity | [Goodreads](https://goodreads.com) (books) + [Letterboxd](https://letterboxd.com) (films) | books (2–5 pts by length) + films (1 pt) |
 
 ## 🤝 Integrations (outbound)
 

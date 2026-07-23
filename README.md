@@ -256,17 +256,8 @@ vault-derivable inputs — set `MIKE_FRED_VAULT` to your Obsidian vault path.
 ></iframe>
 ```
 
-### JavaScript Method (Future)
-```html
-<div id="mike-widget"></div>
-<script src="https://mike.quarterly.systems/widget/embed.js"></script>
-<script>
-  MIKEWidget.init({
-    container: '#mike-widget',
-    theme: 'light'
-  });
-</script>
-```
+A compact variant is also available at `/widget/compact`. There is no JavaScript
+embed — the iframe is the only supported method.
 
 ## 📝 Reports
 
@@ -310,11 +301,6 @@ deploy fails. A site frozen on an old commit is a *failed* build, not a slow one
 Cloudflare keeps serving the last successful deploy. See `CLAUDE.md` →
 Troubleshooting.
 
-### Environment Variables (Future)
-```env
-NEXT_PUBLIC_API_URL=https://mike-api.quarterly.systems
-```
-
 ## 🔄 Roadmap
 
 Tracked as GitHub issues, not duplicated here (a hand-maintained list drifts —
@@ -325,14 +311,25 @@ this one once claimed the API was "not yet built" while it was live).
 Recently shipped: the [machine-readable JSON API](https://github.com/kmikeym/mike-fred/issues/6)
 (live) and the [PPI trend chart](https://github.com/kmikeym/mike-fred/issues/1).
 
-## 🤝 Integration Points
+## 🔌 Data Sources by Indicator
 
-- **KmikeyM.com:** Main widget embed
-- **Quarterly Systems:** Landing page cross-link
-- **Substack:** Newsletter content source
-- **YouTube:** Content metrics tracking
-- **GitHub:** Project completion tracking
-- **RescueTime:** Productivity data source
+Where each indicator's numbers come from. Most are gathered monthly (see Data
+Management above); PHI is computed by an external pipeline and handed in.
+
+| Indicator | Source | How the value is derived |
+|---|---|---|
+| **PPI** — Productivity | [RescueTime](https://rescuetime.com) Productivity Pulse | `pulse × 1.25` (80 pulse = 100 baseline) |
+| **KBER** — Knowledge Base | Obsidian vault | total note count (via `mike-fred-vault-pull.sh`) |
+| **SCI** — Social Capital | Subscriber/follower counts across LinkedIn, X, Instagram, YouTube, Bluesky, Substack, KmikeyM | weighted composite index, Oct 2025 = 100 |
+| **PHI** — Health | Apple Watch / Apple Health (via Health Auto Export) | four-pillar composite (Recovery, Sleep, Activity, Fitness), computed externally |
+| **PWI** — Wealth | Personal net-worth tracking | net worth, indexed (Mar 2026 = 100) |
+| **LMV** — Media Velocity | Personal reading/viewing logs | books (2–5 pts by length) + films (1 pt) |
+
+## 🤝 Integrations (outbound)
+
+- **[KmikeyM.com](https://kmikeym.com):** embeds the [At-a-Glance widget](#-widget-embedding) and links to quarterly reports
+- **[Quarterly Systems](https://quarterly.systems):** parent ecosystem, cross-linked in nav
+- **`/api/v1/` + `/llms.txt`:** the [machine-readable API](#-machine-readable-api) any external agent or site can consume
 
 ## 📄 License
 
@@ -341,13 +338,6 @@ attribution required. Copy it, fork it, build on it. See [`LICENSE`](LICENSE).
 
 Data conventions and the machine-readable API contract are documented in
 [`STANDARDS.md`](STANDARDS.md).
-
-## 🔗 Related Projects
-
-- [Quarterly Systems](https://quarterly.systems) - Parent ecosystem
-- [OKR Dashboard](../okr-dashboard) - Team goal tracking
-- [News Dashboard](../News%20Dashboard) - Coding news aggregator
-- [Branch](../Branch) - GitHub social graph analyzer
 
 ---
 

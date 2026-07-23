@@ -315,18 +315,15 @@ Troubleshooting.
 NEXT_PUBLIC_API_URL=https://mike-api.quarterly.systems
 ```
 
-## 🔄 Future Enhancements
+## 🔄 Roadmap
 
-- [x] [Machine-readable JSON API at `/api/v1/`](https://github.com/kmikeym/mike-fred/issues/6) — FRED-style, agent-facing (**live**)
-- [ ] [Reports + releases API endpoints](https://github.com/kmikeym/mike-fred/issues/14) — Plan 2
-- [ ] MCP server wrapping the JSON API
-- [ ] Automated data collection (RescueTime, GitHub APIs)
-- [ ] Real-time updates via WebSockets
-- [ ] Historical data comparison tools
-- [ ] Export to PDF for quarterly reports
-- [ ] Dark mode support
-- [ ] Mobile app version
-- [ ] Shareholder voting integration
+Tracked as GitHub issues, not duplicated here (a hand-maintained list drifts —
+this one once claimed the API was "not yet built" while it was live).
+
+**→ [Open enhancements](https://github.com/kmikeym/mike-fred/labels/enhancement)**
+
+Recently shipped: the [machine-readable JSON API](https://github.com/kmikeym/mike-fred/issues/6)
+(live) and the [PPI trend chart](https://github.com/kmikeym/mike-fred/issues/1).
 
 ## 🤝 Integration Points
 

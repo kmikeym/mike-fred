@@ -341,5 +341,5 @@ Data conventions and the machine-readable API contract are documented in
 
 ---
 
-**Built with** ❤️ **by MIKE Economic Data**
-*A [Quarterly Systems](https://quarterly.systems) project*
+**Built with** 💻 **by MIKE Economic Data**
+*A [KmikeyM](https://kmikeym.com) project*

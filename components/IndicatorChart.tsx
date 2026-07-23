@@ -12,7 +12,7 @@ export interface TrendLine {
 }
 
 interface IndicatorChartProps {
-  data: any[];
+  data: DataPoint[];
   color: string;
   unit: string;
   trends?: TrendLine[];
@@ -22,9 +22,8 @@ interface IndicatorChartProps {
 export default function IndicatorChart({ data, color, unit, trends, baseline }: IndicatorChartProps) {
   // Format data for Recharts
   const chartData = data.map((point) => ({
-    date: point.date,
+    ...point,
     displayDate: formatDateShort(point.date),
-    value: point.value,
     hours: typeof point.hours === "number" ? point.hours : undefined,
   }));
 

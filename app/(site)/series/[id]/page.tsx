@@ -30,15 +30,6 @@ function NoteCell({ text }: { text?: string }) {
   );
 }
 
-export async function generateMetadata({ params }: PageProps) {
-  const { id } = await params;
-  return {
-    alternates: {
-      types: { "application/json": `/api/v1/series/${id}` },
-    },
-  };
-}
-
 export default async function IndicatorPage({ params }: PageProps) {
   const { id } = await params;
 

@@ -1,9 +1,0 @@
-# CORS for the machine-readable API — agents fetch these cross-origin (#6).
-/api/*
-  Access-Control-Allow-Origin: *
-  Access-Control-Allow-Methods: GET
-
-# /llms.txt is the LLM discovery entry point; agents read it cross-origin too.
-/llms.txt
-  Access-Control-Allow-Origin: *
-  Access-Control-Allow-Methods: GET

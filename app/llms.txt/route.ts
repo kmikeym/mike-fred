@@ -16,7 +16,7 @@ export async function GET() {
     "- /api/v1/series       all indicators, current values",
     "- /api/v1/series/{id}  full series: metadata + every observation + notes",
     "- /api/v1/series/{id}/csv   raw CSV",
-    "- /api/v1/schema/{name}     JSON Schema (series, series-list, index)",
+    "- /api/v1/schema/{name}     JSON Schema (envelope, series, series-list, index)",
     "",
     "## Conventions",
     "- Every observation carries `date` (publication) and `period` (month measured).",

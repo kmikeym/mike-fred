@@ -133,3 +133,21 @@ export function formatQuarter(quarterId: string): string {
 export function cn(...classes: (string | boolean | undefined | null)[]): string {
   return classes.filter(Boolean).join(" ");
 }
+
+/**
+ * Trailing simple moving average, aligned to the input.
+ *
+ * Each output point is the mean of that value and the `window - 1` values
+ * before it; points without enough history are `null`, so a chart line begins
+ * only where the average is real. Trailing (not centered) on purpose: a point
+ * never averages in data from after it, which keeps the release-lag reading
+ * intact — a movement here summarises the run ending here (STANDARDS.md §9,
+ * issue #1). Nothing is stored; this runs over the raw CSV values at build time.
+ */
+export function trailingAverage(values: number[], window: number): (number | null)[] {
+  return values.map((_, i) =>
+    i < window - 1
+      ? null
+      : values.slice(i - window + 1, i + 1).reduce((sum, v) => sum + v, 0) / window,
+  );
+}

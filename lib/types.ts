@@ -68,6 +68,14 @@ export interface IndicatorMetadata {
    * KBER is a whole-number count (0); the index series carry one decimal.
    */
   precision: number;
+
+  /**
+   * The value the reference line marks — what "100" (or any anchor) means for
+   * this series. Declared, not derived: a baseline is a fixed reference set once
+   * (STANDARDS.md §8). Absent on series with no meaningful baseline (counts,
+   * point totals), where no reference line is drawn.
+   */
+  baseline?: number;
 }
 
 export interface Indicator extends IndicatorMetadata {

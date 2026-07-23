@@ -41,6 +41,7 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     calculation: "RescueTime Productivity Pulse score, normalized to 2025 average baseline (99.1)",
     color: "#667eea",
     precision: 1,
+    baseline: 100,
     dateConvention: "release-lag",
     valueSource: "derived",
   },

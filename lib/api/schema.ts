@@ -14,6 +14,13 @@ const ENVELOPE_PROPS = {
 const ENVELOPE_REQUIRED = ["schema_version", "generated_at", "commit", "license", "docs"];
 
 export const SCHEMAS: Record<string, object> = {
+  envelope: {
+    $schema: "https://json-schema.org/draft/2020-12/schema",
+    title: "MIKE API envelope",
+    type: "object",
+    required: [...ENVELOPE_REQUIRED],
+    properties: { ...ENVELOPE_PROPS },
+  },
   series: {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     title: "MIKE series document",

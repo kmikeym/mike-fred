@@ -48,6 +48,47 @@ preserved as a vintage in `data/phi-classic.csv` rather than overwritten — see
 Values are baked in at build time, so the widget refreshes when the site rebuilds
 rather than on a timer.
 
+## 🤖 Machine-Readable API
+
+A read-only JSON API for agents, scripts, and LLMs — the same data the site shows,
+generated at build time and served as static files. **No key, no auth, no rate
+limit.** CORS is open (`Access-Control-Allow-Origin: *`), licensed CC0-1.0.
+
+**Base URL:** `https://mike.quarterly.systems`
+
+| Endpoint | Returns |
+|---|---|
+| `/api/v1/index.json` | Discovery: links + envelope |
+| `/api/v1/series.json` | All six indicators, current value + change |
+| `/api/v1/series/{id}.json` | One series: metadata + every observation + notes |
+| `/api/v1/series/{id}.csv` | That series' raw CSV |
+| `/api/v1/schema/{name}.json` | JSON Schema (`envelope`, `series`, `series-list`, `index`) |
+| `/llms.txt` | Plain-text orientation for LLM consumers |
+
+Series `{id}`: `ppi`, `knowledge-expansion`, `social-capital`, `phi`, `revenue`,
+`completion-rate`, plus the retired vintage `phi-classic`.
+
+```bash
+curl https://mike.quarterly.systems/api/v1/series/ppi.json
+curl https://mike.quarterly.systems/llms.txt      # start here if you're an agent
+```
+
+**Conventions an agent must know** (full contract in [`STANDARDS.md`](STANDARDS.md)):
+
+- Every observation carries **both** `date` (when it was published) and `period`
+  (`{start,end}` — the month it measures). **Compare series on `period`, never
+  `date`** — series use different date conventions (`date_convention` is on each
+  series; PHI is `data-month`, the rest are `release-lag`).
+- `"estimated": true` marks an interpolated value, not a measurement.
+- A retired series is preserved as a **vintage**, linked via `vintages[]` from the
+  series that replaced it (e.g. `phi` → `phi-classic`).
+- `value` is a JSON number or `null` (never `0` for missing, never `NaN`). `notes`
+  is the source note verbatim, or `null`.
+
+Every document carries an envelope (`schema_version`, `generated_at`, `commit`,
+`license`, `docs`). The API is generated from the same load path as the website,
+so it cannot drift from what the site displays.
+
 ## 🛠 Tech Stack
 
 - **Framework:** Next.js 15 with React 18
@@ -58,7 +99,7 @@ rather than on a timer.
 - **Tests:** bun test
 - **Data Storage:** CSV files (git-tracked history)
 - **Deployment:** Cloudflare Pages with @cloudflare/next-on-pages
-- **Machine-readable API:** static JSON at `/api/v1/` (designed, not yet built — see issue #6)
+- **Machine-readable API:** live — static JSON at `/api/v1/`, generated at build time (see the Machine-Readable API section above)
 
 **Note:** Using Next.js 15 (not 16) due to `@cloudflare/next-on-pages` compatibility requirements.
 
@@ -276,7 +317,8 @@ NEXT_PUBLIC_API_URL=https://mike-api.quarterly.systems
 
 ## 🔄 Future Enhancements
 
-- [ ] [Machine-readable JSON API at `/api/v1/`](https://github.com/kmikeym/mike-fred/issues/6) — FRED-style, agent-facing
+- [x] [Machine-readable JSON API at `/api/v1/`](https://github.com/kmikeym/mike-fred/issues/6) — FRED-style, agent-facing (**live**)
+- [ ] [Reports + releases API endpoints](https://github.com/kmikeym/mike-fred/issues/14) — Plan 2
 - [ ] MCP server wrapping the JSON API
 - [ ] Automated data collection (RescueTime, GitHub APIs)
 - [ ] Real-time updates via WebSockets

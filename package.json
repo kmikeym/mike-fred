@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:build": "bun scripts/build-api.ts && npx @cloudflare/next-on-pages",
     "start": "next start",
     "lint": "next lint",
     "test": "bun test",
-    "test:tz": "TZ=America/Los_Angeles bun test && TZ=UTC bun test && TZ=Asia/Tokyo bun test"
+    "test:tz": "TZ=America/Los_Angeles bun test && TZ=UTC bun test && TZ=Asia/Tokyo bun test",
+    "build:api": "bun scripts/build-api.ts",
+    "prebuild": "bun scripts/build-api.ts"
   },
   "dependencies": {
     "next": "15.0.3",

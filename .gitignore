@@ -45,3 +45,7 @@ bun.lockb
 
 # Claude Code plugin harnesses (not project code)
 .claude/workflows/
+
+# Generated API (built at deploy from data/, never committed)
+public/api/
+public/llms.txt

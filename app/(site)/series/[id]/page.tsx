@@ -30,6 +30,14 @@ function NoteCell({ text }: { text?: string }) {
   );
 }
 
+export async function generateMetadata({ params }: PageProps) {
+  // Machine-discovery hint: point agents at this series' JSON (#6).
+  const { id } = await params;
+  return {
+    alternates: { types: { "application/json": `/api/v1/series/${id}.json` } },
+  };
+}
+
 export default async function IndicatorPage({ params }: PageProps) {
   const { id } = await params;
 

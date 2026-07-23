@@ -104,7 +104,14 @@ export default async function IndicatorPage({ params }: PageProps) {
 
       {/* Chart */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-        <ChartWithRange title="Historical Data" data={indicator.data} color={indicator.color} unit={indicator.unit} />
+        <ChartWithRange
+          title="Historical Data"
+          data={indicator.data}
+          color={indicator.color}
+          unit={indicator.unit}
+          enableTrends={indicator.id === "ppi"}
+          baseline={indicator.baseline}
+        />
         {hasHours && (
           <p className="text-sm text-gray-500 mt-4">
             Bars show monthly total tracked hours (RescueTime, right axis); the line is

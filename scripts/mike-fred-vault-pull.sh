@@ -49,9 +49,52 @@ echo
 
 # --- KBER: total markdown notes in vault (excludes dotfiles/dirs) ---
 KBER=$(find "$VAULT" -name "*.md" -not -path "*/.*" | wc -l | tr -d ' ')
+
+# The committed CSV is our only state: read the last recorded count (for the delta)
+# and a trailing baseline of recent monthly deltas (for the spike guard).
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+KBER_CSV="$REPO/data/knowledge-expansion.csv"
+
+# Spike guard tunables. A jump is "inorganic" (bulk import / migration, not real
+# note-taking) when it is BOTH > MULT x the recent typical delta AND at least
+# MIN_ABS notes above it — the absolute floor stops tiny vaults false-alarming.
+KBER_WARN_MULT="${MIKE_FRED_KBER_WARN_MULT:-2.5}"
+KBER_WARN_MIN_ABS="${MIKE_FRED_KBER_WARN_MIN_ABS:-300}"
+
 echo "KBER (knowledge-expansion):"
 echo "  Total vault .md notes (current snapshot): $KBER"
-echo "  -> knowledge-expansion.csv row:  ${MONTH}-01,${KBER},<delta note>"
+
+if [ -f "$KBER_CSV" ]; then
+  PREV=$(awk -F, 'NR>1 && $2 ~ /^[0-9]+$/ {v=$2} END{print v}' "$KBER_CSV")
+  # trailing baseline = mean of the last up-to-3 month-over-month deltas
+  BASELINE=$(awk -F, 'NR>1 && $2 ~ /^[0-9]+$/ {vals[n++]=$2}
+    END{ dc=0; for(i=1;i<n;i++){d[dc++]=vals[i]-vals[i-1]}
+         start=dc-3; if(start<0)start=0; s=0; c=0
+         for(i=start;i<dc;i++){s+=d[i]; c++}
+         if(c>0) printf "%.0f", s/c }' "$KBER_CSV")
+  if [ -n "$PREV" ]; then
+    DELTA=$((KBER - PREV))
+    if [ "$DELTA" -ge 0 ]; then SIGN="+$DELTA"; else SIGN="$DELTA"; fi
+    echo "  Prev recorded: $PREV    Delta since then: $SIGN"
+    echo "  -> knowledge-expansion.csv row:  ${MONTH}-01,${KBER},${SIGN} notes (vault snapshot $(date +%Y-%m-%d))"
+    if [ -n "$BASELINE" ] && [ "$BASELINE" -gt 0 ]; then
+      SPIKE=$(awk -v d="$DELTA" -v b="$BASELINE" -v m="$KBER_WARN_MULT" -v a="$KBER_WARN_MIN_ABS" \
+        'BEGIN{ if(d > b*m && (d-b) >= a) print 1; else print 0 }')
+      if [ "$SPIKE" = "1" ]; then
+        echo
+        echo "  ⚠️  KBER SPIKE WARNING"
+        echo "     This delta ($SIGN) is >${KBER_WARN_MULT}x the recent typical (~${BASELINE}/mo)."
+        echo "     Likely INORGANIC (bulk import / migration), not organic note-taking."
+        echo "     Do NOT report as organic growth — add an explanatory note to the row"
+        echo "     (STANDARDS §7), e.g. 'one-time Evernote->Obsidian backfill'."
+      fi
+    fi
+  else
+    echo "  (no prior value in $KBER_CSV — delta guard skipped)"
+  fi
+else
+  echo "  (no $KBER_CSV found — delta guard skipped)"
+fi
 echo
 
 # --- PHI sleep: average nightly sleep across the month's daily notes ---

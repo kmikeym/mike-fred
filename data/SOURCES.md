@@ -38,6 +38,6 @@ Secrets (API keys) live in the gitignored `.env`, never here.
   both > 2.5× the recent typical AND ≥ 300 notes above it (bulk-import guard).
 - **SCI:** `index = raw_follower_total / 3041.9 × 100` (Oct 2025 = 100).
 - **PWI:** net worth indexed to Mar 2026 = 100.
-- **LMV:** films = 1 pt each. **Books = 2–5 pts by length — CANONICAL SCALE PENDING
-  (Mike is providing).** Current placeholder in `lmv-pull.sh`: `<200p→2, 200–399→3,
-  400–599→4, ≥600→5, unknown→3`. Replace with Mike's numbers when they land.
+- **LMV:** films = 1 pt each; books = 2–5 pts by length. Canonical formula (Mike's
+  spreadsheet): `=IF(type="Movie", 1, IF(pages<200, 2, IF(pages<400, 3, IF(pages<600, 4, 5))))`
+  → `<200p→2, 200–399→3, 400–599→4, ≥600→5`; unknown page count → 3 (middle), flagged.

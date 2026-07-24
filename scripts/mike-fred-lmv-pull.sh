@@ -4,13 +4,10 @@
 # Goodreads, films from Letterboxd — so it stops being hand-keyed. Companion to
 # vault-pull.sh / rescuetime-pull.sh (gather) and append-month.sh (write).
 #
-# Scoring (lib/indicators.ts): films = 1 pt each; books = 2-5 pts by length.
-# The book length->points buckets below were NEVER operationalized before (the
-# series history is all film counts) — they're a sane default, EDIT to taste.
-#
-# Bucketing by page count:
-#     < 200 pages -> 2    200-399 -> 3    400-599 -> 4    >= 600 -> 5
-#     (unknown page count -> 3, flagged in the output)
+# Scoring (Mike's spreadsheet formula, canonical):
+#   =IF(type="Movie", 1, IF(pages<200, 2, IF(pages<400, 3, IF(pages<600, 4, 5))))
+#   films = 1 pt; books = 2-5 pts by length: <200p->2, 200-399->3, 400-599->4, >=600->5
+#   (unknown page count -> 3 (middle), flagged in the output)
 #
 # Items are bucketed into a month by their READ/WATCH date:
 #   films: <letterboxd:watchedDate>   books: <user_read_at>

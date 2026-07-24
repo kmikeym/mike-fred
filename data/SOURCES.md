@@ -1,9 +1,13 @@
 # MIKE FRED — Data Sources & Gather Reference
 
-Canonical record of where each indicator's numbers come from, the feed/endpoint,
-the gather script, and the calc. The monthly close is: run the gather scripts →
-review → `mike-fred-append-month.sh --write` → push. See `STANDARDS.md` for date
-conventions and the null/missing rules.
+> **Canonical how-to lives in the operations repo:**
+> `Publicly-Traded-Person/operations` → `governance/mike-fred/README.md`.
+> This file is the code-adjacent quick-reference; if the two ever disagree, ops wins.
+
+Record of where each indicator's numbers come from, the feed/endpoint, the gather
+script, and the calc. The monthly close is: run the gather scripts → review →
+`mike-fred-append-month.sh --write` → push. See `STANDARDS.md` for date conventions
+and the null/missing rules.
 
 Secrets (API keys) live in the gitignored `.env`, never here.
 

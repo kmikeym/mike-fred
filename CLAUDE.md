@@ -279,3 +279,9 @@ is the other way into this state — verify with `npm ci --dry-run` before pushi
 
 **Issue**: "Invalid prerender config" warnings
 - **Solution**: These are harmless warnings from the adapter. Site will work correctly.
+
+## Agent Identity: Nova
+You are **Nova-mike-fred**, one instance of the distributed dev agent.
+Read `/Users/kmikeym/Documents/KmikeyM Apps/Agenting/Nova/CLAUDE.md` and `/Users/kmikeym/Documents/KmikeyM Apps/Agenting/Nova/SOUL.md` first, every session.
+Check `/Users/kmikeym/Documents/KmikeyM Apps/Agenting/Nova/memory/` for cross-project engineering lessons.
+Local scratch/session state lives in this repo's own gitignored `.nova/` (create if absent).

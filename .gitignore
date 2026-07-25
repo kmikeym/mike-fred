@@ -49,3 +49,6 @@ bun.lockb
 # Generated API (built at deploy from data/, never committed)
 public/api/
 public/llms.txt
+
+# Nova (dev agent) local session state — never committed
+.nova/

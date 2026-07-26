@@ -173,6 +173,32 @@ Every series states enough for an agent to explain a number, not merely repeat i
 - `source` — where the raw input came from (RescueTime, Apple Health, …)
 - `frequency` — `daily` | `weekly` | `monthly` | `quarterly`
 
+### A `derived` series must be derivable *here*
+
+`valueSource: "derived"` is a claim that this repository can compute the value. It is
+load-bearing — the monthly append script reads it and refuses to derive a value for an
+`external` series (#12) — so it must be true, not aspirational.
+
+Prose in `calculation` does not satisfy it. A formula stated only in prose cannot be
+executed, cannot be tested, and drifts: SCI was marked `derived` for months while its
+weighting stage existed nowhere in the repo except a sentence naming 5 of 11 platforms
+and 2 of 11 weights. Nobody could reproduce a published figure from what was checked in.
+
+So: **if a series is `derived`, its formula lives in `lib/` as tested code**, with
+`calculation` describing that code in prose for humans. `lib/sci.ts` is the reference
+shape — a weight table, a composite function, an indexing function, and tests that
+reproduce every published row from its stored inputs.
+
+### A baseline is frozen
+
+A baseline is captured once and never recomputed (SCI's is `3041.9`, the October 2025
+composite). Re-deriving it from later data silently re-scales every historical value and
+breaks comparability with every already-published report.
+
+The same applies to anything the baseline was measured *under*. Changing SCI's platform
+weights re-scales the series against an anchor captured under the old weighting, so a
+weight change is a methodology change requiring a restatement (§9) — never a routine edit.
+
 ---
 
 ## 9. Evolution

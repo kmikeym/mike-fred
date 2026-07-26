@@ -71,7 +71,11 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     frequency: "monthly",
     category: "Social",
     source: "Multi-platform subscriber counts via platform APIs",
-    calculation: "Weighted composite index of subscriber/follower counts across 11 platforms. High-value platforms (KmikeyM accounts 35%, Substack 30%) receive majority weighting, with primary social platforms (LinkedIn, X, Instagram) and medium-priority platforms (YouTube, Bluesky) contributing smaller weights. Baseline: October 2025 = 100.",
+    // Prose mirror of lib/sci.ts, which is the executable definition. Weights and
+    // baseline live there as tested data so a `derived` series is actually derivable
+    // here (STANDARDS.md §8) — this string used to be the only record of the
+    // weighting, and it named 5 of 11 platforms and 2 of 11 weights.
+    calculation: "Weighted mean of follower counts across 11 platforms, indexed to October 2025 = 100. Weights: KmikeyM accounts 0.35, Substack 0.30, LinkedIn 0.09, X 0.09, Instagram 0.07, YouTube 0.04, Bluesky 0.02, Mastodon 0.01, KmikeyM LinkedIn (business) 0.01, Facebook (personal) 0.01, KmikeyM Facebook (business) 0.01. Weights sum to 1, so the composite is denominated in followers. Index = composite / 3041.9 × 100, where 3041.9 is the frozen October 2025 composite. See lib/sci.ts.",
     color: "#3b82f6",
     precision: 1,
     dateConvention: "release-lag",

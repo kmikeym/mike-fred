@@ -74,7 +74,20 @@ export const SCHEMAS: Record<string, object> = {
       ...ENVELOPE_PROPS,
       name: { type: "string" },
       description: { type: "string" },
-      links: { type: "array" },
+      // `templated` is published so a consumer can tell a URI template from a
+      // fetchable URL without guessing at braces (#23).
+      links: {
+        type: "array",
+        items: {
+          type: "object",
+          required: ["rel", "href"],
+          properties: {
+            rel: { type: "string" },
+            href: { type: "string" },
+            templated: { const: true },
+          },
+        },
+      },
     },
   },
 };

@@ -1,8 +1,17 @@
-/** The fixed envelope fields (STANDARDS.md §2). generated_at and commit are per-build. */
+/**
+ * The fixed envelope fields (STANDARDS.md §2). generated_at and commit are per-build.
+ *
+ * `docs` must point at a URL that resolves. It pointed at /api for the whole life of
+ * v1, and /api has never been a route — so a dead link shipped in every document and
+ * at the foot of llms.txt, aimed squarely at the agents least able to recover from it
+ * (#23, same class as #7). llms.txt is the honest target: it is live, on-origin so the
+ * link test covers it, and it genuinely documents the endpoints and conventions. If a
+ * human-readable /api page is ever built, retarget here.
+ */
 export const API_ENVELOPE = {
   schema_version: "1.0.0",
   license: "CC0-1.0",
-  docs: "https://mike.quarterly.systems/api",
+  docs: "https://mike.quarterly.systems/llms.txt",
 } as const;
 
 export interface ApiEnvelope {
@@ -63,5 +72,11 @@ export interface SeriesListDocument extends ApiEnvelope {
 export interface IndexDocument extends ApiEnvelope {
   name: string;
   description: string;
-  links: { rel: string; href: string }[];
+  /**
+   * `templated` marks an RFC 6570 URI template — an href carrying `{id}`-style
+   * placeholders that must be expanded, never fetched literally. Without the flag a
+   * naive client cannot tell a template from a broken URL, and requests
+   * /api/v1/series/{id}.json verbatim (#14, #23).
+   */
+  links: { rel: string; href: string; templated?: true }[];
 }

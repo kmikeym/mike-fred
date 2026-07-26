@@ -89,7 +89,11 @@ function llmsTxt(indicators: Awaited<ReturnType<typeof loadAllIndicators>>): str
     "## Series",
     ...indicators.map((i) => `- ${i.id}: ${i.title} — ${i.unit}  →  /api/v1/series/${i.id}.json`),
     "",
-    `Docs: https://mike.quarterly.systems/api`,
+    // Was https://mike.quarterly.systems/api, which has never been a route (#23).
+    // This file IS the API documentation, so pointing "Docs" back at it would be
+    // circular; the repo README carries the human-facing endpoint table and the
+    // source of every number here.
+    `Source and docs: https://github.com/kmikeym/mike-fred`,
   ].join("\n") + "\n";
 }
 

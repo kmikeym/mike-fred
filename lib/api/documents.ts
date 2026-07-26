@@ -111,9 +111,9 @@ export function buildIndex(): IndexDocument {
       "Read-only JSON for the MIKE personal economic indicators. Generated at build time from the same source as mike.quarterly.systems. CC0-1.0. See /api/v1/schema.",
     links: [
       { rel: "series-list", href: "/api/v1/series.json" },
-      { rel: "series", href: "/api/v1/series/{id}.json" },
-      { rel: "series-csv", href: "/api/v1/series/{id}.csv" },
-      { rel: "schema", href: "/api/v1/schema/{name}.json" },
+      { rel: "series", href: "/api/v1/series/{id}.json", templated: true },
+      { rel: "series-csv", href: "/api/v1/series/{id}.csv", templated: true },
+      { rel: "schema", href: "/api/v1/schema/{name}.json", templated: true },
       { rel: "llms", href: "/llms.txt" },
       { rel: "docs", href: API_ENVELOPE.docs },
     ],

@@ -1,7 +1,7 @@
 date,value,notes
 2025-10-01,100,Baseline set with weighted channels (raw: 3041.9)
 2025-11-01,100.1,Slight growth across platforms (raw: 3045.06)
-2025-12-01,100.4,Estimated linear growth (raw: 3053.92)
+2025-12-01,100.4,ESTIMATED — not a measurement. No platform counts were taken for this month. The composite sits between the measured 3045.06 (row 2025-11-01) and 3076.95 (row 2026-01-01); the exact derivation was not recorded, and it is not midpoint interpolation, which would give 3061.0. (raw: 3053.92)
 2026-01-01,101.15,January actuals (raw: 3076.95)
 2026-02-01,101.0,Measured growth (raw: 3071.64)
 2026-03-01,101.23,March actuals (raw: 3079.43)

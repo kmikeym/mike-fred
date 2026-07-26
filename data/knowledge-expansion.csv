@@ -1,9 +1,9 @@
 date,value,notes
 2025-10-01,2975,October baseline set
 2025-11-01,3135,+160 notes from October
-2025-12-01,3482,Estimated linear growth
-2026-01-01,3829,Estimated linear growth
-2026-02-01,4177,Estimated linear growth
+2025-12-01,3482,ESTIMATED — not a measurement. No vault count was taken for this month; vault tracking was intermittent over this stretch. First of three consecutive estimated months: assumes steady growth of ~347 notes/month from the last measured count (3135, row 2025-11-01). Measurement resumes at row 2026-03-01 (4586).
+2026-01-01,3829,ESTIMATED — not a measurement. No vault count was taken for this month. Second of three consecutive estimated months: same ~347 notes/month assumption carried forward from the last measured count (3135, row 2025-11-01). Measurement resumes at row 2026-03-01 (4586).
+2026-02-01,4177,ESTIMATED — not a measurement. No vault count was taken for this month. Third of three consecutive estimated months: same ~347 notes/month assumption carried forward from the last measured count (3135, row 2025-11-01). Measurement resumes at row 2026-03-01 (4586).
 2026-03-01,4586,+409 notes from February
 2026-04-01,5423,+837 notes from March
 2026-05-01,5792,+369 notes (vault snapshot 2026-05-21)

@@ -144,8 +144,16 @@ old numbers now disagrees with the source for reasons it cannot discover.
   unflagged interpolation is indistinguishable from a measurement, which is worse than
   an honest gap.
 
-  Currently one row carries this marker: `phi-classic.csv` `2026-03-01` (February 2026,
-  never recorded — the row originally duplicated March).
+  The note must also say, in words, that the value is **not a measurement**, and state
+  the method and inputs — the marker serves machines, the sentence serves the human
+  reading the series page.
+
+  Do not maintain an inventory of marked rows here. This paragraph used to name the one
+  row carrying the marker; it was wrong for months while four rows across two live
+  series read `Estimated linear growth` and published as measurements (#21). Both rules
+  above are swept over every `data/*.csv` by `lib/conventions.test.ts`, which fails the
+  build on a violation. A count maintained by hand in prose drifts on the next commit;
+  a test does not.
 - Rounding is stated in the series metadata, not applied silently.
 
 ---

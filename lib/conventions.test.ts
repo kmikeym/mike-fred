@@ -9,6 +9,8 @@
  */
 
 import { test, expect } from "bun:test";
+import { promises as fs } from "fs";
+import path from "path";
 import { INDICATOR_REGISTRY, rowDateForRelease, nextReleaseDate } from "./indicators";
 import type { IndicatorId } from "./types";
 
@@ -70,5 +72,59 @@ test("no indicator advertises a next update in the past", async () => {
   for (const id of IDS) {
     const indicator = await loadIndicatorData(id);
     expect(`${id}:${indicator.nextUpdate >= today}`).toBe(`${id}:true`);
+  }
+});
+
+/**
+ * Estimate-marker sweep (#21).
+ *
+ * STANDARDS.md §6 requires an estimated value's note to BEGIN with `ESTIMATED`,
+ * because that prefix is what `buildObservation` matches to set `estimated: true`
+ * in the API. The convention is enforced by a string match but authored by hand,
+ * so nothing sat between someone typing "Estimated linear growth" and the check
+ * silently returning false — four rows across two live series published
+ * interpolations as measurements for months.
+ *
+ * The unit test on the matcher could not catch this (it feeds synthetic notes),
+ * and the row-specific test could not either (it checked one row we already knew
+ * about). This sweeps the corpus instead: no note may READ like an estimate while
+ * claiming, by omission, to be a measurement.
+ */
+const ESTIMATE_LANGUAGE = /estimat|interpolat|assumed|projected/i;
+
+test("no data note reads like an estimate without the ESTIMATED marker", async () => {
+  const dir = path.join(process.cwd(), "data");
+  const files = (await fs.readdir(dir)).filter((f) => f.endsWith(".csv"));
+  expect(files.length).toBeGreaterThan(0);
+
+  const offenders: string[] = [];
+  for (const file of files) {
+    const lines = (await fs.readFile(path.join(dir, file), "utf-8")).trim().split("\n");
+    for (const line of lines.slice(1)) {
+      const note = line.split(",").slice(2).join(",").trim();
+      if (!note) continue;
+      if (ESTIMATE_LANGUAGE.test(note) && !note.startsWith("ESTIMATED")) {
+        offenders.push(`${file}:${line.slice(0, 10)}`);
+      }
+    }
+  }
+
+  expect(offenders).toEqual([]);
+});
+
+test("every ESTIMATED note states that it is not a measurement", async () => {
+  // The marker alone only tells a machine. STANDARDS §6 also requires the note to
+  // state the method and inputs so a human reading the series can judge the value.
+  const dir = path.join(process.cwd(), "data");
+  const files = (await fs.readdir(dir)).filter((f) => f.endsWith(".csv"));
+
+  for (const file of files) {
+    const lines = (await fs.readFile(path.join(dir, file), "utf-8")).trim().split("\n");
+    for (const line of lines.slice(1)) {
+      const note = line.split(",").slice(2).join(",").trim();
+      if (!note.startsWith("ESTIMATED")) continue;
+      const where = `${file}:${line.slice(0, 10)}`;
+      expect(`${where}: ${/not a measurement/i.test(note)}`).toBe(`${where}: true`);
+    }
   }
 });

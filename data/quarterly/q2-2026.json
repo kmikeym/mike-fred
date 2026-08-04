@@ -152,6 +152,11 @@
         "href": "/reports/phi-2.0-methodology",
         "label": "PHI 2.0 methodology"
       }
+    },
+    {
+      "date": "2026-08-04",
+      "title": "Release timing: this report was published ahead of its cadence",
+      "body": "This report was released on July 4, 2026. The publication date for a second quarter report is July 15, the fifteenth of the month following the quarter's end. That cadence was fixed on July 20, 2026, sixteen days after this report shipped, so the report did not break a rule that existed when it was written. It is disclosed here because the early release had a consequence a reader should be able to see.\n\nReleasing on July 4 meant publishing before June's figures had settled. The restatement and corrections dated July 22 above are the direct result. The Health Index was rebuilt two weeks after this report shipped, and the record claims made here were true of the index in publication on July 4 and are not true of the index in publication now. A report written on the fixed cadence would have been written after that rebuild rather than before it.\n\nNo figure changes with this note, and nothing in this report has been edited. Published reports are corrected by addition, never by revision, so what this report said on July 4 is what it still says. The Q2 numbers stand as published, with the July 22 addenda governing the Health Index. The next quarterly report, Q3 2026, is due October 15, 2026. Its gate is the September monthly close being final, not the calendar date arriving."
     }
   ]
 }

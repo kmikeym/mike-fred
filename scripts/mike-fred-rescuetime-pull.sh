@@ -10,8 +10,16 @@
 # formula (value = pulse x 1.25), and reports total tracked hours.
 #
 # It ALSO checks day-coverage from the same call and WARNS on a real tracking gap
-# (e.g. the 2026-07-16..20 RescueTime outage). Per STANDARDS.md §137 a month with
-# a genuine gap is reported value=null (never 0, never a misleading partial average).
+# (e.g. the 2026-07-16..20 RescueTime outage). The warning is a prompt for a judgment
+# call, NOT an instruction. See STANDARDS.md §6: a gap month is still a MEASURED month
+# over fewer days, so the default is to publish the measured value with the coverage
+# stated in the note. §6 reserves null for a MISSING observation, and warns against a
+# hole that implies "a collapse rather than a missing reading", which is exactly the
+# risk when the preceding point was already a decline.
+#
+# (This block used to cite "STANDARDS.md §137" and instruct value=null. There is no
+# §137; STANDARDS.md has 12 sections. The phantom citation was read as binding on
+# 2026-08-05 and nearly published a hole where a real number belonged.)
 #
 # This script does NOT edit any CSV or push — it prints a paste-ready row + report.
 # Writing rows and deploying stay human decisions.
@@ -129,8 +137,10 @@ if partial:
     span = f"{best_start.isoformat()} .. {best_end.isoformat()}" if best_start else "?"
     print(f"\n  ⚠️  PARTIAL MONTH: longest untracked run = {longest} days ({span})")
     print(f"     Missing days: {', '.join(missing)}")
-    print( "     Per STANDARDS §137 a real tracking gap is reported NULL, not a partial")
-    print( "     average. RECOMMEND: value=null, pulse=null, hours reflect tracked days.")
+    print( "     JUDGMENT CALL, not an instruction (STANDARDS.md §6). The value above is")
+    print( "     MEASURED, over fewer days. Default: publish it and state the coverage in")
+    print( "     the note. Reserve null for a MISSING observation, and weigh §6's warning")
+    print( "     that a hole can imply 'a collapse rather than a missing reading'.")
 elif missing:
     print(f"  ({len(missing)} untracked day(s) — likely days off, no contiguous gap >= {gap_days}: not flagged)")
 
@@ -138,7 +148,7 @@ elif missing:
 row_date = (datetime.date(y, m, 1) + datetime.timedelta(days=32)).replace(day=1).isoformat()
 print(f"\n  -> ppi.csv row (release-lag, dated {row_date}):")
 if partial:
-    print(f"     {row_date},null,\"RescueTime tracking gap {best_start}..{best_end}; reported null per STANDARDS §137. Hours = tracked days only.\",null,{hours:.1f}")
+    print(f"     {row_date},{value:.2f},\"<note: state the {longest}-day gap {best_start}..{best_end} and the coverage>\",{pulse:.0f},{hours:.1f}")
 else:
     print(f"     {row_date},{value:.2f},\"<note>\",{pulse:.0f},{hours:.1f}")
 PY

@@ -37,7 +37,12 @@ Secrets (API keys) live in the gitignored `.env`, never here.
 - **PPI:** `pulse = Σ(seconds × (level+2)) / (total_seconds × 4) × 100`, rounded to an
   integer, then `value = pulse × 1.25`. Verified against the daily-summary feed and
   reproduces committed history. A real tracking gap (contiguous untracked run ≥ 3 days)
-  → `value = null` per `STANDARDS.md` §137, hours reflect tracked days only.
+  is **flagged, not auto-nulled**: the pull warns, and publishing is a judgment call
+  under `STANDARDS.md` §6. Default is to publish the measured value and state the
+  coverage in the note, because a gap month is *measured over fewer days* rather than
+  missing. Reserve `null` for a genuinely absent observation.
+  *(This line previously cited a `§137` that does not exist; STANDARDS.md has 12
+  sections. Corrected 2026-08-05, after the phantom rule was read as binding.)*
 - **KBER:** raw vault note count. `vault-pull.sh` warns when a month-over-month jump is
   both > 2.5× the recent typical AND ≥ 300 notes above it (bulk-import guard).
 - **SCI:** `index = raw_follower_total / 3041.9 × 100` (Oct 2025 = 100).

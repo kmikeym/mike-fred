@@ -18,4 +18,4 @@ date,value,notes
 2026-05-01,8,May release
 2026-06-01,8,May media velocity
 2026-07-01,11,June media: 11 films
-2026-08-01,11,July: 11 films, 0 books. Goodreads feed was 77 days stale at close and 4 read books carry no read date, so books may be undercounted.
+2026-08-01,11,July: 11 films, 0 books. The zero is confirmed rather than a feed gap: Mike read during July but finished nothing, and LMV scores completions only. A month of reading without a finish scores the same as a month of no reading, which is a property of the measure and not a fact about July.

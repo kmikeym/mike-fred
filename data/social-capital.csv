@@ -9,3 +9,4 @@ date,value,notes
 2026-05-01,101.23,May release (raw: 3079.23)
 2026-06-01,101.22,May actuals (raw: 3078.95)
 2026-07-01,101.16,June actuals (raw: 3077.09)
+2026-08-01,101.19,July actuals (raw: 3078.06, up 0.97 from 3077.09). Substack fell 6 and X fell 3, while kmikeym accounts rose 5 and Instagram rose 8; under the weighting these roughly cancel. Note SCI v1 does not normalize per channel, so raw magnitude overrides the intended weights and the index registers change poorly. SCI 2.0 corrects this and is scheduled for September.

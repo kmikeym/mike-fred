@@ -53,20 +53,37 @@ export default async function ReportsPage() {
                 <div>
                   <div className="flex items-center space-x-3 mb-2">
                     <h3 className="text-xl font-semibold text-gray-900">{report.quarter}</h3>
-                    {report.status === "current" && (
+                    {/* Withdrawn outranks Current. A withdrawn report must never
+                        advertise itself as the current one, and this one carried
+                        that badge right up until it was withdrawn. */}
+                    {report.withdrawn ? (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-700 text-white">
+                        Withdrawn
+                      </span>
+                    ) : report.status === "current" ? (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary text-white">
                         Current
                       </span>
-                    )}
-                    {report.updateCount > 0 && (
+                    ) : null}
+                    {!report.withdrawn && report.updateCount > 0 && (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
                         Updated
                       </span>
                     )}
                   </div>
                   <p className="text-lg text-gray-700 mb-2">{report.title}</p>
-                  <p className="text-sm text-gray-600">{report.blurb}</p>
-                  {report.updateCount > 0 && (
+                  {/* A withdrawn report's blurb describes analysis that is no longer
+                      served. Showing it here would keep the withdrawn conclusions in
+                      circulation on the one page that lists every report. */}
+                  {report.withdrawn ? (
+                    <p className="text-sm text-gray-600">
+                      Withdrawn {formatDate(report.withdrawn.date)}. This report is no
+                      longer served; the URL carries a statement explaining why.
+                    </p>
+                  ) : (
+                    <p className="text-sm text-gray-600">{report.blurb}</p>
+                  )}
+                  {!report.withdrawn && report.updateCount > 0 && (
                     <p className="text-xs text-amber-800 mt-2">
                       Summary as originally published. This report carries{" "}
                       {report.updateCount} dated{" "}

@@ -1,7 +1,7 @@
 {
   "title": "State of the MIKE Economy - Q2 2026",
   "quarter": "Q2 2026",
-  "status": "current",
+  "status": "withdrawn",
   "publishedDate": "2026-07-04",
   "reportDate": "2026-07-04",
   "blurb": "The nomadic quarter that ended in a split. A June 5 layoff drove the indicators in opposite directions for the first time: PPI fell to a record-low 83.75 while PHI set three straight all-time highs (119.5). PWI averaged 122.2, peaking at 134.2 in May before the layoff dipped it to 106.5. KBER crossed 6,000, LMV rebuilt to 11 on a USA-250 film run, and SCI stayed flat. Four of six Q2 tests confirmed.",
@@ -158,5 +158,9 @@
       "title": "Release timing: this report was published ahead of its cadence",
       "body": "This report was released on July 4, 2026. The publication date for a second quarter report is July 15, the fifteenth of the month following the quarter's end. That cadence was fixed on July 20, 2026, sixteen days after this report shipped, so the report did not break a rule that existed when it was written. It is disclosed here because the early release had a consequence a reader should be able to see.\n\nReleasing on July 4 meant publishing before June's figures had settled. The restatement and corrections dated July 22 above are the direct result. The Health Index was rebuilt two weeks after this report shipped, and the record claims made here were true of the index in publication on July 4 and are not true of the index in publication now. A report written on the fixed cadence would have been written after that rebuild rather than before it.\n\nNo figure changes with this note, and nothing in this report has been edited. Published reports are corrected by addition, never by revision, so what this report said on July 4 is what it still says. The Q2 numbers stand as published, with the July 22 addenda governing the Health Index. The next quarterly report, Q3 2026, is due October 15, 2026. Its gate is the September monthly close being final, not the calendar date arriving."
     }
-  ]
+  ],
+  "withdrawn": {
+    "date": "2026-08-06",
+    "statement": "The Q2 2026 State of the MIKE Economy report has been withdrawn.\n\nIt was published on July 4, 2026, before the quarter's own data had settled. The publication date for a second quarter report is July 15, the fifteenth of the month following the quarter's end, and the June figures the report depended on were still provisional when it shipped. June's Health Index was subsequently corrected from 108.0 to 106.0 once complete data arrived on July 22, and the Health Index itself was rebuilt as PHI 2.0 two weeks after publication.\n\nThe report accumulated three dated addenda in a month: a restatement of every Health Index figure, a correction of its record claims and a year-over-year note, and a disclosure of the early release itself. At that point the corrections were carrying the document rather than annotating it, and one of its central conclusions, that the quarter was the strongest on record, had not survived. A reader could no longer read the report and come away with an accurate picture of the quarter.\n\nSo it is withdrawn rather than corrected further. Nothing here is a restatement of the underlying data: the six indicator series were never withdrawn, remain published, and each carries its own revision history. What is withdrawn is this document's analysis of them.\n\nA corrected Q2 2026 report may be reissued. If it is, it will appear at a new URL with its own publication date, and this notice will link to it. The next scheduled quarterly report is Q3 2026, due October 15, 2026."
+  }
 }

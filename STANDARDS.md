@@ -237,6 +237,40 @@ a report may show a figure alongside an addendum explaining that the figure is s
 The single exception is a **methodology document**, which exists to describe the current
 method rather than to record a past view. A wrong number there is a bug; fix it directly.
 
+### Withdrawal is a different act from correction
+
+Correction assumes the document should exist and one part of it is wrong. That assumption
+fails when a report **should not have been published when it was**. Appending a fourth
+addendum to a document whose conclusions have already been overturned does not serve a
+reader; it produces a page where the corrections carry the document rather than annotate
+it, and the original analysis is still the first thing anyone reads.
+
+So a report may be **withdrawn**, subject to all of the following. Withdrawal is rare by
+design and is not a softer form of correction.
+
+1. **The URL keeps serving.** Never 404, never redirect. The address was published and may
+   be linked; a reader who follows it is owed an explanation, not a dead end.
+2. **A dated statement replaces the document**, saying plainly that it is withdrawn, when,
+   and why. The figures and prose stop being served.
+3. **Only the analysis is withdrawn, never the data.** Indicator series are published
+   separately and keep their own revision history. If withdrawing a report would remove
+   the only published home of a number, it is not eligible for withdrawal.
+4. **A replacement, if any, gets a new URL and its own publication date.** A reissue must
+   not silently occupy the withdrawn document's address.
+5. **The decision is recorded**, with who made it and on what grounds.
+
+The trust argument in the previous section still binds, and withdrawal satisfies it
+differently: a reader who remembers the report finds an honest account of its removal
+rather than a quietly altered version of what they read. What is forbidden is the
+document disappearing without a word.
+
+**First use: Q2 2026, withdrawn 2026-08-06 on Mike's instruction.** Published July 4,
+eleven days ahead of the fixed cadence and before June's figures had settled. It had
+accumulated three addenda in a month, including a restatement of every Health Index
+figure, and its central claim that the quarter was the strongest on record had not
+survived. This clause was written in the same commit that withdrew it rather than
+afterwards, because a rule invented to justify an action already taken is not a rule.
+
 **Published prose lives with the report's data, never in a component.** A report's
 title, dates, card blurb and summary belong in `data/quarterly/<id>.json`, not in a
 constant inside a page. Text duplicated into a component cannot be corrected by the

@@ -462,6 +462,16 @@ export interface ReportMeta {
   summary: string;
   status: string;
   updateCount: number;
+  /**
+   * Set when a report has been withdrawn rather than corrected. Its figures and
+   * prose stop being served; the URL carries a dated statement instead.
+   *
+   * Withdrawal is a distinct act from correction and is deliberately rare. See
+   * STANDARDS.md §9: corrections are additive because a reader who remembers a
+   * figure must still find it, but a document that should never have been
+   * published cannot be fixed by appending to it.
+   */
+  withdrawn?: { date: string; statement: string };
 }
 
 /**
@@ -507,6 +517,7 @@ export async function loadReportIndex(): Promise<ReportMeta[]> {
         summary: raw.summary,
         status: raw.status,
         updateCount: raw.updates?.length ?? 0,
+        withdrawn: raw.withdrawn,
       } satisfies ReportMeta;
     }),
   );

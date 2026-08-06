@@ -55,5 +55,25 @@ test("status is preserved for the listing badge", async () => {
   const index = await loadReportIndex();
   const current = index.filter((r) => r.status === "current").map((r) => r.id);
 
-  expect(current.sort()).toEqual(["phi-2.0-methodology", "q2-2026"]);
+  // q2-2026 was in this list until it was withdrawn on 2026-08-06. A withdrawn
+  // report is not the current one, and leaving status:"current" on it would let a
+  // downstream consumer advertise a document that is no longer served.
+  expect(current.sort()).toEqual(["phi-2.0-methodology"]);
+});
+
+test("a withdrawn report carries a dated statement and is not current", async () => {
+  const index = await loadReportIndex();
+  const withdrawn = index.filter((r) => r.withdrawn);
+
+  expect(withdrawn.map((r) => r.id).sort()).toEqual(["q2-2026"]);
+
+  for (const r of withdrawn) {
+    // STANDARDS.md §9: withdrawal requires a date and a stated reason, and the
+    // document must not still claim to be current.
+    expect(`${r.id}:date`).toBe(
+      `${r.id}:${/^\d{4}-\d{2}-\d{2}$/.test(r.withdrawn!.date) ? "date" : r.withdrawn!.date}`,
+    );
+    expect(`${r.id}:${r.withdrawn!.statement.length > 200}`).toBe(`${r.id}:true`);
+    expect(`${r.id}:${r.status === "current"}`).toBe(`${r.id}:false`);
+  }
 });

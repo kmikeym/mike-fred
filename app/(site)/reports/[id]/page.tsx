@@ -37,6 +37,53 @@ export default async function ReportPage({ params }: PageProps) {
     notFound();
   }
 
+  // A withdrawn report serves its statement and nothing else. We deliberately do
+  // NOT 404 or redirect: the URL was published and may be linked, so a reader who
+  // follows it is owed an explanation rather than a dead end. See STANDARDS.md §9,
+  // where withdrawal is defined as distinct from correction.
+  if (report.withdrawn) {
+    return (
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-6 text-sm text-gray-500">
+          <Link href="/" className="hover:text-gray-700">Home</Link>
+          <span className="mx-2">/</span>
+          <Link href="/reports" className="hover:text-gray-700">Reports</Link>
+          <span className="mx-2">/</span>
+          <span className="text-gray-900 font-medium">{report.quarter}</span>
+        </div>
+
+        <div className="fed-document">
+          <div className="text-center mb-10 pb-8 border-b-2 border-gray-300">
+            <div className="text-sm text-gray-500 mb-2">MIKE ECONOMIC DATA</div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              {report.quarter}: Report Withdrawn
+            </h1>
+            <div className="text-lg text-gray-600">
+              Withdrawn: {formatDate(report.withdrawn.date)}
+            </div>
+          </div>
+
+          <div className="bg-amber-50 border border-amber-300 border-l-4 border-l-amber-500 p-6 print:border-black">
+            <div className="text-xs font-semibold uppercase tracking-wide text-amber-800 mb-3">
+              Notice
+            </div>
+            <div className="text-gray-800 leading-relaxed whitespace-pre-line">
+              {report.withdrawn.statement}
+            </div>
+          </div>
+
+          <p className="mt-8 text-sm text-gray-600">
+            The underlying indicator data was not withdrawn. It remains available on the{" "}
+            <Link href="/" className="text-primary hover:text-accent font-medium">
+              indicator pages
+            </Link>
+            , each carrying its own revision history.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
   // Load quarterly snapshot data and narrative
   // A published report shows the values frozen at publication, so it reads as a
   // record rather than a dashboard. `null` means this document has no snapshot

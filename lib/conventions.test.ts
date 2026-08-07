@@ -43,6 +43,22 @@ test("a release-lag series dates its row by the release month", () => {
   expect(rowDateForRelease("ppi", "2026-08")).toBe("2026-08-01");
 });
 
+test("rowDateForRelease reads the registry, not a hardcoded convention", () => {
+  // Every series is release-lag right now, so comparing rowDateForRelease("ppi", ...)
+  // against rowDateFor(registry-value, ...) alone would still pass if the delegation
+  // were deleted and the body hardcoded "${releaseMonth}-01": both sides would agree
+  // by coincidence. Flip the registry entry to data-month for the length of this
+  // test so the two conventions actually disagree, then restore it.
+  const original = INDICATOR_REGISTRY.ppi.dateConvention;
+  INDICATOR_REGISTRY.ppi.dateConvention = "data-month";
+  try {
+    expect(rowDateForRelease("ppi", "2026-08")).toBe(rowDateFor("data-month", "2026-08"));
+    expect(rowDateForRelease("ppi", "2026-08")).not.toBe(`2026-08-01`);
+  } finally {
+    INDICATOR_REGISTRY.ppi.dateConvention = original;
+  }
+});
+
 test("a data-month convention dates its row by the month it measures", () => {
   // The August release reports July; a data-month series dates that row July.
   expect(rowDateFor("data-month", "2026-08")).toBe("2026-07-01");

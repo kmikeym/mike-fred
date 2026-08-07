@@ -49,6 +49,9 @@ test("rowDateForRelease reads the registry, not a hardcoded convention", () => {
   // were deleted and the body hardcoded "${releaseMonth}-01": both sides would agree
   // by coincidence. Flip the registry entry to data-month for the length of this
   // test so the two conventions actually disagree, then restore it.
+  // The restore is in a finally block and bun:test runs tests within a file sequentially,
+  // so no other test can observe the flipped value; if tests ever run concurrently, this
+  // needs a local registry instead.
   const original = INDICATOR_REGISTRY.ppi.dateConvention;
   INDICATOR_REGISTRY.ppi.dateConvention = "data-month";
   try {

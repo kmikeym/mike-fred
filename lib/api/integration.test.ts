@@ -24,6 +24,8 @@ test("every series document matches the loaded indicator (no drift from the site
 });
 
 test("PHI's last observation is the corrected June value (106.0), proving no drift", async () => {
+  // PHI moved to release-lag dating in 2026-08 (#12); the row measuring June is now
+  // dated by its July release, not by the month it measures. Same value, new date.
   const doc = buildSeriesDocument(await loadIndicatorData("phi"));
-  expect(doc.observations.find((o) => o.date === "2026-06-01")!.value).toBe(106.0);
+  expect(doc.observations.find((o) => o.date === "2026-07-01")!.value).toBe(106.0);
 });

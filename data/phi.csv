@@ -1,44 +1,44 @@
 date,value,notes
-2023-01-01,112.4,Strong month — activity and sleep strong. During an intensive training block.
-2023-02-01,103.5,Near baseline — activity strong; fitness soft. During an intensive training block.
-2023-03-01,106.6,Near baseline — activity and sleep strong.
-2023-04-01,101.8,Near baseline — sleep strong.
-2023-05-01,101.9,Near baseline — sleep strong.
-2023-06-01,103.4,Near baseline — sleep strong.
-2023-07-01,111.1,Strong month — activity strong.
-2023-08-01,96.2,Near baseline — fitness strong; activity soft.
-2023-09-01,98.6,Near baseline — steady across pillars.
-2023-10-01,107.3,Strong month — activity and sleep strong.
-2023-11-01,86.9,Soft month — activity floored; fitness soft. Holiday season.
-2023-12-01,98.3,Near baseline — sleep strong; activity and fitness soft. Holiday season.
-2024-01-01,104.1,Near baseline — sleep strong; fitness soft. New-year reset.
-2024-02-01,108.2,Strong month — sleep and recovery strong.
-2024-03-01,109.1,Strong month — activity strong; sleep and fitness soft.
-2024-04-01,100.7,Near baseline — steady across pillars.
-2024-05-01,101.4,Near baseline — steady across pillars.
-2024-06-01,99.5,Near baseline — recovery strong; sleep soft.
-2024-07-01,100.7,Near baseline — recovery strong; sleep soft.
-2024-08-01,110.6,Strong month — activity and recovery strong.
-2024-09-01,96.0,Near baseline — activity soft.
-2024-10-01,102.1,Near baseline — sleep strong.
-2024-11-01,96.4,Near baseline — fitness strong; activity soft.
-2024-12-01,97.2,Near baseline — fitness strong; activity floored. Holiday season.
-2025-01-01,95.0,Near baseline — activity soft.
-2025-02-01,100.4,Near baseline — steady across pillars.
-2025-03-01,99.2,Near baseline — steady across pillars.
-2025-04-01,104.6,Near baseline — activity and sleep strong.
-2025-05-01,111.7,Strong month — activity and recovery strong.
-2025-06-01,93.1,Soft month — sleep soft.
-2025-07-01,97.9,Near baseline — sleep strong; activity soft.
-2025-08-01,97.6,Near baseline — fitness strong; sleep and recovery soft.
-2025-09-01,84.8,Soft month — activity floored; sleep soft. Amid relocation upheaval.
-2025-10-01,85.8,Soft month — activity floored; fitness soft. Amid relocation upheaval.
-2025-11-01,85.5,Soft month — activity and sleep soft. Relocation upheaval and a high-stress stretch.
-2025-12-01,90.7,Soft month — activity floored; fitness soft. Holidays; moving into a new home.
-2026-01-01,91.2,Soft month — activity floored; sleep soft. New year; settling into a new home.
-2026-02-01,102.7,Near baseline — recovery strong. A nomadic stretch between cities.
-2026-03-01,102.6,Near baseline — fitness and recovery strong. Based in Koreatown, LA.
-2026-04-01,101.6,Near baseline — fitness and recovery strong; sleep soft. Based in Koreatown, LA.
-2026-05-01,113.2,Strong month — activity and recovery strong; sleep soft. Living in Kosovo.
-2026-06-01,106.0,Near baseline — recovery and activity strong; sleep soft. Living in Kosovo.
-2026-07-01,111.6,Strong month: activity strong. Portland, with 25 rides and steps 48% above baseline. Cycling stopped July 26 with the move to Oakland, CA.
+2023-02-01,112.4,Strong month — activity and sleep strong. During an intensive training block.
+2023-03-01,103.5,Near baseline — activity strong; fitness soft. During an intensive training block.
+2023-04-01,106.6,Near baseline — activity and sleep strong.
+2023-05-01,101.8,Near baseline — sleep strong.
+2023-06-01,101.9,Near baseline — sleep strong.
+2023-07-01,103.4,Near baseline — sleep strong.
+2023-08-01,111.1,Strong month — activity strong.
+2023-09-01,96.2,Near baseline — fitness strong; activity soft.
+2023-10-01,98.6,Near baseline — steady across pillars.
+2023-11-01,107.3,Strong month — activity and sleep strong.
+2023-12-01,86.9,Soft month — activity floored; fitness soft. Holiday season.
+2024-01-01,98.3,Near baseline — sleep strong; activity and fitness soft. Holiday season.
+2024-02-01,104.1,Near baseline — sleep strong; fitness soft. New-year reset.
+2024-03-01,108.2,Strong month — sleep and recovery strong.
+2024-04-01,109.1,Strong month — activity strong; sleep and fitness soft.
+2024-05-01,100.7,Near baseline — steady across pillars.
+2024-06-01,101.4,Near baseline — steady across pillars.
+2024-07-01,99.5,Near baseline — recovery strong; sleep soft.
+2024-08-01,100.7,Near baseline — recovery strong; sleep soft.
+2024-09-01,110.6,Strong month — activity and recovery strong.
+2024-10-01,96.0,Near baseline — activity soft.
+2024-11-01,102.1,Near baseline — sleep strong.
+2024-12-01,96.4,Near baseline — fitness strong; activity soft.
+2025-01-01,97.2,Near baseline — fitness strong; activity floored. Holiday season.
+2025-02-01,95.0,Near baseline — activity soft.
+2025-03-01,100.4,Near baseline — steady across pillars.
+2025-04-01,99.2,Near baseline — steady across pillars.
+2025-05-01,104.6,Near baseline — activity and sleep strong.
+2025-06-01,111.7,Strong month — activity and recovery strong.
+2025-07-01,93.1,Soft month — sleep soft.
+2025-08-01,97.9,Near baseline — sleep strong; activity soft.
+2025-09-01,97.6,Near baseline — fitness strong; sleep and recovery soft.
+2025-10-01,84.8,Soft month — activity floored; sleep soft. Amid relocation upheaval.
+2025-11-01,85.8,Soft month — activity floored; fitness soft. Amid relocation upheaval.
+2025-12-01,85.5,Soft month — activity and sleep soft. Relocation upheaval and a high-stress stretch.
+2026-01-01,90.7,Soft month — activity floored; fitness soft. Holidays; moving into a new home.
+2026-02-01,91.2,Soft month — activity floored; sleep soft. New year; settling into a new home.
+2026-03-01,102.7,Near baseline — recovery strong. A nomadic stretch between cities.
+2026-04-01,102.6,Near baseline — fitness and recovery strong. Based in Koreatown, LA.
+2026-05-01,101.6,Near baseline — fitness and recovery strong; sleep soft. Based in Koreatown, LA.
+2026-06-01,113.2,Strong month — activity and recovery strong; sleep soft. Living in Kosovo.
+2026-07-01,106.0,Near baseline — recovery and activity strong; sleep soft. Living in Kosovo.
+2026-08-01,111.6,Strong month: activity strong. Portland, with 25 rides and steps 48% above baseline. Cycling stopped July 26 with the move to Oakland, CA.

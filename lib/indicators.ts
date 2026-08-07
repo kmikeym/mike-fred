@@ -92,11 +92,11 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     frequency: "monthly",
     category: "Health & Wellness",
     source: "Apple Watch / Apple Health (via Health Auto Export)",
-    calculation: "PHI = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness. Each metric's monthly mean is scored vs its 2023-2025 baseline (direction-corrected, capped 60-160); the index is re-based so the 2023-2025 mean = 100. Series starts 2023-01 (Apple Watch sleep-stage tracking availability). Full method: /reports/phi-2.0-methodology.",
+    calculation: "PHI = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness. Each metric's monthly mean is scored vs its 2023-2025 baseline (direction-corrected, capped 60-160); the index is re-based so the 2023-2025 mean = 100. Data begins 2023-01 (Apple Watch sleep-stage tracking availability); rows carry the release-lag date, so the first row is 2023-02. Full method: /reports/phi-2.0-methodology.",
     color: "#f59e0b",
     precision: 1,
     baseline: 100,
-    dateConvention: "data-month",
+    dateConvention: "release-lag",
     valueSource: "external",
   },
   "revenue": {
@@ -204,23 +204,20 @@ export async function parseCSV(filePath: string): Promise<DataPoint[]> {
 }
 
 /**
- * Load PHI 2.0 and the preserved PHI-Classic vintage, merged by data-month for the
- * methodology overlap chart. PHI-Classic was published on a ~1-month release lag, so
- * its dates are shifted back one month to line up with PHI 2.0's data-month dating.
+ * Load PHI 2.0 and the preserved PHI-Classic vintage, merged for the methodology
+ * overlap chart. Both series are release-lag, so a shared row date already means a
+ * shared measured month and the merge is a plain join. PHI 2.0 was data-month until
+ * 2026-08 and this function shifted PHI-Classic back a month to compensate; the
+ * shift is gone because there is nothing left to compensate for.
  */
 export async function loadPhiOverlap(): Promise<{ date: string; phi2: number | null; classic: number | null }[]> {
   const dir = path.join(process.cwd(), "data");
   const phi2 = await parseCSV(path.join(dir, "phi.csv"));
   const classic = await parseCSV(path.join(dir, "phi-classic.csv"));
-  const toDataMonth = (d: string) => {
-    const [ys, ms] = d.slice(0, 7).split("-");
-    const y = Number(ys), m = Number(ms);
-    return m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, "0")}`;
-  };
   const map = new Map<string, { phi2: number | null; classic: number | null }>();
   for (const p of phi2) map.set(p.date.slice(0, 7), { phi2: p.value, classic: null });
   for (const p of classic) {
-    const dm = toDataMonth(p.date);
+    const dm = p.date.slice(0, 7);
     const cur = map.get(dm) || { phi2: null, classic: null };
     cur.classic = p.value;
     map.set(dm, cur);
@@ -267,22 +264,38 @@ export function nextReleaseDate(
 }
 
 /**
+ * The row date a convention uses for the release published in `releaseMonth` (YYYY-MM).
+ *
+ * Split from `rowDateForRelease` so the `data-month` branch stays reachable in tests.
+ * As of 2026-08 no series declares `data-month`, so routing every test through the
+ * registry would leave a supported branch uncovered until the next series needs it.
+ *
+ *   rowDateFor("release-lag", "2026-08")  ->  "2026-08-01"   (August release, July data)
+ *   rowDateFor("data-month",  "2026-08")  ->  "2026-07-01"   (same data, dated by month)
+ */
+export function rowDateFor(
+  convention: IndicatorMetadata["dateConvention"],
+  releaseMonth: string,
+): string {
+  const [year, month] = releaseMonth.split("-").map(Number) as [number, number];
+  if (convention === "release-lag") {
+    return `${releaseMonth}-01`;
+  }
+  const d = new Date(Date.UTC(year, month - 1, 1));
+  d.setUTCMonth(d.getUTCMonth() - 1);
+  return d.toISOString().slice(0, 10);
+}
+
+/**
  * The row date a series uses for the release published in `releaseMonth` (YYYY-MM).
  *
  * Single source of truth for the monthly write path: the append script calls this
  * rather than assuming one convention for all six series (#12).
  *
  *   rowDateForRelease("ppi", "2026-08")  ->  "2026-08-01"   (August release, July data)
- *   rowDateForRelease("phi", "2026-08")  ->  "2026-07-01"   (same data, dated by month)
  */
 export function rowDateForRelease(id: IndicatorId, releaseMonth: string): string {
-  const [year, month] = releaseMonth.split("-").map(Number) as [number, number];
-  if (INDICATOR_REGISTRY[id].dateConvention === "release-lag") {
-    return `${releaseMonth}-01`;
-  }
-  const d = new Date(Date.UTC(year, month - 1, 1));
-  d.setUTCMonth(d.getUTCMonth() - 1);
-  return d.toISOString().slice(0, 10);
+  return rowDateFor(INDICATOR_REGISTRY[id].dateConvention, releaseMonth);
 }
 
 /**

@@ -411,6 +411,8 @@ convention, and rowDateFor keeps the data-month branch covered."
 - Modify: `data/SOURCES.md:19`
 - Modify: `lib/api/vintages.ts:5-8`
 - Modify: `components/PhiOverlapChart.tsx:8,34-37`
+- Modify: `lib/types.ts:39-41`
+- Modify: `scripts/mike-fred-append-month.sh:13-19`
 
 **Interfaces:**
 - Consumes: nothing
@@ -547,20 +549,58 @@ with:
         lag, so a point compares the two indices over the same month.
 ```
 
-- [ ] **Step 9: Verify no stale claim survives**
+- [ ] **Step 9: `lib/types.ts`, the `dateConvention` field docstring**
+
+Replace:
+```typescript
+   * `release-lag` — the row is dated the month AFTER the data (the 2026-07-01
+   *   PPI row reports June). Five of the six series.
+   * `data-month` — the row is dated the month it measures (the 2026-06-01 PHI
+   *   row IS June). PHI 2.0 only.
+```
+with:
+```typescript
+   * `release-lag` — the row is dated the month AFTER the data (the 2026-07-01
+   *   PPI row reports June). All six series, since PHI moved over in 2026-08.
+   * `data-month` — the row is dated the month it measures. No current series;
+   *   PHI 2.0 used it until 2026-08. Still supported and still tested.
+```
+
+- [ ] **Step 10: `scripts/mike-fred-append-month.sh`, the runbook header**
+
+This header is what a human reads before running the monthly release, so a stale line here misleads at exactly the wrong moment. Replace:
+```
+#   release-lag (5 series) - row dated the release month; the 2026-08 release reports July
+#                            in a row dated 2026-08-01.
+#   data-month  (PHI only)  - row dated the month it MEASURES; that same July data is dated
+#                            2026-07-01. PHI rows for an incomplete month are refused.
+```
+with:
+```
+#   release-lag (all 6)     - row dated the release month; the 2026-08 release reports July
+#                            in a row dated 2026-08-01.
+#   data-month  (none now)  - row dated the month it MEASURES; that same July data would be
+#                            dated 2026-07-01, and a row for an incomplete month is refused.
+#                            PHI used this until 2026-08; the branch is still live for a
+#                            future series that declares it.
+```
+
+- [ ] **Step 11: Verify no stale claim survives**
 
 ```bash
 cd ~/Projects/mike-fred
-grep -rn "data-month" --include="*.md" --include="*.tsx" . | grep -v node_modules | grep -v docs/superpowers
+grep -rn "data-month" . --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.next --exclude-dir=docs --exclude-dir=.superpowers
 ```
-Expected: every remaining hit describes `data-month` as a supported convention with no current series, or is a generic description of the two conventions. No hit may claim PHI is data-month.
+Expected: every remaining hit either describes `data-month` as a supported convention with no current series, is a generic description of the two conventions, or is a test exercising the convention with a literal. No hit may claim PHI is data-month.
 
-- [ ] **Step 10: Typecheck and commit**
+Note the deliberately wide sweep: an earlier draft of this step filtered to `*.md` and `*.tsx` and would have missed the stale claims in `lib/types.ts` and the append script, which is how they survived to review.
+
+- [ ] **Step 12: Typecheck and commit**
 
 ```bash
 cd ~/Projects/mike-fred
 bunx tsc --noEmit
-git add STANDARDS.md CLAUDE.md README.md data/SOURCES.md lib/api/vintages.ts components/PhiOverlapChart.tsx
+git add STANDARDS.md CLAUDE.md README.md data/SOURCES.md lib/api/vintages.ts components/PhiOverlapChart.tsx lib/types.ts scripts/mike-fred-append-month.sh
 git commit -m "Docs: PHI is release-lag, data-month is supported but unused
 
 Six files stated PHI was the data-month series. The convention itself stays

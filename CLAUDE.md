@@ -37,8 +37,10 @@ were invisible precisely because the reasoning lived nowhere:
   naive version silently truncated them on the live site (#2).
 - `loadQuarterlySnapshot` returning `null` looks like a swallowed error until you
   know `null` means "this document wants live values" (#5).
-- `INDICATOR_REGISTRY.dateConvention` looks redundant until you know the
-  convention was stated in prose in five places and wrong in three (#12).
+- `INDICATOR_REGISTRY.dateConvention` looks redundant now that all six series
+  share one convention, until you know it was stated in prose in five places
+  and wrong in three (#12), and that it is what made re-dating PHI a one-field
+  change in 2026-08.
 
 Rules of thumb:
 
@@ -123,7 +125,7 @@ Updates are due on the 1st of each month. Two things to update:
 | `ppi.csv` | RescueTime Productivity Pulse score + total tracked hours | `date,value,notes,pulse,hours` (5 cols) | **Index `value` = `pulse × 1.25`** (80 pulse = 100 baseline). `hours` (col 5) drives the "Total Hours Tracked" bar chart on the PPI page — leave blank for months with no hours. Notes may contain commas — the parser claims trailing numeric columns from the right (STANDARDS.md §7) |
 | `knowledge-expansion.csv` | Total Obsidian vault note count | `date,value,notes` | Raw count |
 | `social-capital.csv` | Raw follower total across platforms | `date,value,notes` | Index = raw / 3041.9 × 100. Note format: `Measured growth (raw: XXXX.XX)` |
-| `phi.csv` | **The computed PHI 2.0 index** (ask Mike) | `date,value,notes` | ⚠️ **NOT derived in this repo.** PHI 2.0 = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness, computed from the Apple Health archive against 2023-2025 baselines. ⚠️ **`phi.csv` is data-month dated** — the row for July's data is dated `2026-07-01`, unlike the five release-lag series. |
+| `phi.csv` | **The computed PHI 2.0 index** (ask Mike) | `date,value,notes` | ⚠️ **NOT derived in this repo.** PHI 2.0 = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness, computed from the Apple Health archive against 2023-2025 baselines. As of 2026-08 it is release-lag dated like every other series: July's data is the `2026-08-01` row. |
 | `revenue.csv` | Wealth index value | `date,value,notes` | Ask Mike directly |
 | `completion-rate.csv` | Books and films consumed | `date,value,notes` | Books = 2-5 pts by length, films = 1 pt each. Note format: `N books, N films` |
 
@@ -140,12 +142,12 @@ PHI 2.0 needs per-day HRV, resting heart rate, sleep stages, energy, steps, exer
 - Get raw follower total from Mike
 - Divide by baseline 3041.9, multiply by 100
 
-**Date conventions — two of them.** The authoritative source is `INDICATOR_REGISTRY[id].dateConvention` in `lib/indicators.ts`, which both the site and the append script read. Do not restate the rule from memory; check the field.
+**Date conventions — two exist, all six series use one.** The authoritative source is `INDICATOR_REGISTRY[id].dateConvention` in `lib/indicators.ts`, which both the site and the append script read. Do not restate the rule from memory; check the field.
 
-- **`release-lag`** (PPI, KBER, SCI, PWI, LMV) — a row dated month N reports month **N-1**'s actuals. April's data lives in the `2026-05-01` row. Charts label the x-axis by row date, so a bar reads one month ahead of the data it shows — known and accepted as of 2026-05.
-- **`data-month`** (PHI only) — the row is dated the month it **measures**. June's data is the `2026-06-01` row, and no row exists for a month until that month is over.
+- **`release-lag`** (all six series) — a row dated month N reports month **N-1**'s actuals. April's data lives in the `2026-05-01` row. Charts label the x-axis by row date, so a bar reads one month ahead of the data it shows — known and accepted as of 2026-05.
+- **`data-month`** (no current series) — the row is dated the month it **measures**, and no row exists for a month until that month is over. PHI used this until 2026-08, when it was re-dated to line up with the other five. The branch is still supported and still tested; a new series may declare it.
 
-This split is why `./scripts/mike-fred-append-month.sh --month 2026-08` writes the five release-lag series at `2026-08-01` and PHI at `2026-07-01`. Keep each month's pulse and hours together in the same row.
+So `./scripts/mike-fred-append-month.sh --month 2026-08` writes all six series at `2026-08-01`. Keep each month's pulse and hours together in the same row.
 
 **2. Update `app/page.tsx`:**
 - Lines ~21-23 have hardcoded "Last Updated" and "Next Update" dates in the homepage header

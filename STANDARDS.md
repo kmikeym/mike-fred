@@ -51,7 +51,8 @@ Every JSON document served under `/api/v1/` carries:
 ## 3. Dates are never ambiguous
 
 MIKE publishes on a **release lag**: a release dated month N reports month N−1's actuals.
-PHI 2.0 instead uses **data-month** dating, where the row date is the month measured.
+A second convention, **data-month** dating, puts the row date on the month measured.
+PHI 2.0 used it until 2026-08; no series uses it today, and it remains supported.
 Both conventions are legitimate; leaving a consumer to guess which is in play is not.
 
 **Every series declares its convention. Every observation carries both dates.**
@@ -77,8 +78,8 @@ MUST align on `period`, never on `date`.
 **The authoritative declaration is `INDICATOR_REGISTRY[id].dateConvention`** in
 `lib/indicators.ts` — typed data, read by the site, the monthly append script, and
 (under issue #6) the API. It is typed rather than prose because prose drifted: the
-convention was stated in five places and was wrong in three of them. As of 2026-07,
-PHI is the only `data-month` series; the other five are `release-lag`.
+convention was stated in five places and was wrong in three of them. As of 2026-08,
+all six series are `release-lag`; PHI moved off `data-month` so the six line up.
 
 A related field, `valueSource`, declares whether this repository can compute a
 series' value (`derived`) or must be handed one (`external`). The write path

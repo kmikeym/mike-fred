@@ -36,9 +36,9 @@ export interface IndicatorMetadata {
    * Where a row's date sits relative to the month it measures.
    *
    * `release-lag` — the row is dated the month AFTER the data (the 2026-07-01
-   *   PPI row reports June). Five of the six series.
-   * `data-month` — the row is dated the month it measures (the 2026-06-01 PHI
-   *   row IS June). PHI 2.0 only.
+   *   PPI row reports June). All six series, since PHI moved over in 2026-08.
+   * `data-month` — the row is dated the month it measures. No current series;
+   *   PHI 2.0 used it until 2026-08. Still supported and still tested.
    *
    * This is typed data rather than prose because prose drifted: the convention
    * was stated in five places and was wrong in three of them. Both the site and

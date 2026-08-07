@@ -5,7 +5,7 @@ import {
 } from "recharts";
 
 export interface OverlapPoint {
-  date: string;     // data-month, YYYY-MM
+  date: string;     // release-lag row month, YYYY-MM
   phi2: number | null;
   classic: number | null;
 }
@@ -32,8 +32,8 @@ export default function PhiOverlapChart({ data }: { data: OverlapPoint[] }) {
       </div>
       <p className="text-xs text-gray-500 mt-3">
         Both series rise together out of the late-2025 trough — the level gap is the re-basing, not a change in
-        health. PHI-Classic is shown on its own legacy scale and aligned to data-month (it was published on a
-        one-month release lag).
+        health. PHI-Classic is shown on its own legacy scale. Both series are dated on the same one-month release
+        lag, so a point compares the two indices over the same month.
       </p>
     </div>
   );

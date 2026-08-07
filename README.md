@@ -78,7 +78,8 @@ curl https://mike.quarterly.systems/llms.txt      # start here if you're an agen
 - Every observation carries **both** `date` (when it was published) and `period`
   (`{start,end}` — the month it measures). **Compare series on `period`, never
   `date`** — series use different date conventions (`date_convention` is on each
-  series; PHI is `data-month`, the rest are `release-lag`).
+  series; all six are `release-lag` as of 2026-08, and `data-month` remains
+  supported for a future series).
 - `"estimated": true` marks an interpolated value, not a measurement.
 - A retired series is preserved as a **vintage**, linked via `vintages[]` from the
   series that replaced it (e.g. `phi` → `phi-classic`).

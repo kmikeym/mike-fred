@@ -13,10 +13,12 @@
 # DATE CONVENTIONS: --month is always the RELEASE month. Each series' row date comes from
 # INDICATOR_REGISTRY.dateConvention (the same source the site reads), not from an assumption
 # here:
-#   release-lag (5 series) - row dated the release month; the 2026-08 release reports July
+#   release-lag (all 6)     - row dated the release month; the 2026-08 release reports July
 #                            in a row dated 2026-08-01.
-#   data-month  (PHI only)  - row dated the month it MEASURES; that same July data is dated
-#                            2026-07-01. PHI rows for an incomplete month are refused.
+#   data-month  (none now)  - row dated the month it MEASURES; that same July data would be
+#                            dated 2026-07-01, and a row for an incomplete month is refused.
+#                            PHI used this until 2026-08; the branch is still live for a
+#                            future series that declares it.
 #
 # Usage:
 #   ./scripts/mike-fred-append-month.sh --month 2026-07 [per-series inputs] [--write]

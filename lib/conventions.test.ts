@@ -11,7 +11,7 @@
 import { test, expect } from "bun:test";
 import { promises as fs } from "fs";
 import path from "path";
-import { INDICATOR_REGISTRY, rowDateForRelease, nextReleaseDate } from "./indicators";
+import { INDICATOR_REGISTRY, rowDateFor, rowDateForRelease, nextReleaseDate } from "./indicators";
 import type { IndicatorId } from "./types";
 
 const IDS = Object.keys(INDICATOR_REGISTRY) as IndicatorId[];
@@ -24,9 +24,12 @@ test("every indicator declares a date convention and a value source", () => {
   }
 });
 
-test("PHI is the data-month series; the other five are release-lag", () => {
-  const byConvention = IDS.filter((id) => INDICATOR_REGISTRY[id].dateConvention === "data-month");
-  expect(byConvention).toEqual(["phi"]);
+test("every series is release-lag", () => {
+  // PHI was the lone data-month series until 2026-08, when it was re-dated to line
+  // up with the other five. The convention is still supported and still typed; this
+  // fails loudly if a seventh series arrives on the other one without a decision.
+  const offenders = IDS.filter((id) => INDICATOR_REGISTRY[id].dateConvention !== "release-lag");
+  expect(offenders).toEqual([]);
 });
 
 test("PHI 2.0 values are external — this repo cannot compute them", () => {
@@ -40,17 +43,36 @@ test("a release-lag series dates its row by the release month", () => {
   expect(rowDateForRelease("ppi", "2026-08")).toBe("2026-08-01");
 });
 
-test("a data-month series dates its row by the month it measures", () => {
-  // The August release reports July; PHI dates that row July.
-  expect(rowDateForRelease("phi", "2026-08")).toBe("2026-07-01");
+test("rowDateForRelease reads the registry, not a hardcoded convention", () => {
+  // Every series is release-lag right now, so comparing rowDateForRelease("ppi", ...)
+  // against rowDateFor(registry-value, ...) alone would still pass if the delegation
+  // were deleted and the body hardcoded "${releaseMonth}-01": both sides would agree
+  // by coincidence. Flip the registry entry to data-month for the length of this
+  // test so the two conventions actually disagree, then restore it.
+  // The restore is in a finally block and bun:test runs tests within a file sequentially,
+  // so no other test can observe the flipped value; if tests ever run concurrently, this
+  // needs a local registry instead.
+  const original = INDICATOR_REGISTRY.ppi.dateConvention;
+  INDICATOR_REGISTRY.ppi.dateConvention = "data-month";
+  try {
+    expect(rowDateForRelease("ppi", "2026-08")).toBe(rowDateFor("data-month", "2026-08"));
+    expect(rowDateForRelease("ppi", "2026-08")).not.toBe(`2026-08-01`);
+  } finally {
+    INDICATOR_REGISTRY.ppi.dateConvention = original;
+  }
+});
+
+test("a data-month convention dates its row by the month it measures", () => {
+  // The August release reports July; a data-month series dates that row July.
+  expect(rowDateFor("data-month", "2026-08")).toBe("2026-07-01");
 });
 
 test("a data-month row date crosses the year boundary", () => {
-  expect(rowDateForRelease("phi", "2026-01")).toBe("2025-12-01");
+  expect(rowDateFor("data-month", "2026-01")).toBe("2025-12-01");
 });
 
 test("the two conventions disagree by exactly one month for the same release", () => {
-  expect(rowDateForRelease("ppi", "2026-08")).not.toBe(rowDateForRelease("phi", "2026-08"));
+  expect(rowDateFor("release-lag", "2026-08")).not.toBe(rowDateFor("data-month", "2026-08"));
 });
 
 test("next release of a release-lag series is one period out", () => {

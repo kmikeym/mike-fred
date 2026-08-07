@@ -5,7 +5,7 @@ import type { VintageRef } from "./types";
  * Metadata for retired series that live as a CSV but have no INDICATOR_REGISTRY
  * entry. PHI-Classic is the legacy sleep/activity/weight index, frozen when PHI
  * 2.0 shipped (STANDARDS.md §4). Its convention is release-lag (a row dated
- * month N holds month N-1 data), unlike PHI 2.0's data-month dating.
+ * month N holds month N-1 data), which PHI 2.0 also adopted in 2026-08.
  */
 export const VINTAGE_META: Record<
   string,

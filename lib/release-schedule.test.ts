@@ -45,5 +45,5 @@ test("PHI no longer advertises an October release", async () => {
   const phi = await loadIndicatorData("phi");
 
   expect(phi.nextUpdate).not.toBe("2026-10-01");
-  expect(phi.nextUpdate).toBe(nextReleaseDate(phi.lastUpdate, "monthly", "data-month"));
+  expect(phi.nextUpdate).toBe(nextReleaseDate(phi.lastUpdate, "monthly", "release-lag"));
 });

@@ -16,7 +16,7 @@ Secrets (API keys) live in the gitignored `.env`, never here.
 | **PPI** Productivity | RescueTime Productivity Pulse | Analytic Data API (`/anapi/data`), key `RESCUETIME_API_KEY` in `.env` | `rescuetime-pull.sh` | release-lag |
 | **KBER** Knowledge | Obsidian vault `.md` count | local vault (`MIKE_FRED_VAULT`) | `vault-pull.sh` | release-lag |
 | **SCI** Social Capital | 7-platform follower composite | manual (Mike's tab set) | — | release-lag |
-| **PHI** Health | Apple Health archive | separate PHI 2.0 generator | — | **data-month** |
+| **PHI** Health | Apple Health archive | separate PHI 2.0 generator | — | release-lag |
 | **PWI** Wealth | Net worth, indexed (Mar 2026 = 100) | manual (Mike) | — | release-lag |
 | **LMV** Media | Goodreads (books) + Letterboxd (films) | RSS, see below | `lmv-pull.sh` | release-lag |
 

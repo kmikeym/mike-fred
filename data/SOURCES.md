@@ -15,7 +15,7 @@ Secrets (API keys) live in the gitignored `.env`, never here.
 |---|---|---|---|---|
 | **PPI** Productivity | RescueTime Productivity Pulse | Analytic Data API (`/anapi/data`), key `RESCUETIME_API_KEY` in `.env` | `rescuetime-pull.sh` | release-lag |
 | **KBER** Knowledge | Obsidian vault `.md` count | local vault (`MIKE_FRED_VAULT`) | `vault-pull.sh` | release-lag |
-| **SCI** Social Capital | 7-platform follower composite | manual (Mike's tab set) | — | release-lag |
+| **SCI** Social Capital | **11-platform weighted follower composite** (weights in `lib/sci.ts`) | manual (Mike, all 11 counts) | — | release-lag |
 | **PHI** Health | Apple Health archive | separate PHI 2.0 generator | — | release-lag |
 | **PWI** Wealth | Net worth, indexed (Mar 2026 = 100) | manual (Mike) | — | release-lag |
 | **LMV** Media | Goodreads (books) + Letterboxd (films) | RSS, see below | `lmv-pull.sh` | release-lag |
@@ -45,7 +45,20 @@ Secrets (API keys) live in the gitignored `.env`, never here.
   sections. Corrected 2026-08-05, after the phantom rule was read as binding.)*
 - **KBER:** raw vault note count. `vault-pull.sh` warns when a month-over-month jump is
   both > 2.5× the recent typical AND ≥ 300 notes above it (bulk-import guard).
-- **SCI:** `index = raw_follower_total / 3041.9 × 100` (Oct 2025 = 100).
+- **SCI:** two stages. **`lib/sci.ts` is the source of truth for both** -- the weights are
+  typed data with a test pinning their sum, because the prose version drifted and was
+  wrong in three of five places (#12).
+  1. **Composite:** a *weighted mean* of 11 platform follower counts, weights summing to 1.
+     So the raw figure (~3,078) is the weighted-average audience, **not a total across
+     platforms**. `weightedComposite()` throws on a missing or unknown platform rather
+     than scoring it zero, which would read as an audience collapse (§6).
+  2. **Index:** `index = raw_composite / 3041.9 × 100`, where 3041.9 is the Oct 2025
+     composite frozen as the anchor (§8).
+  ⚠️ Changing a weight or the baseline re-scales the entire series against data captured
+  under the old weighting: that is a methodology change requiring restatement (§9), never
+  a routine edit.
+  *(This line said "7-platform" until 2026-09-03; the code has used 11 throughout.
+  Corrected per operations#175.)*
 - **PWI:** net worth indexed to Mar 2026 = 100.
 - **LMV:** films = 1 pt each; books = 2–5 pts by length. Canonical formula (Mike's
   spreadsheet): `=IF(type="Movie", 1, IF(pages<200, 2, IF(pages<400, 3, IF(pages<600, 4, 5))))`

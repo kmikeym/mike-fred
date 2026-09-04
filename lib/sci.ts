@@ -34,6 +34,20 @@ export interface SciPlatformWeight {
  * requiring a restatement (STANDARDS.md §9), never a routine edit.
  */
 export const SCI_WEIGHTS: readonly SciPlatformWeight[] = [
+  // "KmikeyM accounts" = the TOTAL NUMBER OF USER ACCOUNTS on kmikeym.com, read
+  // off /users/leaderboard (Mike, 2026-09-04). NOT the shareholder count: on the
+  // same day those were 3,965 accounts against 1,248 shareholders, so the two
+  // differ by more than 3x and picking the wrong one would move the index by
+  // roughly a third of its value.
+  //
+  // Confirmed rather than assumed. Back-solving July's published composite
+  // (3078.06) against the six measurable platforms left ~1,738 for this input
+  // plus the four auth-walled ones, implying 3,700-4,800 here. The real figure,
+  // 3,965, landed inside that range.
+  //
+  // There is no unauthenticated path to it: the page requires a login and the
+  // MCP leaderboard tool returns at most 50 rows with no total. Blocked in auto
+  // mode by operations#501. Ask Mike, or capture it in any logged-in session.
   { id: "kmikeym-accounts", label: "KmikeyM accounts", weight: 0.35 },
   { id: "substack", label: "Substack", weight: 0.30 },
   { id: "linkedin", label: "LinkedIn", weight: 0.09 },

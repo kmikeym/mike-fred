@@ -51,11 +51,12 @@ export const SCI_WEIGHTS: readonly SciPlatformWeight[] = [
   // field in operations#571; until that ships, this is a monthly ask.
   { id: "kmikeym-accounts", label: "KmikeyM accounts", weight: 0.35 },
   { id: "substack", label: "Substack", weight: 0.30 },
-  // ⚠️ This is CONNECTIONS, not followers, unlike the other ten platforms which
-  // all measure an audience. On 2026-09-04: 2,101 connections vs 3,389 followers.
-  // Followers is the metric this index should use; switching is a §9 restatement
-  // (~+3.0 index points, more than the series' entire 11-month movement), so it
-  // is scheduled for a clean break at year end. See operations#572.
+  // FOLLOWERS, not connections — consistent with every other input, which all
+  // measure an audience. Confirmed by Mike 2026-09-04 (operations#572, closed:
+  // an earlier reading had this as connections and proposed a year-end switch;
+  // there was nothing to switch). On that date: 3,389 followers, 2,101
+  // connections. Using connections would have shown a 12% one-month decline to
+  // below the October 2025 baseline, which is not a thing LinkedIn connections do.
   { id: "linkedin", label: "LinkedIn", weight: 0.09 },
   { id: "x", label: "X", weight: 0.09 },
   { id: "instagram", label: "Instagram", weight: 0.07 },

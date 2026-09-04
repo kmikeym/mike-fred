@@ -3,7 +3,7 @@
 # The WRITE half of the monthly MIKE FRED update. Companion to mike-fred-vault-pull.sh
 # (which GATHERS the vault-derivable inputs). This script takes the raw monthly inputs,
 # applies each indicator's formula, appends a correctly-formatted row to the six CSVs in
-# data/, and bumps the one remaining hardcoded date location (the app/page.tsx header).
+# data/, and bumps the one remaining hardcoded date location (the app/(site)/page.tsx header).
 # Indicator lastUpdate/nextUpdate are derived at load time and need no edit.
 #
 # SAFETY: dry-run by default (prints exactly what it WOULD change, touches nothing).
@@ -77,7 +77,7 @@ done
 
 [ -n "$MONTH" ] || { echo "ERROR: --month YYYY-MM is required." >&2; exit 2; }
 echo "$MONTH" | grep -qE '^[0-9]{4}-[0-9]{2}$' || { echo "ERROR: --month must be YYYY-MM (e.g. 2026-07)." >&2; exit 2; }
-ROWDATE="${MONTH}-01"   # the release date itself (used for the app/page.tsx header)
+ROWDATE="${MONTH}-01"   # the release date itself (used for the app/(site)/page.tsx header)
 
 # Per-series conventions come from INDICATOR_REGISTRY — the same source the site
 # reads — so the write path can never drift from it (#12). One bun call, ~20ms.
@@ -205,7 +205,7 @@ NEXTMONTH=$(date -j -v+1m -f "%Y-%m-%d" "$ROWDATE" +%Y-%m-01 2>/dev/null || echo
 HUMAN=$(date -j -f "%Y-%m-%d" "$ROWDATE" "+%B 1, %Y" 2>/dev/null || echo "$ROWDATE")
 HUMAN_NEXT=$(date -j -f "%Y-%m-%d" "$NEXTMONTH" "+%B 1, %Y" 2>/dev/null || echo "$NEXTMONTH")
 echo "Date bumps:"
-echo "  app/page.tsx      : Last Updated: $HUMAN , Next Update: $HUMAN_NEXT"
+echo "  app/(site)/page.tsx : Last Updated: $HUMAN , Next Update: $HUMAN_NEXT"
 echo
 
 if [ "$WRITE" -eq 0 ]; then
@@ -223,8 +223,19 @@ while [ $i -lt "${#PLAN_FILE[@]}" ]; do
 done
 # lib/indicators.ts needs no bump: lastUpdate/nextUpdate are derived from the data
 # at load time (STANDARDS.md §9). Only the homepage header is still hand-written.
-# bump app/page.tsx header
-sed -i '' -E "s/Last Updated: [A-Za-z]+ [0-9]+, [0-9]{4}/Last Updated: $HUMAN/; s/Next Update: [A-Za-z]+ [0-9]+, [0-9]{4}/Next Update: $HUMAN_NEXT/" "$REPO/app/page.tsx"
+# bump app/(site)/page.tsx header
+PAGE_TSX="$REPO/app/(site)/page.tsx"
+# Fail loudly rather than leaving a stale date on the homepage. This path went
+# stale when the app moved into the (site) route group: the sed printed "No such
+# file or directory" AFTER the six CSV writes had already succeeded, so the run
+# looked done and the header silently kept the prior month (2026-09-04).
+if [ ! -f "$PAGE_TSX" ]; then
+  echo "ERROR: $PAGE_TSX not found. The CSVs are written; the homepage date is NOT." >&2
+  echo "       Find the 'Last Updated:' string and fix this path before pushing." >&2
+  exit 1
+fi
+sed -i '' -E "s/Last Updated: [A-Za-z]+ [0-9]+, [0-9]{4}/Last Updated: $HUMAN/; s/Next Update: [A-Za-z]+ [0-9]+, [0-9]{4}/Next Update: $HUMAN_NEXT/" "$PAGE_TSX"
+grep -q "Last Updated: $HUMAN" "$PAGE_TSX" || { echo "ERROR: header did not update." >&2; exit 1; }
 
 echo "WROTE rows + date bumps. Review and push:"
 echo "  cd $REPO && git diff --stat && git diff"

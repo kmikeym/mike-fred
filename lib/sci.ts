@@ -35,7 +35,7 @@ export interface SciPlatformWeight {
  */
 export const SCI_WEIGHTS: readonly SciPlatformWeight[] = [
   // "KmikeyM accounts" = the TOTAL NUMBER OF USER ACCOUNTS on kmikeym.com, read
-  // off /users/leaderboard (Mike, 2026-09-04). NOT the shareholder count: on the
+  // off the ADMIN PANEL (Mike, 2026-09-04). NOT the shareholder count: on the
   // same day those were 3,965 accounts against 1,248 shareholders, so the two
   // differ by more than 3x and picking the wrong one would move the index by
   // roughly a third of its value.
@@ -45,9 +45,10 @@ export const SCI_WEIGHTS: readonly SciPlatformWeight[] = [
   // plus the four auth-walled ones, implying 3,700-4,800 here. The real figure,
   // 3,965, landed inside that range.
   //
-  // There is no unauthenticated path to it: the page requires a login and the
-  // MCP leaderboard tool returns at most 50 rows with no total. Blocked in auto
-  // mode by operations#501. Ask Mike, or capture it in any logged-in session.
+  // Only Mike can supply this today. It lives in the site's admin panel, which
+  // no agent can reach: /users/leaderboard 302s to /login, and the MCP
+  // leaderboard tool returns at most 50 rows with no total. Requested as an MCP
+  // field in operations#571; until that ships, this is a monthly ask.
   { id: "kmikeym-accounts", label: "KmikeyM accounts", weight: 0.35 },
   { id: "substack", label: "Substack", weight: 0.30 },
   { id: "linkedin", label: "LinkedIn", weight: 0.09 },

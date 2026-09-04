@@ -30,11 +30,16 @@ IG=$(curl -s --max-time 15 -A "$UA" "https://www.instagram.com/kmikeym/" \
     | grep -oE 'content="[0-9,]+ Followers' | head -1 | grep -oE '[0-9,]+' | tr -d ,)
 say "Instagram (@kmikeym)" "${IG:-FAILED — get manually}"
 
-# YouTube — the channel is @mike-merrill, NOT @kmikeym (@kmikeym 404s).
-# /user/kmikeym also resolves and redirects there.
-YT=$(curl -s --max-time 15 -A "$UA" "https://www.youtube.com/@mike-merrill" \
-    | grep -oE '"content":"[0-9.]+K? subscribers"' | head -1 | grep -oE '[0-9.]+K?')
-say "YouTube (@mike-merrill)" "${YT:-FAILED — get manually}"
+# YouTube — ⚠️ THREE channels exist and only ONE is the series input:
+#     @publiclytradedperson  243   <- THIS ONE
+#     @k5m                   237   <- WRONG, and only 6 off. It will pass a
+#                                     sanity check against last month's value.
+#     @mike-merrill           47   <- WRONG, obviously
+# @kmikeym 404s; /user/kmikeym redirects to @mike-merrill. Both dead ends.
+# Counts verified against the historical spreadsheet 2026-09-04 (240 last month).
+YT=$(curl -s --max-time 15 -A "$UA" "https://www.youtube.com/@publiclytradedperson" \
+    | grep -oE '"content":"[0-9.,]+K? subscribers"' | head -1 | grep -oE '[0-9.,]+K?')
+say "YouTube (@publiclytradedperson)" "${YT:-FAILED — get manually}"
 
 # Bluesky — public XRPC, no auth. Handle is kmikeym.com (kmikeym.bsky.social 404s).
 BS=$(curl -s --max-time 15 "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=kmikeym.com" \
@@ -50,10 +55,12 @@ echo
 echo "SEMI-AUTOMATED (retrievable but NOT precise):"
 SS=$(curl -s --max-time 15 -A "$UA" "https://kmikeym.substack.com/" \
     | grep -oiE "[0-9,]+ subscribers" | head -1 | grep -oE '[0-9,]+' | tr -d ,)
-say "Substack" "${SS:-FAILED} ⚠️ PUBLIC PAGE ROUNDS"
-echo "     Substack's public page rounds (it shows '3,000', not the real figure)."
-echo "     At weight 0.30 that rounding is material. Get the exact number from"
-echo "     the Substack dashboard until an authenticated pull exists."
+say "Substack" "${SS:-FAILED} 🔴 DO NOT USE THIS NUMBER"
+echo "     🔴 The public page is WRONG, not merely rounded. It showed '3,000' on"
+echo "        2026-09-04 when the real figure was 3,387 — off by 387, or +116 on"
+echo "        the composite, which is larger than any real month-over-month move"
+echo "        this series has ever made. It is printed here only so a stale"
+echo "        dashboard read can be spotted. ALWAYS use the Substack dashboard."
 
 echo
 echo "STILL NEEDED FROM MIKE (auth-walled or undefined):"

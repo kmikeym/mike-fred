@@ -51,6 +51,11 @@ export const SCI_WEIGHTS: readonly SciPlatformWeight[] = [
   // field in operations#571; until that ships, this is a monthly ask.
   { id: "kmikeym-accounts", label: "KmikeyM accounts", weight: 0.35 },
   { id: "substack", label: "Substack", weight: 0.30 },
+  // ⚠️ This is CONNECTIONS, not followers, unlike the other ten platforms which
+  // all measure an audience. On 2026-09-04: 2,101 connections vs 3,389 followers.
+  // Followers is the metric this index should use; switching is a §9 restatement
+  // (~+3.0 index points, more than the series' entire 11-month movement), so it
+  // is scheduled for a clean break at year end. See operations#572.
   { id: "linkedin", label: "LinkedIn", weight: 0.09 },
   { id: "x", label: "X", weight: 0.09 },
   { id: "instagram", label: "Instagram", weight: 0.07 },

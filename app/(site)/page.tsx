@@ -18,9 +18,9 @@ export default async function Home() {
           Transparent, data-driven insights into personal productivity, growth, and strategic output.
         </p>
         <div className="mt-6 flex items-center justify-center space-x-4 text-sm text-gray-500">
-          <span>Last Updated: September 1, 2026</span>
+          <span>Last Updated: October 1, 2026</span>
           <span>•</span>
-          <span>Next Update: October 1, 2026</span>
+          <span>Next Update: November 1, 2026</span>
         </div>
       </div>
 

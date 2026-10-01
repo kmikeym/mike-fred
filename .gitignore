@@ -52,3 +52,8 @@ public/llms.txt
 
 # Nova (dev agent) local session state — never committed
 .nova/
+
+# Cloudflare Pages (v3 image) installs with bun whenever bun.lock is tracked, while
+# next-on-pages and vercel build run npm. One package manager: npm (package-lock.json).
+bun.lock
+bun.lockb

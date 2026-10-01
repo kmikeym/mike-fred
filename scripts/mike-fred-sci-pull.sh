@@ -66,7 +66,7 @@ echo
 echo "STILL NEEDED FROM MIKE (auth-walled or undefined):"
 echo "     KmikeyM accounts          weight 0.35  = TOTAL USER ACCOUNTS (not shareholders!)"
 echo "                                              ADMIN PANEL — Mike only, see ops#571"
-echo "     LinkedIn (Mike)           weight 0.09  auth-walled"
+echo "     LinkedIn (Mike) FOLLOWERS weight 0.09  auth-walled; the \"followers\" figure under the headline, NOT connections (~2,400 on 10/01)"
 echo "     KmikeyM LinkedIn (biz)    weight 0.01  auth-walled"
 echo "     Facebook (personal)       weight 0.01  auth-walled"
 echo "     KmikeyM Facebook (biz)    weight 0.01  auth-walled"

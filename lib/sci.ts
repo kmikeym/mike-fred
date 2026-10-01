@@ -51,12 +51,14 @@ export const SCI_WEIGHTS: readonly SciPlatformWeight[] = [
   // field in operations#571; until that ships, this is a monthly ask.
   { id: "kmikeym-accounts", label: "KmikeyM accounts", weight: 0.35 },
   { id: "substack", label: "Substack", weight: 0.30 },
-  // FOLLOWERS, not connections — consistent with every other input, which all
-  // measure an audience. Confirmed by Mike 2026-09-04 (operations#572, closed:
-  // an earlier reading had this as connections and proposed a year-end switch;
-  // there was nothing to switch). On that date: 3,389 followers, 2,101
-  // connections. Using connections would have shown a 12% one-month decline to
-  // below the October 2025 baseline, which is not a thing LinkedIn connections do.
+  // FOLLOWERS, not connections, consistent with every other input. The profile
+  // shows both under the headline: on 2026-10-01, 2,400 followers and 2,108
+  // connections. The series has always been followers (Mike's sheet: 2,177 at
+  // the Oct 2025 baseline, ~+20/mo since).
+  // ⚠️ The 2026-09-01 row used 3,389, which is NEITHER figure (it was some other
+  // LinkedIn count, recorded as followers without a check against the sheet).
+  // That row is published and stays as filed. Always read the number labelled
+  // "followers" on the profile, and diff it against the sheet's prior month.
   { id: "linkedin", label: "LinkedIn", weight: 0.09 },
   { id: "x", label: "X", weight: 0.09 },
   { id: "instagram", label: "Instagram", weight: 0.07 },

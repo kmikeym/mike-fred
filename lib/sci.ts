@@ -55,10 +55,12 @@ export const SCI_WEIGHTS: readonly SciPlatformWeight[] = [
   // shows both under the headline: on 2026-10-01, 2,400 followers and 2,108
   // connections. The series has always been followers (Mike's sheet: 2,177 at
   // the Oct 2025 baseline, ~+20/mo since).
-  // ⚠️ The 2026-09-01 row used 3,389, which is NEITHER figure (it was some other
-  // LinkedIn count, recorded as followers without a check against the sheet).
-  // That row is published and stays as filed. Always read the number labelled
-  // "followers" on the profile, and diff it against the sheet's prior month.
+  // ⚠️ The 2026-09-01 row used 3,389. LinkedIn's own follower export
+  // (2026-07-04..10-01) shows no jump: 21 new followers in August, max 8 in a
+  // day, ~2,381 on 9/04. Suspected cause (Mike): a spam-account wave later
+  // scrubbed from LinkedIn's record. Also noted: Substack read 3,387 the same
+  // day. The row is published and stays as filed; the 2026-10-01 note discloses.
+  // Always read the number labelled "followers" and diff it against the sheet.
   { id: "linkedin", label: "LinkedIn", weight: 0.09 },
   { id: "x", label: "X", weight: 0.09 },
   { id: "instagram", label: "Instagram", weight: 0.07 },

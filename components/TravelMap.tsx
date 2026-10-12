@@ -40,40 +40,40 @@ export default function TravelMap() {
   const away = `M${ox} ${oy} Q${X(-118)} ${Y(37.2)} ${w} ${Y(38.2)}`;
 
   return (
-    <figure className="my-6">
+    <figure className="my-0 max-w-xs mx-auto md:max-w-none">
       <svg
         viewBox={`0 0 ${w} ${h}`}
         role="img"
         aria-label="Map of the US West Coast showing the move from Portland to Oakland on July 26, 2026, and travel to Kosovo at the end of September"
-        className="w-full max-w-md mx-auto block"
+        className="w-full block"
       >
         <rect width={w} height={h} fill="#eff6ff" />
-        <path d={land} fill="#f3f4f6" stroke="#9ca3af" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d={land} fill="#f3f4f6" stroke="#9ca3af" strokeWidth="2.5" strokeLinejoin="round" />
         {/* State lines: WA/OR and OR/CA, plus California's eastern edge. */}
         <path
           d={`M${X(-123.9)} ${Y(46.2)} L${w} ${Y(46.0)} M${X(-124.2)} ${Y(42)} L${w} ${Y(42)} M${X(-120)} ${Y(42)} L${X(-120)} ${Y(39)} L${X(-114.6)} ${Y(35)}`}
-          fill="none" stroke="#d1d5db" strokeWidth="1"
+          fill="none" stroke="#d1d5db" strokeWidth="1.5"
         />
-        <text x={X(-121.2)} y={Y(47.6)} className="fill-gray-400" fontSize="11">WASHINGTON</text>
-        <text x={X(-121.2)} y={Y(43.6)} className="fill-gray-400" fontSize="11">OREGON</text>
-        <text x={X(-119.6)} y={Y(36.6)} className="fill-gray-400" fontSize="11">CALIFORNIA</text>
+        <text x={X(-121.2)} y={Y(47.6)} className="fill-gray-400" fontSize="20">WASHINGTON</text>
+        <text x={X(-121.2)} y={Y(43.6)} className="fill-gray-400" fontSize="20">OREGON</text>
+        <text x={X(-119.6)} y={Y(36.6)} className="fill-gray-400" fontSize="20">CALIFORNIA</text>
 
-        <path d={route} fill="none" stroke="#1e3a8a" strokeWidth="2" strokeDasharray="5 5" strokeLinecap="round" />
-        <path d={away} fill="none" stroke="#9ca3af" strokeWidth="1.5" strokeDasharray="3 5" strokeLinecap="round" />
-        <text x={w - 6} y={Y(38.2) - 8} textAnchor="end" className="fill-gray-500" fontSize="11">
+        <path d={route} fill="none" stroke="#1e3a8a" strokeWidth="4" strokeDasharray="8 8" strokeLinecap="round" />
+        <path d={away} fill="none" stroke="#9ca3af" strokeWidth="2.5" strokeDasharray="5 8" strokeLinecap="round" />
+        <text x={w - 8} y={Y(38.2) - 12} textAnchor="end" className="fill-gray-500" fontSize="18">
           to Kosovo, late September →
         </text>
 
-        <circle cx={px} cy={py} r="5" fill="#1e3a8a" />
-        <text x={px + 10} y={py + 4} className="fill-gray-900" fontSize="12" fontWeight="600">Portland</text>
-        <text x={px + 10} y={py + 18} className="fill-gray-600" fontSize="11">July 1 to 26 · Summit July 11</text>
+        <circle cx={px} cy={py} r="9" fill="#1e3a8a" />
+        <text x={px + 16} y={py + 8} className="fill-gray-900" fontSize="24" fontWeight="600">Portland</text>
+        <text x={px + 16} y={py + 32} className="fill-gray-600" fontSize="18">July 1 to 26 · Summit July 11</text>
 
-        <circle cx={ox} cy={oy} r="5" fill="#1e3a8a" />
+        <circle cx={ox} cy={oy} r="9" fill="#1e3a8a" />
         {/* Labels sit on the ocean side so the Kosovo line does not cross them. */}
-        <text x={ox - 10} y={oy - 2} textAnchor="end" className="fill-gray-900" fontSize="12" fontWeight="600">Oakland</text>
-        <text x={ox - 10} y={oy + 12} textAnchor="end" className="fill-gray-600" fontSize="11">from July 26</text>
+        <text x={ox - 16} y={oy - 4} textAnchor="end" className="fill-gray-900" fontSize="24" fontWeight="600">Oakland</text>
+        <text x={ox - 16} y={oy + 20} textAnchor="end" className="fill-gray-600" fontSize="18">from July 26</text>
       </svg>
-      <figcaption className="text-xs text-gray-500 text-center mt-2">
+      <figcaption className="text-xs text-gray-500 mt-2 leading-snug">
         Q3 2026 in two places. Portland through the Shareholder Summit, Oakland from July 26, with travel
         to Kosovo in the last days of September.
       </figcaption>

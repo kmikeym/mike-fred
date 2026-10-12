@@ -239,12 +239,28 @@ export default async function ReportPage({ params }: PageProps) {
                       currentQuarter={section.yoyComparison.currentQuarter}
                     />
                   )}
-                  {section.graphic && SECTION_GRAPHICS[section.graphic] && (
-                    (() => { const G = SECTION_GRAPHICS[section.graphic]!; return <G />; })()
+                  {/* A section figure sits in a right sidebar on wide screens and
+                      stacks above the text on narrow ones. The travel map is tall
+                      and narrow, so inline it would push the prose a screen down. */}
+                  {section.graphic && SECTION_GRAPHICS[section.graphic] ? (
+                    (() => {
+                      const G = SECTION_GRAPHICS[section.graphic]!;
+                      return (
+                        <div className="md:flex md:gap-8 md:items-start">
+                          <div className="text-gray-700 leading-relaxed whitespace-pre-line md:flex-1">
+                            {section.body}
+                          </div>
+                          <div className="mt-6 md:mt-0 md:w-56 md:shrink-0">
+                            <G />
+                          </div>
+                        </div>
+                      );
+                    })()
+                  ) : (
+                    <div className="text-gray-700 leading-relaxed whitespace-pre-line">
+                      {section.body}
+                    </div>
                   )}
-                  <div className="text-gray-700 leading-relaxed whitespace-pre-line">
-                    {section.body}
-                  </div>
                 </div>
               ))}
             </div>

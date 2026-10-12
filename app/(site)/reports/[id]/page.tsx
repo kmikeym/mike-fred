@@ -187,6 +187,23 @@ export default async function ReportPage({ params }: PageProps) {
           </div>
         </section>
 
+        {/* Editorial note. Context a reader needs before the analysis (how this
+            report relates to a prior one, a cadence change) that is not itself a
+            finding. Boxed and small so it reads as a note, not as a section, and
+            distinct from the amber addenda above, which record changes made after
+            publication. Optional: most reports carry none. */}
+        {narrative?.note && (
+          <aside className="mb-12 bg-gray-50 border border-gray-300 border-l-4 border-l-gray-500 p-5 text-sm print:border-black">
+            <div className="text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1">
+              Note
+            </div>
+            {narrative.note.title && (
+              <h3 className="font-semibold text-gray-900 mb-2">{narrative.note.title}</h3>
+            )}
+            <div className="text-gray-700 leading-relaxed whitespace-pre-line">{narrative.note.body}</div>
+          </aside>
+        )}
+
         {/* PHI overlap chart (methodology report only) */}
         {overlap && (
           <section className="mb-12">

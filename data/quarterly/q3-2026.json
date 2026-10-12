@@ -1,0 +1,145 @@
+{
+  "title": "State of the MIKE Economy - Q3 2026",
+  "quarter": "Q3 2026",
+  "status": "current",
+  "publishedDate": "2026-10-15",
+  "reportDate": "2026-10-15",
+  "blurb": "The quarter without a paycheck. Wealth sat on a high shelf and drifted (149.9 average, 143.8 close), health set a new series record in August (117.8), productivity came off its floor but spent a sixth month under 100, and the Summit did not move social capital. The vault tripled on a one-time migration; the organic pace fell.",
+  "summary": "The quarter without a paycheck. Wealth sat on a high shelf and drifted (149.9 average, 143.8 close), health set a new series record in August (117.8), productivity came off its floor but spent a sixth month under 100, and the Summit did not move social capital. The vault tripled on a one-time migration; the organic pace fell. Media velocity posted its strongest quarter since Q4 2025. Of the six questions the quarter opened with, four are answered, one was never tested, and one belongs to Q4.",
+  "period": {
+    "start": "2026-07-01",
+    "end": "2026-09-30"
+  },
+  "indicators": {
+    "revenue": {
+      "value": 143.8,
+      "change": 37.3,
+      "changePercent": 35.0,
+      "trend": "up",
+      "note": "September value (143.8). Q3 averaged 149.9 across July (154.4), August (151.4) and September (143.8), the highest quarterly average on the current scale and well above Q2's 122.2. July's level was set by a one-time influx that now sits in the level rather than recurring as flow, so the shape since then is a drift: down 1.9% in August on steady operations, down 5.0% in September with most of that one-time travel paid in full. Fixed costs stayed structurally low, with no housing expense. The floor test the quarter opened with never came close: the lowest reading sat 43.8 points above 100."
+    },
+    "knowledge-expansion": {
+      "value": 18614,
+      "change": 12456,
+      "changePercent": 202.3,
+      "trend": "up",
+      "note": "September value (18,614 notes). The headline change, +12,456 for the quarter (+202.3%), is not organic. A one-time Evernote-to-Obsidian migration in July added roughly 12,000 notes against a baseline near 245 a month, so the vault is three times the size it was in June and the quarter-over-quarter percentage measures the migration, not the writing. The organic record is the two months after it: +250 in August, in line with baseline, and +164 in September, below it. Month-over-month percentages are not comparable across July."
+    },
+    "phi": {
+      "value": 110.1,
+      "change": 4.1,
+      "changePercent": 3.9,
+      "trend": "up",
+      "note": "September value (110.1). Q3 averaged 113.2 across July (111.6), August (117.8) and September (110.1), against Q2's 106.9 under PHI 2.0. August is a new series record, above May's 113.2 and above February 2023's 112.4, the previous high in a series that reaches back to January 2023. It was set in the first full month in Oakland, with steps 71% above the 2023 to 2025 norm after walking replaced Portland's cycling. September gave some of it back: activity and fitness stayed well above baseline, with the step score at its 160 ceiling, but nights ran shorter and far less regular than August, and travel to Kosovo at month's end made both worse."
+    },
+    "social-capital": {
+      "value": 101.23,
+      "change": 0.07,
+      "changePercent": 0.07,
+      "trend": "neutral",
+      "note": "September value (101.23). SCI closed the quarter 0.07 above June's 101.16, and the published series has now sat within a quarter-point of 101 for ten months, with August the lone exception. The August reading of 104.17 was the largest monthly move ever recorded, and it was not real: effectively all of it was a LinkedIn input that LinkedIn's own data does not show, the suspected cause a wave of spam accounts since scrubbed from the record, and September's reading corrects it. The other ten platforms were essentially flat. The quarter held the one dated test this line has had, the Shareholder Summit on July 11. The July reading moved from 101.16 to 101.19."
+    },
+    "ppi": {
+      "value": 93.75,
+      "change": 10.0,
+      "changePercent": 11.9,
+      "trend": "up",
+      "note": "September value (93.75). PPI came off June's record-low 83.75 to 96.25 in July, then 93.75 in August and again in September, a 94.6 average against Q2's 91.3. It has now spent six consecutive months below 100, tying the early-2025 run for the longest in the series. July's coverage was 81% (six untracked days); August and September were fully tracked, so the decline from July is measured, not an artifact of missing data. Tracked hours carry the quarter's productivity story: 114, 159 and 141, against 212 to 214 in the spring. Less time at the desk, and the time that was logged scored a pulse of 75 to 77."
+    },
+    "completion-rate": {
+      "value": 15,
+      "change": 4,
+      "changePercent": 36.4,
+      "trend": "up",
+      "note": "September value (15 points). Media velocity ran 11 in July (ten films, no books), 8 in August (two films, two books), then 15 in September (five films, four books), its highest reading since the 16 reported for November 2025. Q3 averaged 11.3 against Q2's 9.0, the strongest quarter since Q4 2025's 13.0. July's zero books is a property of the measure rather than a fact about July: LMV scores completions only, and a month of reading with no finish scores the same as a month of no reading."
+    }
+  },
+  "highlights": [
+    "The quarter opened with six questions and answered four: health and media did not revert, wealth never approached its floor, productivity came off the floor but stayed under 100, and the Summit did not move social capital",
+    "PWI averaged 149.9, the highest on the current scale, then drifted from 154.4 to 143.8 as a July one-time influx aged and September absorbed travel paid in full (+35.0% QoQ close)",
+    "PHI set a new series record in August at 117.8, the first full month in Oakland, and averaged 113.2 for the quarter against 106.9 in Q2 (+3.9%)",
+    "PPI rose from its 83.75 floor to 96.25, then settled at 93.75 for two fully tracked months, its sixth consecutive month below 100 (+11.9%)",
+    "KBER tripled to 18,614 on a one-time Evernote-to-Obsidian migration; the organic pace underneath fell from +250 in August to +164 in September (+202.3%, inorganic)",
+    "SCI closed at 101.23, flat for a third quarter; August's 104.17 was a LinkedIn spam artifact and was corrected in September (+0.07%)",
+    "LMV posted 11, 8 and 15 for an 11.3 average, the strongest quarter since Q4 2025, closing on five films and four books in September (+36.4%)"
+  ],
+  "narrative": {
+    "executiveSummary": "Q3 2026 was the first full quarter the MIKE Economy ran without a paycheck. The employer-linked lines that took the June shock did not keep falling. Wealth opened on a one-time influx that lifted the index to 154.4 and then drifted, 1.9% in August and 5.0% in September, closing at 143.8 with the lowest reading of the quarter still 43.8 points above baseline. Productivity came off its record low but did not clear 100 in any month, and the tracked hours underneath it, 114 to 159 a month against 212 to 214 in the spring, say the calendar did not refill. The lines that compound on their own kept compounding. Health set a new series record in August, 117.8, in the first full month after the move from Portland to Oakland. Media velocity had its best quarter since Q4 2025. The vault tripled in size, but on a one-time migration, and its organic pace slowed. Social capital was the line the quarter was supposed to test, with the Shareholder Summit on July 11 as the catalyst. The July reading moved three hundredths of a point. The one large move SCI did make, in August, was a data artifact and was corrected the next month.",
+    "sections": [
+      {
+        "title": "A Note on the Prior Report",
+        "body": "The Q2 2026 report was withdrawn on August 6, 2026. It was published on July 4, eleven days before the cadence date, on June figures that were still provisional, and it accumulated three dated addenda in a month before its central conclusion stopped holding. The withdrawal notice is at its URL.\n\nThis report is the first written on the fixed cadence: released on the fifteenth of the month after quarter-end, with the September monthly close final on October 1 before a word was drafted. Every comparison to Q2 below is to the six indicator series, which were never withdrawn and carry their own revision histories, not to the withdrawn document's analysis. Health figures are PHI 2.0 throughout, so Q2 reads 101.6, 113.2, 106.0 (a 106.9 average) rather than the PHI-Classic figures the withdrawn report carried.\n\nThe withdrawn report also posed a watch list for Q3. Those questions went with it, but they remain the natural questions to ask of this quarter, and the section titled The Q3 Questions answers them as questions rather than scoring them against a document no longer in publication."
+      },
+      {
+        "title": "Portland to Oakland",
+        "body": "The quarter had the shape the June outlook expected: another relocation, not a steady stretch. July ran in Portland through the Shareholder Summit on July 11, with 25 bike rides logged before cycling stopped on July 26 with the move to Oakland. August was the first full month in the Bay Area, with walking replacing the Portland cycling, and the quarter closed with travel to Kosovo in the last days of September.\n\nWhat did not happen is the quarter's other defining fact. No new commitment refilled the calendar. The productivity tracker logged 114 hours in July (on 81% coverage), 159 in August and 141 in September, against 212 to 214 in the spring. That gap is where a job used to be, and it is the context for every line below: the free-time lines had a full quarter of free time to work with, and the employer-linked lines had nothing new to lift them."
+      },
+      {
+        "title": "Wealth: A High Shelf, Drifting",
+        "body": "PWI averaged 149.9 across the quarter, the highest quarterly average since the series rebased to 100 in March 2026 and well above Q2's 122.2. The arc: July 154.4, August 151.4, September 143.8.\n\nThe July reading needs its disclosure. It was driven by a one-time influx, which is now fully in the level rather than recurring as flow. Everything after July is therefore a drift from a cushioned starting point: down 1.9% in August, which reflects only the absence of the one-time money from the comparison and no change in operations, and down 5.0% in September, most of it travel paid in full inside the month and the rest the same steady drift as August. Fixed costs remain structurally low, with no housing expense.\n\nThe floor test the quarter opened with was never run. The question in June was whether wealth would hold near 100 without income; the lowest reading of the quarter was 43.8 points above that. The question Q3 leaves behind is a rate question instead. Two months of drift, at 2% and then 5%, is the first run-rate reading on what a quarter of no income and low fixed costs actually costs. August is the cleaner of the two; September had a one-time item in it."
+      },
+      {
+        "title": "Health: A Record in Oakland",
+        "body": "PHI was the quarter's standout for a second quarter running, and this time the record is unambiguous. August's 117.8 is the highest reading in the rebuilt series, which reaches back to January 2023. It clears May 2026's 113.2 and February 2023's 112.4, the two previous highs. July printed 111.6 and September 110.1, for a 113.2 quarterly average against Q2's 106.9 and Q1's 98.8.\n\nThe record came from activity. August was the first full month in Oakland, and steps ran 71% above the 2023 to 2025 norm as walking replaced the Portland cycling that had carried July. September held activity and fitness well above baseline, with the step score at its 160 ceiling, and gave ground on sleep: nights ran shorter and far less regular than August, and the Kosovo travel at month's end made both worse. The index did what it was rebuilt to do, scoring the sleep deficit against the activity surplus instead of letting volume carry the month.\n\nThe June outlook expected mean reversion here if a new commitment refilled the calendar. The calendar did not refill, and health did not revert. Three months above 110 is the longest such run in the series."
+      },
+      {
+        "title": "Productivity: Off the Floor, Under the Line",
+        "body": "PPI recovered from June's record-low 83.75 to 96.25 in July, then settled at 93.75 in August and again in September. The quarterly average of 94.6 is above Q2's 91.3 and the trend is up on a quarter-over-quarter close, +11.9%. It is also the sixth consecutive month below 100, tying the six-month run of February to July 2025 for the longest sub-baseline stretch in the series.\n\nTwo readings need their footnotes. July was tracked on 25 of 31 days: five days with no tracking and one offline, so its pulse and hours describe 81% of the month. August and September were fully tracked, which means the step down from July is measured rather than an artifact of coverage. The pulse, the share of tracked time rated productive, sat at 77, 75 and 75: steady, and a few points under the 80 that marks 100 on the index.\n\nThe hours carry the story. 114, 159 and 141 tracked hours, against 212 to 214 a month in the spring. Less time at the desk, scored at roughly the same quality. Nothing in the data reads as hidden output."
+      },
+      {
+        "title": "Knowledge: The Migration and the Pace",
+        "body": "KBER closed the quarter at 18,614 notes, up 12,456 from June's 6,158. The number is true and the percentage, +202.3%, measures nothing about the quarter's writing. In July a one-time migration moved roughly 12,000 Evernote notes into the Obsidian vault, against a baseline of about 245 organic notes a month. The vault is now three times the size it was in June, and every month-over-month percentage computed across July is meaningless: the same 250 notes that read as 4.1% growth on the old base read as 1.4% on the new one.\n\nThe organic record is the two months after. August added 250 notes, in line with the monthly baseline. September added 164, below it. The June outlook asked whether the decelerating pace would plateau or resume; it fell further. That is the smaller base effect the Q2 figures already showed, continued, and now hidden under a step change that will dominate the chart for a year.\n\nFrom here the series is best read as a count plus a monthly add, and the monthly add is the number to watch. The migration put the Evernote archive within reach of the retrieval layer built in Q1; whether that changes the writing rate is a Q4 question."
+      },
+      {
+        "title": "Social Capital: The Summit Did Not Move It",
+        "body": "SCI entered the quarter with one dated test. The Shareholder Summit fell on July 11, and the June outlook said that if summit week did not lift shareholder accounts or the mailing list in the Q3 data, the flat line stopped being a caution. The July reading, which covers summit month, moved from 101.16 to 101.19.\n\nAugust then printed 104.17, the largest monthly move in the series, and it has to be read with its correction. Effectively all of the jump was a LinkedIn follower input. LinkedIn's own data shows no such jump; the suspected cause is a wave of spam accounts that was later scrubbed from the record, and September's 101.23 corrects it. The other ten platforms were essentially flat across the quarter. The only large move this line has ever made was a data error.\n\nSo the quarter closes at 101.23 against June's 101.16. Since January the published series has left a quarter-point band around 101 exactly once, and that once was the August error. The audiences that carry the most weight in the composite, registered KmikeyM accounts at 35% and the mailing list at 30%, did not grow through the one event built to grow them. A one-day gathering turned out to be the wrong instrument for an eleven-platform follower composite. The line is no longer waiting on a catalyst, and a revision of the index is in process."
+      },
+      {
+        "title": "Media: The Calendar Filled With Films and Books",
+        "body": "LMV ran 11 in July, 8 in August and 15 in September, for an 11.3 average against Q2's 9.0. It is the strongest quarter since Q4 2025's 13.0, and September's 15 is the highest single reading since the 16 reported for November 2025.\n\nThe composition shifted inside the quarter. July's 11 was ten films and no books; the zero is confirmed rather than a feed gap. Mike read during July but finished nothing, and LMV scores completions only, so a month of reading without a finish scores the same as a month of no reading. That is a property of the measure. August was a light month, two films and two books. September was five films and four books.\n\nThe June outlook expected this line to give back its gains if a new commitment filled the calendar. The calendar stayed open and media velocity held and then rose. Whether it holds at 15 is the Q4 question; the history says a 15 is usually followed by a lower month."
+      },
+      {
+        "title": "The Q3 Questions",
+        "body": "Six questions were posed for this quarter in June. Four are answered, one was never tested, and one is not the dashboard's to answer.\n\n• Does the layoff dividend revert? NO. PHI averaged 113.2 against 106.9 and set a series record; LMV averaged 11.3 against 9.0. The premise, that a new commitment would refill the calendar, did not occur: tracked hours ran 114 to 159 a month against 212 to 214 in the spring.\n• PWI floor test. NOT TESTED. The lowest reading was 143.8. A one-time influx in July put the index on a shelf 50 points above the floor, and two months of drift (1.9%, then 5.0%) is the first reading on how fast the shelf erodes.\n• PPI recovery. PARTIAL. Off the 83.75 floor to 96.25, then 93.75 twice. Six consecutive months under 100.\n• SCI and the Summit. NO MOVE. July 101.19 against June 101.16. August's jump was a LinkedIn data artifact, corrected in September.\n• San Francisco. The step-change variable did not appear in the data: no month shows the hours or the income a new role would bring. Beyond that the dashboard has nothing to say.\n• KBER, plateau or resume? FELL FURTHER. Organic adds went from about 245 a month to 250 in August and 164 in September, underneath a one-time migration that tripled the base.\n\nThe pattern is the same one the June data showed, extended by a quarter. The lines an employer never touched kept compounding. The lines an employer used to lift held at a lower level instead of falling further. And the structural line, social capital, took its one scheduled test and did not move."
+      },
+      {
+        "title": "Year-over-Year (partial)",
+        "body": "Four of the six indicators now reach back a full year to Q3 2025. KBER and SCI began in October 2025 and get their first complete year-over-year read in the Q4 2026 report.\n\nPPI: Q3 2025 average 103.75 to Q3 2026 average 94.58, down 8.8%. Last year's third quarter was the series' peak, 101.25, 105 and 105 on a new role and dual projects. This year's ran entirely below baseline with no employer. It is the clearest year-over-year deterioration on the board and the fairest.\n\nPHI: Q3 2025 average 93.43 to Q3 2026 average 113.17, up 21.1%. The rebuilt health series reaches back to 2023, so this is a real comparison, and it is the largest year-over-year gain any indicator has posted. Last year's third quarter included the first relocation month, when activity floored; this year's included a relocation and a record.\n\nLMV: Q3 2025 average 6.67 to Q3 2026 average 11.33, up 70.0%. The percentage is large because the base is small; the Q3 2025 months were 3, 5 and 12. Read it as a return to the 2025 spring pace rather than a surge.\n\nPWI: a base effect. The series rebased to 100 in March 2026, so Q3 2025's readings (-0.5, 3.0, 6.6) are on a different scale and the percentage is not meaningful. It washes out in Q3 2027.\n\nFrom the Q4 2026 report, all six indicators carry a full year of history and year-over-year becomes a standard section.",
+        "yoyComparison": {
+          "previousQuarter": "Q3 2025",
+          "currentQuarter": "Q3 2026",
+          "indicators": [
+            {
+              "id": "ppi",
+              "label": "PPI",
+              "previous": 103.75,
+              "current": 94.58,
+              "changePercent": -8.8,
+              "unit": "idx"
+            },
+            {
+              "id": "phi",
+              "label": "PHI",
+              "previous": 93.43,
+              "current": 113.17,
+              "changePercent": 21.1,
+              "unit": "idx"
+            },
+            {
+              "id": "completion-rate",
+              "label": "LMV",
+              "previous": 6.67,
+              "current": 11.33,
+              "changePercent": 70.0,
+              "unit": "pts"
+            }
+          ]
+        }
+      }
+    ],
+    "outlook": {
+      "title": "Q4 2026 Outlook: The Rate, Not the Level",
+      "body": "Q4 opens on the road again, with most of October in Los Angeles before a return to Oakland, so the routine-dependent lines face a fourth consecutive quarter of adjustment rather than a first steady one. The forecast is about rates rather than levels: the levels are known, the rates are not.\n\nWealth is the clearest case. The index sits at 143.8 on a one-time cushion that is now aging. September's 5.0% drift included a one-time travel item; August's 1.9% did not. If the quarter runs between those two rates, PWI ends the year somewhere between the mid-120s and the mid-130s, still well above baseline. A new income source moves it the other way and would show up first as a break in the drift. The floor test that Q3 skipped becomes a 2027 question only if nothing changes.\n\nHealth enters Q4 from a record quarter and against the softest comparison in the series: Q4 2025 averaged 87.3 amid the first relocation, so the year-over-year read will flatter it. The real test is sleep. Activity has held above baseline for three months and is near its ceiling; the sleep pillar is where September lost ground and where travel does its damage. A fourth month above 110 would make the current level the new normal rather than a run.\n\nProductivity has a simpler question. Seven consecutive months under 100, or not. The pulse has been steady at 75 to 77; the hours are the variable, and the hours are a calendar question the dashboard can only observe.\n\nKnowledge is now two numbers: a count the migration set, and a monthly add that fell to 164 in September. The add is the one to watch. Social capital has taken its scheduled test and the test is over. A revision of the index is in process; if it ships, the Q4 report will say what changed and carry the old series alongside the new one so nothing in this report has to be restated.\n\nThe Q4 2026 report is due January 15, 2027, and will be the first with a full year of history on all six indicators.\n\nWatch list for Q4 2026:\n• PWI drift rate: does the monthly decline hold near 2%, or near September's 5%\n• PHI sleep pillar: the one pillar that softened in September, under October travel\n• PPI: a seventh month under 100, or the first month over it since March\n• KBER organic adds: 164 in September against a 245 baseline\n• SCI: whether the revised index ships, and what it sees that the current one cannot\n• LMV: whether 15 holds, or reverts as the history suggests"
+    }
+  }
+}

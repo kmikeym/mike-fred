@@ -16,7 +16,7 @@ import { loadReportIndex, loadReport } from "./indicators";
 test("every report exposes the metadata both pages need", async () => {
   const index = await loadReportIndex();
 
-  expect(index.length).toBe(7);
+  expect(index.length).toBe(8);
   for (const r of index) {
     for (const field of ["id", "title", "quarter", "publishedDate", "blurb", "summary", "status"] as const) {
       expect(`${r.id}.${field}:${Boolean(r[field])}`).toBe(`${r.id}.${field}:true`);
@@ -58,7 +58,7 @@ test("status is preserved for the listing badge", async () => {
   // q2-2026 was in this list until it was withdrawn on 2026-08-06. A withdrawn
   // report is not the current one, and leaving status:"current" on it would let a
   // downstream consumer advertise a document that is no longer served.
-  expect(current.sort()).toEqual(["phi-2.0-methodology"]);
+  expect(current.sort()).toEqual(["phi-2.0-methodology", "q3-2026"]);
 });
 
 test("a withdrawn report carries a dated statement and is not current", async () => {

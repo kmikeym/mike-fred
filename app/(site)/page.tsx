@@ -26,19 +26,19 @@ export default async function Home() {
 
       {/* Economic Summary Banner */}
       <div className="bg-gradient-to-r from-fed-navy to-blue-900 rounded-lg p-8 mb-12 text-white">
-        <h2 className="text-2xl font-bold mb-4">Economic Overview - Q2 2026</h2>
+        <h2 className="text-2xl font-bold mb-4">Economic Overview - Q3 2026</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <div className="text-sm opacity-80 mb-1">Overall Performance</div>
-            <div className="text-3xl font-bold">Divergence</div>
+            <div className="text-3xl font-bold">Drift</div>
           </div>
           <div>
             <div className="text-sm opacity-80 mb-1">Wealth Index</div>
-            <div className="text-3xl font-bold trend-down">106.5</div>
+            <div className="text-3xl font-bold trend-up">143.8</div>
           </div>
           <div>
             <div className="text-sm opacity-80 mb-1">Strategic Outlook</div>
-            <div className="text-3xl font-bold">Bullish</div>
+            <div className="text-3xl font-bold">Steady</div>
           </div>
         </div>
       </div>
@@ -102,11 +102,11 @@ export default async function Home() {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Latest Report</h3>
           <p className="text-gray-600 mb-4">
-            Q2 2026 State of the MIKE Economy: the nomadic quarter that ended in a split. A June layoff
-            drove the indicators in opposite directions. PPI fell to a record-low 83.75 while health
-            climbed to its strongest reading on record in May, before softening in June.
+            Q3 2026 State of the MIKE Economy: the quarter without a paycheck. Wealth sat on a high shelf
+            and drifted, health set a new series record in August, productivity came off its floor but
+            spent a sixth month under 100, and the Summit did not move social capital.
           </p>
-          <Link href="/reports/q2-2026" className="text-primary hover:text-accent font-medium">
+          <Link href="/reports/q3-2026" className="text-primary hover:text-accent font-medium">
             Read Report →
           </Link>
         </div>

@@ -565,6 +565,9 @@ export function buildNarrative(snapshot: any): any | null {
 
   return {
     executiveSummary: snapshot.narrative?.executiveSummary,
+    // Optional boxed context under the summary (first used by q3-2026 for the
+    // relationship to the withdrawn Q2 report). Not a section, not an addendum.
+    note: snapshot.narrative?.note || null,
     sections: snapshot.narrative?.sections || [],
     outlook: snapshot.narrative?.outlook || null,
     highlights: snapshot.highlights || [],

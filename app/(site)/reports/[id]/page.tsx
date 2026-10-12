@@ -5,6 +5,7 @@ import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePerc
 import type { ReportUpdate } from "@/lib/types";
 import YoYChart, { type YoYIndicator } from "@/components/YoYChart";
 import PhiOverlapChart from "@/components/PhiOverlapChart";
+import TravelMap from "@/components/TravelMap";
 
 interface YoYComparison {
   previousQuarter: string;
@@ -16,7 +17,14 @@ interface NarrativeSection {
   title: string;
   body: string;
   yoyComparison?: YoYComparison;
+  // Names a server-rendered figure for this section. Figures are components,
+  // not data, so the JSON carries only an id and the page maps it.
+  graphic?: string;
 }
+
+const SECTION_GRAPHICS: Record<string, React.ComponentType> = {
+  "q3-2026-travel": TravelMap,
+};
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -230,6 +238,9 @@ export default async function ReportPage({ params }: PageProps) {
                       previousQuarter={section.yoyComparison.previousQuarter}
                       currentQuarter={section.yoyComparison.currentQuarter}
                     />
+                  )}
+                  {section.graphic && SECTION_GRAPHICS[section.graphic] && (
+                    (() => { const G = SECTION_GRAPHICS[section.graphic]!; return <G />; })()
                   )}
                   <div className="text-gray-700 leading-relaxed whitespace-pre-line">
                     {section.body}

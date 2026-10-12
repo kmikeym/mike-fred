@@ -6,6 +6,9 @@ import type { ReportUpdate } from "@/lib/types";
 import YoYChart, { type YoYIndicator } from "@/components/YoYChart";
 import PhiOverlapChart from "@/components/PhiOverlapChart";
 import TravelMap from "@/components/TravelMap";
+import QuarterChart from "@/components/QuarterChart";
+import { INDICATOR_REGISTRY } from "@/lib/indicators";
+import type { IndicatorId } from "@/lib/types";
 
 interface YoYComparison {
   previousQuarter: string;
@@ -20,6 +23,12 @@ interface NarrativeSection {
   // Names a server-rendered figure for this section. Figures are components,
   // not data, so the JSON carries only an id and the page maps it.
   graphic?: string;
+  // Names the indicator this section is about, so the page can chart the
+  // quarter's months (frozen in the snapshot) under the heading.
+  indicator?: IndicatorId;
+  // One short paragraph: the acronym, what the series measures, how it is
+  // computed. Frozen in the snapshot because methods change (PHI 2.0 did).
+  about?: string;
 }
 
 const SECTION_GRAPHICS: Record<string, React.ComponentType> = {
@@ -232,6 +241,21 @@ export default async function ReportPage({ params }: PageProps) {
               {narrative.sections.map((section: NarrativeSection, i: number) => (
                 <div key={i}>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">{section.title}</h3>
+                  {section.about && (
+                    <aside className="mb-4 bg-gray-50 border border-gray-300 border-l-4 border-l-gray-500 px-4 py-3 text-sm print:border-black">
+                      <div className="text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1">
+                        What it measures
+                      </div>
+                      <div className="text-gray-700 leading-relaxed">{section.about}</div>
+                    </aside>
+                  )}
+                  {section.indicator && narrative?.indicators?.[section.indicator]?.months && (
+                    <QuarterChart
+                      months={narrative.indicators[section.indicator].months}
+                      meta={INDICATOR_REGISTRY[section.indicator]}
+                      quarter={report.quarter}
+                    />
+                  )}
                   {section.yoyComparison && (
                     <YoYChart
                       indicators={section.yoyComparison.indicators}

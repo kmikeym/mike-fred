@@ -568,6 +568,9 @@ export function buildNarrative(snapshot: any): any | null {
     // Optional boxed context under the summary (first used by q3-2026 for the
     // relationship to the withdrawn Q2 report). Not a section, not an addendum.
     note: snapshot.narrative?.note || null,
+    // The raw per-indicator block, so a section can chart the months the
+    // report froze (`months`) rather than whatever the CSV says today.
+    indicators: snapshot.indicators || null,
     sections: snapshot.narrative?.sections || [],
     outlook: snapshot.narrative?.outlook || null,
     highlights: snapshot.highlights || [],

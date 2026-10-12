@@ -29,6 +29,10 @@ interface NarrativeSection {
   // One short paragraph: the acronym, what the series measures, how it is
   // computed. Frozen in the snapshot because methods change (PHI 2.0 did).
   about?: string;
+  // A question-and-answer section: `lead` above, one block per question
+  // (bold question, verdict, answer), then `body` as the closing paragraph.
+  lead?: string;
+  qa?: { question: string; verdict: string; answer: string }[];
 }
 
 // Highlight cards quote the number the prose quotes: 93.75, 101.23, 15, not
@@ -320,6 +324,24 @@ export default async function ReportPage({ params }: PageProps) {
                         </div>
                       );
                     })()
+                  ) : section.qa ? (
+                    <div className="text-gray-700 leading-relaxed">
+                      {section.lead && <p className="mb-5">{section.lead}</p>}
+                      <div className="space-y-5 mb-6">
+                        {section.qa.map((item, j) => (
+                          <div key={j} className="border-l-4 border-gray-300 pl-4">
+                            <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
+                              <span className="text-lg font-bold text-gray-900">{item.question}</span>
+                              <span className="text-xs font-semibold uppercase tracking-wide text-gray-600 bg-gray-100 border border-gray-300 rounded px-2 py-0.5">
+                                {item.verdict}
+                              </span>
+                            </div>
+                            <p>{item.answer}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="whitespace-pre-line">{section.body}</div>
+                    </div>
                   ) : (
                     <div className="text-gray-700 leading-relaxed whitespace-pre-line">
                       {section.body}

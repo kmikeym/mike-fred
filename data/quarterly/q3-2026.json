@@ -166,7 +166,7 @@
     "LMV posted 11, 8 and 15 for an 11.3 average, the strongest quarter since Q4 2025, closing on five films and four books in September (+36.4%)"
   ],
   "narrative": {
-    "executiveSummary": "Q3 2026 was the first full quarter the MIKE Economy ran without a paycheck. The employer-linked lines that took the June shock did not keep falling.\n\nWealth opened on a one-time influx that lifted the index to 154.4 and then drifted, 1.9% in August and 5.0% in September, closing at 143.8 with the lowest reading of the quarter still 43.8 points above baseline. Productivity came off its record low but did not clear 100 in any month, and the tracked hours underneath it, 114 to 159 a month against 212 to 214 in the spring, say the calendar did not refill.\n\nThe lines that compound on their own kept compounding. Health set a new series record in August, 117.8, in the first full month after the move from Portland to Oakland. Media velocity had its best quarter since Q4 2025. The vault tripled in size, but on a one-time migration, and its organic pace slowed.\n\nSocial capital was the line the quarter was supposed to test, with the Shareholder Summit on July 11 as the catalyst. The July reading moved three hundredths of a point. The one large move SCI did make, in August, was a data artifact and was corrected the next month.",
+    "executiveSummary": "Q3 2026 was the first full quarter the MIKE Economy ran without a paycheck. The employer-linked lines that took the June shock did not keep falling.\n\nWealth opened on a one-time influx that lifted the index to 154.4 and then drifted, 1.9% in August and 5.0% in September, closing at 143.8 with the lowest reading of the quarter still 43.8 points above baseline. Productivity came off its record low but did not clear 100 in any month, and the tracked hours underneath it, 114 to 159 a month against 212 to 214 in the spring, say the calendar did not refill.\n\nThe lines that compound on their own kept compounding. Health set a new series record in August, 117.8, in the first full month after the move from Portland to Oakland. Media velocity had its best quarter since Q4 2025. The vault tripled in size, but on a one-time migration, and its organic pace slowed.\n\nSocial capital was the line the quarter was supposed to test, with the Shareholder Summit on July 11 as the catalyst. The July reading moved three hundredths of a point. The one large move SCI did make, in August, was a data artifact and was corrected the next month. Set against the share price, none of it registers: a rank correlation of all six indicators against the price over twelve months finds nothing that survives inspection, and the quarter's busiest market days had no connection to the data.",
     "note": {
       "title": "A note on the prior report",
       "body": "The Q2 2026 report was withdrawn on August 6, 2026, after an early release on provisional June figures; the notice is at its URL. This is the first report written on the fixed cadence, drafted after the September close was final. Comparisons to Q2 are to the six indicator series, which were never withdrawn, with health on PHI 2.0 throughout (Q2: 101.6, 113.2, 106.0). The June watch list is answered in The Q3 Questions as questions, not as a scorecard."
@@ -278,6 +278,116 @@
             "answer": "Organic adds went from about 245 a month to 250 in August and 164 in September, underneath a one-time migration that tripled the base."
           }
         ]
+      },
+      {
+        "title": "The Market in Mike: External Against Internal",
+        "aboutLabel": "About the method",
+        "about": "The share price on kmikeym.com is the market's external valuation of KmikeyM. The six indicators are an attempt at an internal one. This section asks whether the two move together, using Spearman rank correlation. Each series is converted to ranks (its lowest month is 1, its highest is 12) and the ranks are compared, so one outsized month cannot dominate the result the way it would in an ordinary correlation. The coefficient runs from +1 (the months rank identically) through 0 (no relationship) to -1 (opposite order). A lag of one compares the indicator's month with the price one month later, which tests whether the economy leads the market. With twelve months of data, a coefficient needs to be beyond about 0.58 in either direction to be distinguishable from chance, and it needs to hold its sign across lags before it means anything.",
+        "tables": [
+          {
+            "title": "Q3 2026, month measured: the market beside the economy",
+            "columns": [
+              "Month",
+              "Price close",
+              "Shares traded",
+              "Trades",
+              "PWI",
+              "PHI",
+              "PPI",
+              "SCI",
+              "KBER",
+              "LMV"
+            ],
+            "rows": [
+              [
+                "Jul",
+                "$4.98",
+                95,
+                9,
+                154.4,
+                111.6,
+                96.25,
+                101.19,
+                "18,200",
+                11
+              ],
+              [
+                "Aug",
+                "$4.98",
+                15,
+                3,
+                151.4,
+                117.8,
+                93.75,
+                104.17,
+                "18,450",
+                8
+              ],
+              [
+                "Sep",
+                "$4.26",
+                124,
+                4,
+                143.8,
+                110.1,
+                93.75,
+                101.23,
+                "18,614",
+                15
+              ]
+            ],
+            "note": "Price is the last trade of the month on kmikeym.com; shares and trades are that month's totals."
+          },
+          {
+            "title": "Spearman rank correlation, indicator against month-end price, October 2025 to September 2026",
+            "columns": [
+              "Indicator",
+              "Same month",
+              "Indicator leads by 1 month",
+              "Indicator leads by 2 months"
+            ],
+            "rows": [
+              [
+                "PWI",
+                "+0.37",
+                "+0.67",
+                "+0.12"
+              ],
+              [
+                "PHI",
+                "+0.60",
+                "+0.44",
+                "+0.41"
+              ],
+              [
+                "SCI",
+                "+0.46",
+                "+0.30",
+                "+0.41"
+              ],
+              [
+                "KBER",
+                "+0.35",
+                "+0.55",
+                "+0.39"
+              ],
+              [
+                "PPI",
+                "-0.03",
+                "-0.24",
+                "-0.39"
+              ],
+              [
+                "LMV",
+                "-0.35",
+                "-0.41",
+                "-0.01"
+              ]
+            ],
+            "note": "Twelve months at lag 0, eleven at lag 1, ten at lag 2. Threshold for significance at twelve observations is roughly 0.58."
+          }
+        ],
+        "body": "Nothing in the economy predicts the price, and the quarter just closed shows why. August was the economy's best month of the quarter, with the health record and wealth still above 150, and the market's quietest: three trades, fifteen shares, price unchanged. September was the economy's softest month and the market's busiest, but the activity was two sales into resting bids at 4.26 and one 89-share lift of a resting ask ladder to 5.35. None of it was a reaction to anything the dashboard measures.\n\nThe correlation table says the same thing with more months. Two figures clear the 0.58 threshold, PHI at lag zero and PWI leading by a month, and neither survives inspection. The PWI figure rests on two months: the February 2026 price spike, the busiest month of the year at 394 shares, landed the month after wealth jumped on its reset, and July's 4.98 landed after the one-time influx. Remove either and it collapses. PHI's same-month figure is a coincidence of two series that both drifted upward over the same year; it drops to 0.44 at lag one and the sign pattern is not stable for any indicator. Treat every cell as noise.\n\nThe reason is structural rather than a matter of waiting for more data. The price is set by resting market-maker quotes, and most months see fewer than ten trades, so a month's close is whichever side of the ladder the last trade touched. Four of the six indicators compound without anyone buying a share: a share is not a claim on net worth or on step count, so wealth at 154 and a health record have no channel to the price. The one channel that exists is social capital, and the Summit was its test. Summit week produced the quarter's only event-driven volume, 65 shares over July 11 to 14 with the close moving from 4.75 to 5.00, and the follower composite moved three hundredths of a point. The market and the index agree the event was small.\n\nSo the external valuation and the internal one are not currently connected. That is a finding about the market's plumbing, not about Mike. What would connect them is a series this dashboard does not yet carry: trade volume and new shareholder accounts in the weeks after a release, a Summit or a report. The price will not show a relationship until participation does, and participation is the number nobody is publishing. The correlation table will be rerun each quarter; the expectation is that it stays empty until that changes."
       },
       {
         "title": "Year-over-Year (partial)",

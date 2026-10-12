@@ -29,6 +29,9 @@ interface NarrativeSection {
   // One short paragraph: the acronym, what the series measures, how it is
   // computed. Frozen in the snapshot because methods change (PHI 2.0 did).
   about?: string;
+  aboutLabel?: string; // defaults to "What it measures"
+  // Small data tables, frozen in the snapshot like everything else.
+  tables?: { title?: string; columns: string[]; rows: (string | number)[][]; note?: string }[];
   // A question-and-answer section: `lead` above, one block per question
   // (bold question, verdict, answer), then `body` as the closing paragraph.
   lead?: string;
@@ -288,11 +291,35 @@ export default async function ReportPage({ params }: PageProps) {
                   {section.about && (
                     <aside className="mb-4 bg-gray-50 border border-gray-300 border-l-4 border-l-gray-500 px-4 py-3 text-sm print:border-black">
                       <div className="text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1">
-                        What it measures
+                        {section.aboutLabel ?? "What it measures"}
                       </div>
                       <div className="text-gray-700 leading-relaxed">{section.about}</div>
                     </aside>
                   )}
+                  {section.tables?.map((t, k) => (
+                    <figure key={k} className="mb-5 overflow-x-auto">
+                      {t.title && <figcaption className="text-xs font-semibold uppercase tracking-wide text-gray-600 mb-2">{t.title}</figcaption>}
+                      <table className="min-w-full text-sm border-collapse">
+                        <thead>
+                          <tr className="border-b-2 border-gray-300">
+                            {t.columns.map((c, ci) => (
+                              <th key={ci} className={`py-1.5 pr-4 font-semibold text-gray-700 ${ci === 0 ? "text-left" : "text-right"}`}>{c}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {t.rows.map((r, ri) => (
+                            <tr key={ri} className="border-b border-gray-200">
+                              {r.map((cell, ci) => (
+                                <td key={ci} className={`py-1.5 pr-4 ${ci === 0 ? "text-left font-medium text-gray-900" : "text-right text-gray-700 tabular-nums"}`}>{cell}</td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      {t.note && <p className="text-xs text-gray-500 mt-1">{t.note}</p>}
+                    </figure>
+                  ))}
                   {section.indicator && narrative?.indicators?.[section.indicator]?.months && (
                     <QuarterChart
                       months={narrative.indicators[section.indicator].months}

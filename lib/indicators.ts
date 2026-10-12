@@ -571,6 +571,9 @@ export function buildNarrative(snapshot: any): any | null {
     // The raw per-indicator block, so a section can chart the months the
     // report froze (`months`) rather than whatever the CSV says today.
     indicators: snapshot.indicators || null,
+    // Optional card grid for the highlights (one card per indicator). Reports
+    // without it render the highlights as a bullet list.
+    highlightCards: snapshot.narrative?.highlightCards || null,
     sections: snapshot.narrative?.sections || [],
     outlook: snapshot.narrative?.outlook || null,
     highlights: snapshot.highlights || [],

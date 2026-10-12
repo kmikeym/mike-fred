@@ -31,6 +31,15 @@ interface NarrativeSection {
   about?: string;
 }
 
+// Highlight cards quote the number the prose quotes: 93.75, 101.23, 15, not
+// the series page's one-decimal display (93.8, 101.2, 15.0). So format at the
+// precision the snapshot value itself carries. Percentages keep at least one
+// decimal so +35 reads as +35.0% like the scorecard.
+const atOwnPrecision = (v: number, min = 0) => {
+  const d = Math.max(min, Math.min(2, (String(v).split(".")[1] ?? "").length));
+  return v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+};
+
 const SECTION_GRAPHICS: Record<string, React.ComponentType> = {
   "q3-2026-travel": TravelMap,
 };
@@ -188,6 +197,39 @@ export default async function ReportPage({ params }: PageProps) {
               {report.summary}
             </p>
           )}
+          {/* Highlights as a card grid, one per indicator, when the report
+              supplies them (first: q3-2026). The frozen scorecard values supply
+              the number and change; the card carries the one-line story. */}
+          {narrative?.highlightCards ? (
+            <div className="mb-6">
+              <p className="text-gray-800 mb-4">
+                <strong>Key Highlights:</strong> {narrative.highlightCards.lead}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {narrative.highlightCards.cards.map((card: { indicator: IndicatorId; headline: string }) => {
+                  const meta = INDICATOR_REGISTRY[card.indicator];
+                  const ind = indicators.find((i) => i.id === card.indicator);
+                  if (!meta || !ind) return null;
+                  const up = ind.changePercent > 0, down = ind.changePercent < 0;
+                  return (
+                    <div key={card.indicator} className="bg-white border border-gray-200 rounded-lg p-4 print:border-black">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
+                        <span className="text-xs font-semibold uppercase tracking-wide text-gray-600">{meta.shortTitle}</span>
+                      </div>
+                      <div className="flex items-baseline gap-3 mb-2">
+                        <span className="text-2xl font-bold text-gray-900">{atOwnPrecision(ind.currentValue)}</span>
+                        <span className={`text-sm font-semibold ${up ? "text-green-600" : down ? "text-red-600" : "text-yellow-600"}`}>
+                          {up ? "↑" : down ? "↓" : "→"} {up ? "+" : ""}{atOwnPrecision(ind.changePercent, 1)}%
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-700 leading-snug">{card.headline}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
           <div className="bg-blue-50 border-l-4 border-primary p-6 mb-6">
             <p className="text-gray-800">
               <strong>Key Highlights:</strong>
@@ -202,6 +244,7 @@ export default async function ReportPage({ params }: PageProps) {
               <p className="text-gray-800 mt-2">{report.summary}</p>
             )}
           </div>
+          )}
         </section>
 
         {/* Editorial note. Context a reader needs before the analysis (how this
@@ -211,9 +254,6 @@ export default async function ReportPage({ params }: PageProps) {
             publication. Optional: most reports carry none. */}
         {narrative?.note && (
           <aside className="mb-12 bg-gray-50 border border-gray-300 border-l-4 border-l-gray-500 p-5 text-sm print:border-black">
-            <div className="text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1">
-              Note
-            </div>
             {narrative.note.title && (
               <h3 className="font-semibold text-gray-900 mb-2">{narrative.note.title}</h3>
             )}

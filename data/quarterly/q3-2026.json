@@ -171,6 +171,35 @@
       "title": "A note on the prior report",
       "body": "The Q2 2026 report was withdrawn on August 6, 2026, after an early release on provisional June figures; the notice is at its URL. This is the first report written on the fixed cadence, drafted after the September close was final. Comparisons to Q2 are to the six indicator series, which were never withdrawn, with health on PHI 2.0 throughout (Q2: 101.6, 113.2, 106.0). The June watch list is answered in The Q3 Questions as questions, not as a scorecard."
     },
+    "highlightCards": {
+      "lead": "The quarter opened with six questions and answered four: health and media did not revert, wealth never approached its floor, productivity came off the floor but stayed under 100, and the Summit did not move social capital.",
+      "cards": [
+        {
+          "indicator": "revenue",
+          "headline": "Averaged 149.9, the highest on the current scale, then drifted from 154.4 to 143.8 as a July one-time influx aged and September absorbed travel."
+        },
+        {
+          "indicator": "phi",
+          "headline": "New series record in August at 117.8, the first full month in Oakland. Averaged 113.2 against 106.9 in Q2."
+        },
+        {
+          "indicator": "ppi",
+          "headline": "Off the 83.75 floor to 96.25, then 93.75 for two fully tracked months. Sixth consecutive month under 100."
+        },
+        {
+          "indicator": "knowledge-expansion",
+          "headline": "Tripled to 18,614 on a one-time Evernote migration. Organic adds fell from 250 in August to 164 in September."
+        },
+        {
+          "indicator": "social-capital",
+          "headline": "Flat for a third quarter at 101.23. August's 104.17 was a LinkedIn spam artifact, corrected in September."
+        },
+        {
+          "indicator": "completion-rate",
+          "headline": "11, 8 and 15 for an 11.3 average, the strongest quarter since Q4 2025. Five films and four books in September."
+        }
+      ]
+    },
     "sections": [
       {
         "title": "Portland to Oakland",

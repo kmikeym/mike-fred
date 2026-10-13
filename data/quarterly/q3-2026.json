@@ -250,21 +250,25 @@
           {
             "question": "Does the layoff dividend revert?",
             "verdict": "No",
+            "tone": "good",
             "answer": "PHI averaged 113.2 against 106.9 and set a series record; LMV averaged 11.3 against 9.0. The premise, that a new commitment would refill the calendar, did not occur: tracked hours ran 114 to 159 a month against 212 to 214 in the spring."
           },
           {
             "question": "Does wealth hold near 100 without income?",
             "verdict": "Not tested",
+            "tone": "mixed",
             "answer": "The lowest reading was 143.8. A one-time influx in July put the index on a shelf 50 points above the floor, and two months of drift (1.9%, then 5.0%) is the first reading on how fast the shelf erodes."
           },
           {
             "question": "Does productivity recover?",
             "verdict": "Partial",
+            "tone": "mixed",
             "answer": "Off the 83.75 floor to 96.25, then 93.75 twice. Six consecutive months under 100."
           },
           {
             "question": "Does the Summit move social capital?",
             "verdict": "No move",
+            "tone": "bad",
             "answer": "July 101.19 against June 101.16. August's jump was a LinkedIn data artifact, corrected in September."
           },
           {
@@ -275,6 +279,7 @@
           {
             "question": "Does the knowledge pace plateau or resume?",
             "verdict": "Fell further",
+            "tone": "bad",
             "answer": "Organic adds went from about 245 a month to 250 in August and 164 in September, underneath a one-time migration that tripled the base."
           }
         ]

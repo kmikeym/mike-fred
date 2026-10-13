@@ -35,8 +35,19 @@ interface NarrativeSection {
   // A question-and-answer section: `lead` above, one block per question
   // (bold question, verdict, answer), then `body` as the closing paragraph.
   lead?: string;
-  qa?: { question: string; verdict: string; answer: string }[];
+  // `tone` colors the verdict tag: good = green, mixed = yellow, bad = red.
+  // Omitted = gray, for a verdict the data cannot grade ("Not in the data").
+  qa?: { question: string; verdict: string; answer: string; tone?: "good" | "mixed" | "bad" }[];
 }
+
+// Verdict tag colors, red through yellow to green. Static class strings so
+// Tailwind keeps them.
+const VERDICT_TONES: Record<string, { tag: string; rail: string }> = {
+  good: { tag: "text-green-800 bg-green-100 border-green-400", rail: "border-green-400" },
+  mixed: { tag: "text-yellow-800 bg-yellow-100 border-yellow-400", rail: "border-yellow-400" },
+  bad: { tag: "text-red-800 bg-red-100 border-red-400", rail: "border-red-400" },
+};
+const VERDICT_DEFAULT = { tag: "text-gray-600 bg-gray-100 border-gray-300", rail: "border-gray-300" };
 
 // Highlight cards quote the number the prose quotes: 93.75, 101.23, 15, not
 // the series page's one-decimal display (93.8, 101.2, 15.0). So format at the
@@ -355,17 +366,20 @@ export default async function ReportPage({ params }: PageProps) {
                     <div className="text-gray-700 leading-relaxed">
                       {section.lead && <p className="mb-5">{section.lead}</p>}
                       <div className="space-y-5 mb-6">
-                        {section.qa.map((item, j) => (
-                          <div key={j} className="border-l-4 border-gray-300 pl-4">
-                            <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
-                              <span className="text-lg font-bold text-gray-900">{item.question}</span>
-                              <span className="text-xs font-semibold uppercase tracking-wide text-gray-600 bg-gray-100 border border-gray-300 rounded px-2 py-0.5">
-                                {item.verdict}
-                              </span>
+                        {section.qa.map((item, j) => {
+                          const tone = (item.tone && VERDICT_TONES[item.tone]) || VERDICT_DEFAULT;
+                          return (
+                            <div key={j} className={`border-l-4 pl-4 ${tone.rail}`}>
+                              <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
+                                <span className="text-lg font-bold text-gray-900">{item.question}</span>
+                                <span className={`text-xs font-semibold uppercase tracking-wide border rounded px-2 py-0.5 ${tone.tag}`}>
+                                  {item.verdict}
+                                </span>
+                              </div>
+                              <p>{item.answer}</p>
                             </div>
-                            <p>{item.answer}</p>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                       <div className="whitespace-pre-line">{section.body}</div>
                     </div>

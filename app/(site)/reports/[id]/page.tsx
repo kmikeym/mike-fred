@@ -5,6 +5,10 @@ import { loadAllIndicators, loadQuarterlySnapshot, formatValue, formatChangePerc
 import type { ReportUpdate } from "@/lib/types";
 import YoYChart, { type YoYIndicator } from "@/components/YoYChart";
 import PhiOverlapChart from "@/components/PhiOverlapChart";
+import TravelMap from "@/components/TravelMap";
+import QuarterChart from "@/components/QuarterChart";
+import { INDICATOR_REGISTRY } from "@/lib/indicators";
+import type { IndicatorId } from "@/lib/types";
 
 interface YoYComparison {
   previousQuarter: string;
@@ -16,7 +20,47 @@ interface NarrativeSection {
   title: string;
   body: string;
   yoyComparison?: YoYComparison;
+  // Names a server-rendered figure for this section. Figures are components,
+  // not data, so the JSON carries only an id and the page maps it.
+  graphic?: string;
+  // Names the indicator this section is about, so the page can chart the
+  // quarter's months (frozen in the snapshot) under the heading.
+  indicator?: IndicatorId;
+  // One short paragraph: the acronym, what the series measures, how it is
+  // computed. Frozen in the snapshot because methods change (PHI 2.0 did).
+  about?: string;
+  aboutLabel?: string; // defaults to "What it measures"
+  // Small data tables, frozen in the snapshot like everything else.
+  tables?: { title?: string; columns: string[]; rows: (string | number)[][]; note?: string }[];
+  // A question-and-answer section: `lead` above, one block per question
+  // (bold question, verdict, answer), then `body` as the closing paragraph.
+  lead?: string;
+  // `tone` colors the verdict tag: good = green, mixed = yellow, bad = red.
+  // Omitted = gray, for a verdict the data cannot grade ("Not in the data").
+  qa?: { question: string; verdict: string; answer: string; tone?: "good" | "mixed" | "bad" }[];
 }
+
+// Verdict tag colors, red through yellow to green. Static class strings so
+// Tailwind keeps them.
+const VERDICT_TONES: Record<string, { tag: string; rail: string }> = {
+  good: { tag: "text-green-800 bg-green-100 border-green-400", rail: "border-green-400" },
+  mixed: { tag: "text-yellow-800 bg-yellow-100 border-yellow-400", rail: "border-yellow-400" },
+  bad: { tag: "text-red-800 bg-red-100 border-red-400", rail: "border-red-400" },
+};
+const VERDICT_DEFAULT = { tag: "text-gray-600 bg-gray-100 border-gray-300", rail: "border-gray-300" };
+
+// Highlight cards quote the number the prose quotes: 93.75, 101.23, 15, not
+// the series page's one-decimal display (93.8, 101.2, 15.0). So format at the
+// precision the snapshot value itself carries. Percentages keep at least one
+// decimal so +35 reads as +35.0% like the scorecard.
+const atOwnPrecision = (v: number, min = 0) => {
+  const d = Math.max(min, Math.min(2, (String(v).split(".")[1] ?? "").length));
+  return v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+};
+
+const SECTION_GRAPHICS: Record<string, React.ComponentType> = {
+  "q3-2026-travel": TravelMap,
+};
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -171,6 +215,39 @@ export default async function ReportPage({ params }: PageProps) {
               {report.summary}
             </p>
           )}
+          {/* Highlights as a card grid, one per indicator, when the report
+              supplies them (first: q3-2026). The frozen scorecard values supply
+              the number and change; the card carries the one-line story. */}
+          {narrative?.highlightCards ? (
+            <div className="mb-6">
+              <p className="text-gray-800 mb-4">
+                <strong>Key Highlights:</strong> {narrative.highlightCards.lead}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {narrative.highlightCards.cards.map((card: { indicator: IndicatorId; headline: string }) => {
+                  const meta = INDICATOR_REGISTRY[card.indicator];
+                  const ind = indicators.find((i) => i.id === card.indicator);
+                  if (!meta || !ind) return null;
+                  const up = ind.changePercent > 0, down = ind.changePercent < 0;
+                  return (
+                    <div key={card.indicator} className="bg-white border border-gray-200 rounded-lg p-4 print:border-black">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
+                        <span className="text-xs font-semibold uppercase tracking-wide text-gray-600">{meta.shortTitle}</span>
+                      </div>
+                      <div className="flex items-baseline gap-3 mb-2">
+                        <span className="text-2xl font-bold text-gray-900">{atOwnPrecision(ind.currentValue)}</span>
+                        <span className={`text-sm font-semibold ${up ? "text-green-600" : down ? "text-red-600" : "text-yellow-600"}`}>
+                          {up ? "↑" : down ? "↓" : "→"} {up ? "+" : ""}{atOwnPrecision(ind.changePercent, 1)}%
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-700 leading-snug">{card.headline}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
           <div className="bg-blue-50 border-l-4 border-primary p-6 mb-6">
             <p className="text-gray-800">
               <strong>Key Highlights:</strong>
@@ -185,7 +262,22 @@ export default async function ReportPage({ params }: PageProps) {
               <p className="text-gray-800 mt-2">{report.summary}</p>
             )}
           </div>
+          )}
         </section>
+
+        {/* Editorial note. Context a reader needs before the analysis (how this
+            report relates to a prior one, a cadence change) that is not itself a
+            finding. Boxed and small so it reads as a note, not as a section, and
+            distinct from the amber addenda above, which record changes made after
+            publication. Optional: most reports carry none. */}
+        {narrative?.note && (
+          <aside className="mb-12 bg-gray-50 border border-gray-300 border-l-4 border-l-gray-500 p-5 text-sm print:border-black">
+            {narrative.note.title && (
+              <h3 className="font-semibold text-gray-900 mb-2">{narrative.note.title}</h3>
+            )}
+            <div className="text-gray-700 leading-relaxed whitespace-pre-line">{narrative.note.body}</div>
+          </aside>
+        )}
 
         {/* PHI overlap chart (methodology report only) */}
         {overlap && (
@@ -207,6 +299,45 @@ export default async function ReportPage({ params }: PageProps) {
               {narrative.sections.map((section: NarrativeSection, i: number) => (
                 <div key={i}>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">{section.title}</h3>
+                  {section.about && (
+                    <aside className="mb-4 bg-gray-50 border border-gray-300 border-l-4 border-l-gray-500 px-4 py-3 text-sm print:border-black">
+                      <div className="text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1">
+                        {section.aboutLabel ?? "What it measures"}
+                      </div>
+                      <div className="text-gray-700 leading-relaxed">{section.about}</div>
+                    </aside>
+                  )}
+                  {section.tables?.map((t, k) => (
+                    <figure key={k} className="mb-5 overflow-x-auto">
+                      {t.title && <figcaption className="text-xs font-semibold uppercase tracking-wide text-gray-600 mb-2">{t.title}</figcaption>}
+                      <table className="min-w-full text-sm border-collapse">
+                        <thead>
+                          <tr className="border-b-2 border-gray-300">
+                            {t.columns.map((c, ci) => (
+                              <th key={ci} className={`py-1.5 pr-4 font-semibold text-gray-700 ${ci === 0 ? "text-left" : "text-right"}`}>{c}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {t.rows.map((r, ri) => (
+                            <tr key={ri} className="border-b border-gray-200">
+                              {r.map((cell, ci) => (
+                                <td key={ci} className={`py-1.5 pr-4 ${ci === 0 ? "text-left font-medium text-gray-900" : "text-right text-gray-700 tabular-nums"}`}>{cell}</td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      {t.note && <p className="text-xs text-gray-500 mt-1">{t.note}</p>}
+                    </figure>
+                  ))}
+                  {section.indicator && narrative?.indicators?.[section.indicator]?.months && (
+                    <QuarterChart
+                      months={narrative.indicators[section.indicator].months}
+                      meta={INDICATOR_REGISTRY[section.indicator]}
+                      quarter={report.quarter}
+                    />
+                  )}
                   {section.yoyComparison && (
                     <YoYChart
                       indicators={section.yoyComparison.indicators}
@@ -214,9 +345,49 @@ export default async function ReportPage({ params }: PageProps) {
                       currentQuarter={section.yoyComparison.currentQuarter}
                     />
                   )}
-                  <div className="text-gray-700 leading-relaxed whitespace-pre-line">
-                    {section.body}
-                  </div>
+                  {/* A section figure sits in a right sidebar on wide screens and
+                      stacks above the text on narrow ones. The travel map is tall
+                      and narrow, so inline it would push the prose a screen down. */}
+                  {section.graphic && SECTION_GRAPHICS[section.graphic] ? (
+                    (() => {
+                      const G = SECTION_GRAPHICS[section.graphic]!;
+                      return (
+                        <div className="md:flex md:gap-8 md:items-start">
+                          <div className="text-gray-700 leading-relaxed whitespace-pre-line md:flex-1">
+                            {section.body}
+                          </div>
+                          <div className="mt-6 md:mt-0 md:w-56 md:shrink-0">
+                            <G />
+                          </div>
+                        </div>
+                      );
+                    })()
+                  ) : section.qa ? (
+                    <div className="text-gray-700 leading-relaxed">
+                      {section.lead && <p className="mb-5">{section.lead}</p>}
+                      <div className="space-y-5 mb-6">
+                        {section.qa.map((item, j) => {
+                          const tone = (item.tone && VERDICT_TONES[item.tone]) || VERDICT_DEFAULT;
+                          return (
+                            <div key={j} className={`border-l-4 pl-4 ${tone.rail}`}>
+                              <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
+                                <span className="text-lg font-bold text-gray-900">{item.question}</span>
+                                <span className={`text-xs font-semibold uppercase tracking-wide border rounded px-2 py-0.5 ${tone.tag}`}>
+                                  {item.verdict}
+                                </span>
+                              </div>
+                              <p>{item.answer}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className="whitespace-pre-line">{section.body}</div>
+                    </div>
+                  ) : (
+                    <div className="text-gray-700 leading-relaxed whitespace-pre-line">
+                      {section.body}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

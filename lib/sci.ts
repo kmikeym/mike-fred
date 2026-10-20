@@ -15,6 +15,9 @@
  * places (#12). See STANDARDS.md §8 and issue #17.
  */
 
+import { promises as fs } from "fs";
+import path from "path";
+
 export interface SciPlatformWeight {
   id: string;
   label: string;
@@ -115,4 +118,173 @@ export function weightedComposite(counts: Record<string, number>): number {
  */
 export function sciIndex(raw: number): number {
   return (raw / SCI_BASELINE) * 100;
+}
+
+// ===========================================================================
+// SCI 2.0 — normalize each platform against its own baseline, then weight.
+//
+// Adopted 2026-09-22 (operations proposals/rfcs/2026-07-27-sci-2.0-economic-pull-index.md),
+// first published in the 2026-11-01 release (operations#688). Everything above this line
+// is now SCI Classic: it computed every row in data/social-capital-classic.csv and
+// receives no new rows (STANDARDS.md §4).
+//
+// Why 2.0 exists: Classic weighted RAW counts, so a platform's real influence was its
+// size times its weight, and the two biggest audiences held ~78% of the index whatever
+// the weights said. 2.0 puts every platform on its own scale first, the way PHI scores
+// each metric against its goal, so the weight is the weight.
+// ===========================================================================
+
+
+export interface Sci2Channel {
+  id: string;
+  /** Live reach, 1-5: a size bucket read off the follower count, adjusted for liveness. */
+  reach: number;
+  /** Share of the audience who could plausibly become economically involved, 1-5. */
+  fit: number;
+  /** How short the road from the platform to a dollar, 1-5. */
+  path: number;
+}
+
+/**
+ * The score table as the Board adopted it (RFC "The score table").
+ *
+ * Weights are a pure function of this table: `w = R·F·P / Σ(R·F·P)`. There is no
+ * rounding step and there are no human overrides, so a weight that does not
+ * regenerate from these three numbers means the table is wrong. The RFC's check
+ * value (2026-07-01 = 104.24) is computed against THIS table; the table in force
+ * for publication is `scoreTableAsOf`, which applies the Substack default below.
+ */
+export const SCI2_ADOPTED_TABLE: readonly Sci2Channel[] = [
+  { id: "kmikeym-accounts", reach: 4, fit: 5, path: 5 },
+  { id: "substack", reach: 3, fit: 4, path: 3 },
+  { id: "linkedin", reach: 2, fit: 4, path: 4 },
+  { id: "x", reach: 2, fit: 4, path: 3 },
+  { id: "bluesky", reach: 3, fit: 3, path: 2 },
+  { id: "instagram", reach: 2, fit: 3, path: 2 },
+  { id: "youtube", reach: 2, fit: 3, path: 2 },
+  { id: "facebook-personal", reach: 2, fit: 2, path: 2 },
+  { id: "kmikeym-linkedin-biz", reach: 1, fit: 3, path: 2 },
+  { id: "kmikeym-facebook-biz", reach: 1, fit: 2, path: 2 },
+  { id: "mastodon", reach: 1, fit: 2, path: 2 },
+];
+
+/**
+ * The RFC's self-executing default for Substack.
+ *
+ * Substack's Reach of 3 rested on no open-rate data, so the RFC set a trigger: re-run
+ * the framework with real Substack engagement by 2026-10-31, or Reach drops to 2 by
+ * default. Colbert's review required that the default "execute in code, not in this
+ * prose" — a rule that only exists in a document is a hidden manual step. No
+ * engagement data was filed, so it fired, the day before 2.0's first release; Mike
+ * chose to launch on the post-default table rather than change the method twice in
+ * two releases (2026-10-20, operations#688).
+ *
+ * `publishedAsOf` is the date whose table the published series uses. Every row of the
+ * series is computed with one table; changing the table is a restatement (§9).
+ */
+export const SUBSTACK_REACH_DEFAULT = {
+  channel: "substack",
+  effective: "2026-10-31",
+  reach: 2,
+  publishedAsOf: "2026-11-01",
+} as const;
+
+/** The score table in force on `date` (YYYY-MM-DD). */
+export function scoreTableAsOf(date: string): readonly Sci2Channel[] {
+  if (date < SUBSTACK_REACH_DEFAULT.effective) return SCI2_ADOPTED_TABLE;
+  return SCI2_ADOPTED_TABLE.map((c) =>
+    c.id === SUBSTACK_REACH_DEFAULT.channel ? { ...c, reach: SUBSTACK_REACH_DEFAULT.reach } : c,
+  );
+}
+
+/** Weights as exact fractions `Score / ΣScore`. Compute from scores, never from rounded percentages. */
+export function sci2Weights(table: readonly Sci2Channel[]): Record<string, number> {
+  const total = table.reduce((a, c) => a + c.reach * c.fit * c.path, 0);
+  return Object.fromEntries(table.map((c) => [c.id, (c.reach * c.fit * c.path) / total]));
+}
+
+/**
+ * Below this many followers the normalizing denominator floors here.
+ *
+ * Plain normalization makes a platform's sensitivity scale with 1/baseline, so one
+ * new Mastodon follower on a base of 26 would move the index more than five Substack
+ * subscribers. The floor keeps the numerator real and stops a tiny account swinging
+ * the index. 100 is round, not derived, and labelled that way in the RFC. A platform
+ * crossing it in either direction changes how it is scored, so every crossing gets a
+ * line in that month's note.
+ */
+export const SCI2_FLOOR = 100;
+
+/** The two rows averaged into each platform's baseline (October and November 2025). */
+export const SCI2_BASELINE_DATES = ["2025-10-01", "2025-11-01"] as const;
+
+export interface PlatformRow {
+  date: string;
+  counts: Record<string, number>;
+  source: string;
+}
+
+/**
+ * Read the per-platform counts behind every SCI 2.0 row.
+ *
+ * Classic kept only the composite and discarded the eleven inputs, so no published
+ * number could be rebuilt from the repo (operations#570). This file is the inputs.
+ * It lives in data/inputs/ because it is not a series: the corpus tests that sweep
+ * data/*.csv as date,value,notes would misread it. `source` is last so it may hold
+ * commas.
+ */
+export async function loadPlatformCounts(
+  file = path.join(process.cwd(), "data", "inputs", "sci-platforms.csv"),
+): Promise<PlatformRow[]> {
+  const lines = (await fs.readFile(file, "utf-8")).trim().split("\n");
+  const ids = lines[0]!.split(",").slice(1, -1);
+  return lines.slice(1).map((line) => {
+    const f = line.split(",");
+    const counts = Object.fromEntries(ids.map((id, i) => [id, Number(f[i + 1])]));
+    for (const [id, n] of Object.entries(counts)) {
+      if (!Number.isFinite(n)) throw new Error(`sci: non-numeric ${id} count in row ${f[0]}`);
+    }
+    return { date: f[0]!, counts, source: f.slice(ids.length + 1).join(",") };
+  });
+}
+
+/**
+ * Each platform's baseline: the mean of its October and November 2025 counts.
+ *
+ * Frozen by definition: these two rows never change, so the baseline cannot drift.
+ * Re-anchoring it (the RFC suggests an annual review) is a versioned event, not an edit.
+ */
+export function sci2Baseline(rows: PlatformRow[]): Record<string, number> {
+  const picked = SCI2_BASELINE_DATES.map((d) => {
+    const r = rows.find((x) => x.date === d);
+    if (!r) throw new Error(`sci: baseline row ${d} is missing from the platform counts`);
+    return r.counts;
+  });
+  return Object.fromEntries(Object.keys(picked[0]!).map((id) => [id, (picked[0]![id]! + picked[1]![id]!) / 2]));
+}
+
+/**
+ * SCI 2.0 for one row: normalize each platform, then take the weighted sum.
+ *
+ *   Norm = (count − baseline) / max(baseline, 100) × 100 + 100
+ *   SCI  = Σ Norm × w
+ *
+ * Every platform is 100 at its baseline, so the index is 100 there. Missing and
+ * unknown platforms throw for the same reason as Classic's `weightedComposite`: a
+ * dropped input would read as an audience collapse (STANDARDS.md §6).
+ */
+export function sci2Index(
+  counts: Record<string, number>,
+  baseline: Record<string, number>,
+  weights: Record<string, number>,
+): number {
+  const known = Object.keys(weights);
+  const unknown = Object.keys(counts).filter((id) => !(id in weights));
+  if (unknown.length) throw new Error(`sci: unknown platform(s): ${unknown.join(", ")}`);
+  const missing = known.filter((id) => typeof counts[id] !== "number");
+  if (missing.length) throw new Error(`sci: missing follower count(s): ${missing.join(", ")}`);
+  return known.reduce((sum, id) => {
+    const b = baseline[id]!;
+    return sum + weights[id]! * (((counts[id]! - b) / Math.max(b, SCI2_FLOOR)) * 100 + 100);
+  }, 0);
 }

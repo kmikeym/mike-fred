@@ -1,0 +1,12 @@
+date,kmikeym-accounts,substack,linkedin,x,instagram,youtube,bluesky,mastodon,kmikeym-linkedin-biz,facebook-personal,kmikeym-facebook-biz,source
+2025-10-01,3943,3464,2177,3922,705,226,160,26,71,133,985,MIKE ECONOMIC DATA sheet SCI Calc column OCT
+2025-11-01,3943,3463,2201,3916,731,225,164,26,70,133,984,MIKE ECONOMIC DATA sheet SCI Calc column NOV
+2026-02-01,3948,3436,2240,4232,738,226,183,26,71,140,983,MIKE ECONOMIC DATA sheet SCI Calc column Feb 2026
+2026-03-01,3948,3432,2304,4251,755,229,189,26,71,144,982,MIKE ECONOMIC DATA sheet SCI Calc column Mar 2026
+2026-04-01,3948,3420,2343,4213,767,234,192,26,71,144,981,MIKE ECONOMIC DATA sheet SCI Calc column Apr 2026
+2026-05-01,3953,3411,2357,4228,775,234,195,26,71,144,981,MIKE ECONOMIC DATA sheet SCI Calc column May 2026
+2026-06-01,3953,3406,2363,4227,785,235,195,26,71,147,981,MIKE ECONOMIC DATA sheet SCI Calc column Jun 2026
+2026-07-01,3957,3394,2376,4213,790,235,197,26,72,150,981,MIKE ECONOMIC DATA sheet SCI Calc column Jul 2026
+2026-08-01,3962,3388,2381,4210,798,240,201,26,72,151,980,MIKE ECONOMIC DATA sheet SCI Calc column Aug 2026
+2026-09-01,3965,3387,2381,4198,797,243,205,26,72,151,980,REBUILT (the release's counts were not all recorded): accounts/Substack/YouTube from the 2026-09-04 close (operations#559); X/Instagram/Bluesky from the 2026-09-05 pull; small channels as on either side. LinkedIn is 2,381 (followers per LinkedIn's own export and the sheet) where SCI Classic's published row used 3,389 (operations#572). With 3,389 these counts give a Classic composite of 3168.58 against the filed 3168.70.
+2026-10-01,3965,3383,2400,4197,809,243,208,26,72,151,980,October 2026 release run log (operations#559 2026-10-01)

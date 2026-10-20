@@ -110,9 +110,10 @@ at it:
 A vintage is a full series document in its own right and follows every rule here.
 
 A vintage is **closed**: it keeps its published observations and receives no new ones.
-Where it is reachable depends on what exists — today PHI-Classic is published as
-`data/phi-classic.csv` and rendered in the PHI 2.0 methodology comparison; it has no
-series page. Under issue #6 the `url` above becomes a real endpoint. Do not describe a
+Where it is reachable depends on what exists. Today two vintages exist, each a CSV
+plus an API document: PHI-Classic (`data/phi-classic.csv`, also rendered in the PHI 2.0
+methodology comparison) and SCI Classic (`data/social-capital-classic.csv`, superseded
+2026-11-01). Neither has a series page. Under issue #6 the `url` above becomes a real endpoint. Do not describe a
 vintage as "available" at a location that does not serve it.
 
 Rationale: revisions are normal in economic data — this is why FRED has ALFRED. Without
@@ -136,7 +137,12 @@ old numbers now disagrees with the source for reasons it cannot discover.
 - Numbers are JSON numbers, never strings.
 - `NaN` and `Infinity` are forbidden — both are invalid JSON and break strict parsers.
 - A missing observation has `"value": null`. It is **never** omitted and **never** `0`.
-  "No data" and "scored zero" must stay distinguishable.
+  "No data" and "scored zero" must stay distinguishable. In a CSV it is an **empty value
+  field**, and its note MUST begin `NOT MEASURED` and say why (swept by
+  `lib/conventions.test.ts`). The parser keeps the row as `null`, the chart breaks its
+  line there, and a trailing average whose window touches it is `null`. Dropping the row
+  instead made a gap invisible: the chart drew straight through it and a 12-month window
+  reached back 14 (operations#688, first use: SCI 2.0's Dec 2025 and Jan 2026).
 - An **estimated** value — interpolated, back-filled, or otherwise not measured — MUST
   begin its note with `ESTIMATED` and state the method and inputs. Prefer `null` where a
   gap is acceptable; estimate only when a break would misrepresent a series (for example
@@ -195,12 +201,13 @@ and 2 of 11 weights. Nobody could reproduce a published figure from what was che
 
 So: **if a series is `derived`, its formula lives in `lib/` as tested code**, with
 `calculation` describing that code in prose for humans. `lib/sci.ts` is the reference
-shape — a weight table, a composite function, an indexing function, and tests that
-reproduce every published row from its stored inputs.
+shape: a score table, a weight function, an index function, the inputs checked in
+(`data/inputs/sci-platforms.csv`), and tests that reproduce every published row from them.
 
 ### A baseline is frozen
 
-A baseline is captured once and never recomputed (SCI's is `3041.9`, the October 2025
+A baseline is captured once and never recomputed (SCI 2.0's is each platform's mean of
+its October and November 2025 counts; SCI Classic's was `3041.9`, the October 2025
 composite). Re-deriving it from later data silently re-scales every historical value and
 breaks comparability with every already-published report.
 

@@ -27,3 +27,10 @@ test("a window longer than the series is all null", () => {
 test("empty input yields empty output", () => {
   expect(trailingAverage([], 3)).toEqual([]);
 });
+
+test("a window containing an unmeasured month is null, not an average of its neighbours", () => {
+  // SCI 2.0 has no December 2025 or January 2026 (never measured, #573). A
+  // 3-month average across them would invent a reading for a span nobody measured.
+  const out = trailingAverage([100, 101, null, null, 103, 104, 105], 3);
+  expect(out).toEqual([null, null, null, null, null, null, 104]);
+});

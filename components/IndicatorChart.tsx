@@ -29,7 +29,9 @@ export default function IndicatorChart({ data, color, unit, trends, baseline }: 
 
   // Zoom the left y-axis to the data range (with padding) instead of anchoring at 0,
   // so tight-band series like Social Capital (100–101) show their variation.
-  const values = chartData.map((d) => d.value);
+  // Unmeasured months (null) are left out of the domain; Recharts breaks the line
+  // there rather than drawing through a month nobody measured (#688).
+  const values = chartData.map((d) => d.value).filter((v): v is number => v !== null);
   const dataMin = Math.min(...values);
   const dataMax = Math.max(...values);
   const range = dataMax - dataMin;

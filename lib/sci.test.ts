@@ -61,9 +61,18 @@ test("the baseline composite indexes to exactly 100", () => {
   expect(sciIndex(SCI_BASELINE)).toBe(100);
 });
 
-test("every published SCI row is reproducible from its raw composite", async () => {
+// Classic's last two rows were published without "(raw: …)" in the note, so the
+// composite is recorded here from the monthly run logs instead (operations#559,
+// 2026-09-04 and 2026-10-01). Editing the published notes to add it would break
+// STANDARDS §9; this keeps the row reproducible without touching it.
+const CLASSIC_RAW_FROM_RUN_LOG: Record<string, number> = {
+  "2026-09-01": 3168.7,
+  "2026-10-01": 3079.18,
+};
+
+test("every published SCI Classic row is reproducible from its raw composite", async () => {
   const csv = await fs.readFile(
-    path.join(process.cwd(), "data", "social-capital.csv"),
+    path.join(process.cwd(), "data", "social-capital-classic.csv"),
     "utf-8",
   );
   const rows = csv.trim().split("\n").slice(1);
@@ -71,7 +80,7 @@ test("every published SCI row is reproducible from its raw composite", async () 
 
   for (const row of rows) {
     const date = row.slice(0, 10);
-    const raw = Number(row.match(/raw: ([\d.]+)/)?.[1]);
+    const raw = Number(row.match(/raw: ([\d.]+)/)?.[1] ?? CLASSIC_RAW_FROM_RUN_LOG[date]);
     const published = Number(row.split(",")[1]);
     expect(`${date}:${Number.isFinite(raw)}`).toBe(`${date}:true`);
 
@@ -81,5 +90,124 @@ test("every published SCI row is reproducible from its raw composite", async () 
     expect(`${date}:${sciIndex(raw).toFixed(decimals)}`).toBe(
       `${date}:${published.toFixed(decimals)}`,
     );
+  }
+});
+
+// ---------------------------------------------------------------------------
+// SCI 2.0 (adopted 2026-09-22, published from the 2026-11-01 release; #688).
+// The RFC's "For Agents" block names two checks that must regenerate or the
+// table is wrong: the baseline months average to exactly 100, and the 2026-07-01
+// row is 104.24 under the adopted score table.
+// ---------------------------------------------------------------------------
+
+import {
+  SCI2_ADOPTED_TABLE,
+  SCI2_FLOOR,
+  SCI2_BASELINE_DATES,
+  SUBSTACK_REACH_DEFAULT,
+  scoreTableAsOf,
+  sci2Weights,
+  sci2Baseline,
+  sci2Index,
+  loadPlatformCounts,
+} from "./sci";
+
+const adopted = sci2Weights(SCI2_ADOPTED_TABLE);
+
+test("SCI 2.0 weights are Score / ΣScore with no rounding (adopted table sums to 256)", () => {
+  const scores = SCI2_ADOPTED_TABLE.map((c) => c.reach * c.fit * c.path);
+  expect(scores.reduce((a, b) => a + b, 0)).toBe(256);
+  expect(adopted["kmikeym-accounts"]).toBe(100 / 256);
+  expect(Object.values(adopted).reduce((a, b) => a + b, 0)).toBeCloseTo(1, 12);
+});
+
+test("SCI 2.0 covers the same 11 platforms as Classic", () => {
+  expect(SCI2_ADOPTED_TABLE.map((c) => c.id).sort()).toEqual(SCI_WEIGHTS.map((w) => w.id).sort());
+});
+
+test("RFC check: the baseline months average to exactly 100", async () => {
+  const rows = await loadPlatformCounts();
+  const base = sci2Baseline(rows);
+  const [a, b] = SCI2_BASELINE_DATES.map((d) => sci2Index(rows.find((r) => r.date === d)!.counts, base, adopted));
+  expect(((a! + b!) / 2).toFixed(4)).toBe("100.0000");
+});
+
+test("RFC check: the 2026-07-01 row is 104.24 under the adopted table", async () => {
+  const rows = await loadPlatformCounts();
+  const base = sci2Baseline(rows);
+  const jul = rows.find((r) => r.date === "2026-07-01")!;
+  expect(sci2Index(jul.counts, base, adopted).toFixed(2)).toBe("104.24");
+});
+
+test("the small-base floor: below 100 followers the denominator is 100, the numerator stays real", () => {
+  // Mastodon's baseline is 26. One new follower is +1/100 of a channel point,
+  // not +1/26, so a tiny account cannot swing the index (RFC, "Why the floor").
+  expect(SCI2_FLOOR).toBe(100);
+  const ids = SCI2_ADOPTED_TABLE.map((c) => c.id);
+  const base = Object.fromEntries(ids.map((id) => [id, id === "mastodon" ? 26 : 1000]));
+  const flat = Object.fromEntries(ids.map((id) => [id, base[id]!]));
+  const plusOne = { ...flat, mastodon: 27 };
+  const w = Object.fromEntries(ids.map((id) => [id, id === "mastodon" ? 1 : 0]));
+  expect(sci2Index(flat, base, w)).toBeCloseTo(100, 12);
+  expect(sci2Index(plusOne, base, w)).toBeCloseTo(101, 12);
+});
+
+test("the Substack reach default executes in code: R=3 before 2026-10-31, R=2 from it", () => {
+  // The RFC: without real Substack engagement data by 2026-10-31, Substack's
+  // Reach drops to 2 by default, and "the default must execute in code, not in
+  // this prose". Nothing was filed, so the default fired (Mike, 2026-10-20).
+  expect(SUBSTACK_REACH_DEFAULT.effective).toBe("2026-10-31");
+  const reach = (d: string) => scoreTableAsOf(d).find((c) => c.id === "substack")!.reach;
+  expect(reach("2026-10-30")).toBe(3);
+  expect(reach("2026-10-31")).toBe(2);
+  const total = scoreTableAsOf("2026-11-01").reduce((a, c) => a + c.reach * c.fit * c.path, 0);
+  expect(total).toBe(244);
+});
+
+test("sci2Index throws on a missing or unknown platform rather than scoring it zero", async () => {
+  const rows = await loadPlatformCounts();
+  const base = sci2Baseline(rows);
+  const { substack: _, ...missing } = rows[0]!.counts;
+  expect(() => sci2Index(missing, base, adopted)).toThrow(/substack/);
+  expect(() => sci2Index({ ...rows[0]!.counts, threads: 9 }, base, adopted)).toThrow(/threads/);
+});
+
+test("every SCI 2.0 row in social-capital.csv is reproducible from data/sci-platforms.csv", async () => {
+  // The series is derived: a published 2.0 value that cannot be regenerated from
+  // the platform counts checked in beside it is a hand-typed number (#570).
+  // Rows with no value are months that were never measured (#573).
+  const rows = await loadPlatformCounts();
+  const base = sci2Baseline(rows);
+  const csv = await fs.readFile(path.join(process.cwd(), "data", "social-capital.csv"), "utf-8");
+  const lines = csv.trim().split("\n").slice(1);
+  for (const line of lines) {
+    const [date, value] = line.split(",");
+    if (value === "") {
+      expect(`${date}:${rows.some((r) => r.date === date)}`).toBe(`${date}:false`);
+      continue;
+    }
+    const row = rows.find((r) => r.date === date);
+    expect(`${date}:${!!row}`).toBe(`${date}:true`);
+    const w = sci2Weights(scoreTableAsOf(SUBSTACK_REACH_DEFAULT.publishedAsOf));
+    expect(`${date}:${sci2Index(row!.counts, base, w).toFixed(2)}`).toBe(`${date}:${Number(value).toFixed(2)}`);
+  }
+});
+
+test("the SCI series keeps its unmeasured months as null rows rather than dropping them", async () => {
+  const { parseCSV } = await import("./indicators");
+  const data = await parseCSV(path.join(process.cwd(), "data", "social-capital.csv"));
+  const gap = data.filter((p) => p.value === null).map((p) => p.date);
+  expect(gap).toEqual(["2025-12-01", "2026-01-01"]);
+});
+
+test("the registry's SCI calculation text states the weights the code uses", async () => {
+  // The prose weight list drifted from the code before (#12). Pin every fraction.
+  const { INDICATOR_REGISTRY } = await import("./indicators");
+  const text = INDICATOR_REGISTRY["social-capital"].calculation;
+  const table = scoreTableAsOf(SUBSTACK_REACH_DEFAULT.publishedAsOf);
+  const total = table.reduce((a, c) => a + c.reach * c.fit * c.path, 0);
+  for (const c of table) {
+    const label = SCI_WEIGHTS.find((w) => w.id === c.id)!.label;
+    expect(text).toContain(`${label} ${c.reach * c.fit * c.path}/${total}`);
   }
 });

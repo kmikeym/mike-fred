@@ -109,7 +109,7 @@ npm run pages:build     # Test Cloudflare Pages build (generates .vercel/output/
 Indicator data is stored in CSV files in the `/data` directory:
 - `ppi.csv` - Personal Productivity Index (RescueTime data)
 - `knowledge-expansion.csv` - Obsidian vault note count
-- `social-capital.csv` - Social media engagement metrics
+- `social-capital.csv` - Social Capital Index (SCI 2.0); inputs in `inputs/sci-platforms.csv`, retired SCI Classic in `social-capital-classic.csv`
 - `completion-rate.csv` - Longform Media Velocity (books + films)
 - `revenue.csv` - Personal Wealth Index
 - `phi.csv` - Personal Health Index
@@ -124,7 +124,7 @@ Updates are due on the 1st of each month. Two things to update:
 |-----|-----------------|--------|-------|
 | `ppi.csv` | RescueTime Productivity Pulse score + total tracked hours | `date,value,notes,pulse,hours` (5 cols) | **Index `value` = `pulse × 1.25`** (80 pulse = 100 baseline). `hours` (col 5) drives the "Total Hours Tracked" bar chart on the PPI page — leave blank for months with no hours. Notes may contain commas — the parser claims trailing numeric columns from the right (STANDARDS.md §7) |
 | `knowledge-expansion.csv` | Total Obsidian vault note count | `date,value,notes` | Raw count |
-| `social-capital.csv` | Raw follower total across platforms | `date,value,notes` | Index = raw / 3041.9 × 100. Note format: `Measured growth (raw: XXXX.XX)` |
+| `social-capital.csv` | **All 11 platform counts** (Mike reads 6; `sci-pull.sh` gets 5) | `date,value,notes` | **Do not compute by hand.** Pass `--sci-counts "id=N,..."` to the append script; `scripts/sci-row.ts` computes SCI 2.0 and appends the counts to `data/inputs/sci-platforms.csv`. An unmeasured month is an empty value with a note starting `NOT MEASURED`. |
 | `phi.csv` | **The computed PHI 2.0 index** (ask Mike) | `date,value,notes` | ⚠️ **NOT derived in this repo.** PHI 2.0 = 0.30·Recovery + 0.25·Sleep + 0.25·Activity + 0.20·Fitness, computed from the Apple Health archive against 2023-2025 baselines. As of 2026-08 it is release-lag dated like every other series: July's data is the `2026-08-01` row. |
 | `revenue.csv` | Wealth index value | `date,value,notes` | Ask Mike directly |
 | `completion-rate.csv` | Books and films consumed | `date,value,notes` | Books = 2-5 pts by length, films = 1 pt each. Note format: `N books, N films` |
@@ -138,9 +138,11 @@ The old sleep/activity/weight formula computed **PHI-Classic**, which was retire
 
 PHI 2.0 needs per-day HRV, resting heart rate, sleep stages, energy, steps, exercise minutes, VO2 max and cardio recovery, plus 2023-2025 baseline statistics. None of that lives in this repo; it comes from Mike's Apple Health pipeline.
 
-**How to calculate Social Capital Index:**
-- Get raw follower total from Mike
-- Divide by baseline 3041.9, multiply by 100
+**How to calculate Social Capital Index:** don't, by hand. Collect all 11 platform counts
+(`./scripts/mike-fred-sci-pull.sh` prints 5 and lists the 6 to ask Mike for), then pass them
+to the append script with `--sci-counts`. SCI 2.0 normalizes each platform to its own
+Oct-Nov 2025 baseline before weighting, which no single "raw total" can reproduce. The old
+`--followers` flag computed the retired SCI Classic and now errors (operations#688).
 
 **Date conventions — two exist, all six series use one.** The authoritative source is `INDICATOR_REGISTRY[id].dateConvention` in `lib/indicators.ts`, which both the site and the append script read. Do not restate the rule from memory; check the field.
 

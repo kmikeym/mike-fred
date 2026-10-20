@@ -15,8 +15,15 @@ test("phi supersedes phi-classic; other series supersede nothing", () => {
   expect(vintagesFor("ppi")).toEqual([]);
 });
 
-test("ALL_SERIES_IDS is the six registry ids plus phi-classic", () => {
+test("ALL_SERIES_IDS is the six registry ids plus the two retired vintages", () => {
   expect(ALL_SERIES_IDS).toContain("ppi");
   expect(ALL_SERIES_IDS).toContain("phi-classic");
-  expect(ALL_SERIES_IDS).toHaveLength(7);
+  expect(ALL_SERIES_IDS).toContain("social-capital-classic");
+  expect(ALL_SERIES_IDS).toHaveLength(8);
+});
+
+test("SCI points at SCI Classic, superseded at the 2026-11-01 release", () => {
+  const [v] = vintagesFor("social-capital");
+  expect(v?.id).toBe("social-capital-classic");
+  expect(v?.superseded_on).toBe("2026-11-01");
 });

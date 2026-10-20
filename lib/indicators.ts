@@ -66,16 +66,16 @@ export const INDICATOR_REGISTRY: Record<IndicatorId, IndicatorMetadata> = {
     title: "Social Capital Index",
     shortTitle: "Social Capital",
     description:
-      "Tracks total audience reach across all digital platforms. Measures the aggregate size of connected audiences who can receive content, updates, and communications. Higher values indicate broader potential reach and distribution capability.",
-    unit: "Index (Oct 2025 = 100)",
+      "Tracks economic pull across Mike's 11 public audiences: how much the audiences that could become shareholders, clients or employers are growing. Each platform is measured against its own October-November 2025 level, then weighted by how live the audience is, how well it fits, and how short its path to a dollar. It does not measure Mike's personal network, where warm introductions close deals with no public follower count. Rebuilt in November 2026 as SCI 2.0; the previous index is preserved as SCI Classic.",
+    unit: "Index (Oct-Nov 2025 avg = 100)",
     frequency: "monthly",
     category: "Social",
-    source: "Multi-platform subscriber counts via platform APIs",
+    source: "Follower and subscriber counts on 11 platforms, plus total kmikeym.com accounts (data/inputs/sci-platforms.csv)",
     // Prose mirror of lib/sci.ts, which is the executable definition. Weights and
     // baseline live there as tested data so a `derived` series is actually derivable
     // here (STANDARDS.md §8) — this string used to be the only record of the
     // weighting, and it named 5 of 11 platforms and 2 of 11 weights.
-    calculation: "Weighted mean of follower counts across 11 platforms, indexed to October 2025 = 100. Weights: KmikeyM accounts 0.35, Substack 0.30, LinkedIn 0.09, X 0.09, Instagram 0.07, YouTube 0.04, Bluesky 0.02, Mastodon 0.01, KmikeyM LinkedIn (business) 0.01, Facebook (personal) 0.01, KmikeyM Facebook (business) 0.01. Weights sum to 1, so the composite is denominated in followers. Index = composite / 3041.9 × 100, where 3041.9 is the frozen October 2025 composite. See lib/sci.ts.",
+    calculation: "SCI 2.0. Each platform is normalized to its own baseline, the mean of its October and November 2025 counts: (count − baseline) ÷ max(baseline, 100) × 100 + 100. Platforms under 100 followers use 100 as the divisor so one follower cannot swing the index. The index is the weighted sum of the normalized platforms, so the baseline period averages exactly 100. Weights are Reach × Fit × Path scores divided by their total, with no rounding or overrides: KmikeyM accounts 100/244, LinkedIn 32/244, X 24/244, Substack 24/244, Bluesky 18/244, Instagram 12/244, YouTube 12/244, Facebook (personal) 8/244, KmikeyM LinkedIn (business) 6/244, KmikeyM Facebook (business) 4/244, Mastodon 4/244. Substack's Reach is 2 because no engagement data arrived by 2026-10-31, the default the method set. December 2025 and January 2026 were never measured and have no value. See lib/sci.ts.",
     color: "#3b82f6",
     precision: 1,
     baseline: 100,
@@ -174,7 +174,10 @@ export async function parseCSV(filePath: string): Promise<DataPoint[]> {
     const line = lines[i];
     if (!line) continue;
     const values = line.split(",");
-    if (values.length >= 2 && values[0] && values[1]) {
+    // An empty value field is a month with no observation, kept as null rather than
+    // dropped: dropping it made a gap invisible, so a chart drew straight through a
+    // month nobody measured and a "12 months" window quietly reached back 14 (#688).
+    if (values.length >= 2 && values[0]) {
       // Claim trailing numeric-or-empty fields from the right. A note never parses as
       // a bare number, so this stays unambiguous even when the note contains commas.
       // Empty counts because an omitted optional column may be written either as a
@@ -193,7 +196,7 @@ export async function parseCSV(filePath: string): Promise<DataPoint[]> {
 
       data.push({
         date: values[0].trim(),
-        value: parseFloat(values[1].trim()),
+        value: values[1]!.trim() === "" ? null : parseFloat(values[1]!.trim()),
         notes: values.slice(2, end).join(",").trim() || undefined,
         hours: Number.isNaN(hours) ? undefined : hours,
       });
@@ -322,8 +325,15 @@ export async function loadIndicatorData(id: IndicatorId): Promise<Indicator> {
     throw new Error(`No data found for indicator ${id}`);
   }
 
-  const currentValue = lastDataPoint.value;
-  const previousValue = data[data.length - 2]?.value || currentValue;
+  // Current and previous are the last two MEASURED months. A month with no
+  // observation (null) is skipped rather than read as zero, which would report a
+  // collapse that never happened (STANDARDS §6).
+  const measured = data.filter((p): p is DataPoint & { value: number } => p.value !== null);
+  const currentValue = measured[measured.length - 1]?.value;
+  if (currentValue === undefined) {
+    throw new Error(`No measured value found for indicator ${id}`);
+  }
+  const previousValue = measured[measured.length - 2]?.value || currentValue;
   const change = currentValue - previousValue;
   const changePercent = previousValue > 0 ? (change / previousValue) * 100 : 0;
   const trend = calculateTrend(changePercent);

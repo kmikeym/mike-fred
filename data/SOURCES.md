@@ -15,7 +15,7 @@ Secrets (API keys) live in the gitignored `.env`, never here.
 |---|---|---|---|---|
 | **PPI** Productivity | RescueTime Productivity Pulse | Analytic Data API (`/anapi/data`), key `RESCUETIME_API_KEY` in `.env` | `rescuetime-pull.sh` | release-lag |
 | **KBER** Knowledge | Obsidian vault `.md` count | local vault (`MIKE_FRED_VAULT`) | `vault-pull.sh` | release-lag |
-| **SCI** Social Capital | **11-platform weighted follower composite** (weights in `lib/sci.ts`) | manual (Mike, all 11 counts) | — | release-lag |
+| **SCI** Social Capital | **SCI 2.0: 11 platforms, each normalized to its own Oct-Nov 2025 baseline, then weighted** (`lib/sci.ts`) | `sci-pull.sh` (5 platforms) + Mike (6) | `sci-row.ts` via `--sci-counts` | release-lag |
 | **PHI** Health | Apple Health archive | separate PHI 2.0 generator | — | release-lag |
 | **PWI** Wealth | Net worth, indexed (Mar 2026 = 100) | manual (Mike) | — | release-lag |
 | **LMV** Media | Goodreads (books) + Letterboxd (films) | RSS, see below | `lmv-pull.sh` | release-lag |
@@ -45,9 +45,21 @@ Secrets (API keys) live in the gitignored `.env`, never here.
   sections. Corrected 2026-08-05, after the phantom rule was read as binding.)*
 - **KBER:** raw vault note count. `vault-pull.sh` warns when a month-over-month jump is
   both > 2.5× the recent typical AND ≥ 300 notes above it (bulk-import guard).
-- **SCI:** two stages. **`lib/sci.ts` is the source of truth for both** -- the weights are
-  typed data with a test pinning their sum, because the prose version drifted and was
-  wrong in three of five places (#12).
+- **SCI (2.0, from the 2026-11-01 release; operations#688).** `lib/sci.ts` is the source
+  of truth. Every month's 11 counts are kept in `data/inputs/sci-platforms.csv`, and a
+  test regenerates every published 2.0 row from them (#570).
+  1. **Normalize:** each platform against its own baseline, the mean of its Oct and Nov
+     2025 counts: `(count − baseline) ÷ max(baseline, 100) × 100 + 100`. The 100 floor
+     stops a tiny account swinging the index; a platform crossing it needs a line in that
+     month's note, and the append script refuses to run without one.
+  2. **Weight:** `w = R·F·P ÷ ΣR·F·P` from the score table in `lib/sci.ts`. No rounding,
+     no overrides. Substack's Reach dropped 3 → 2 on 2026-10-31 by the RFC's own default
+     (`SUBSTACK_REACH_DEFAULT`); every row uses the table in force at publication.
+  Dec 2025 and Jan 2026 were never measured and are empty (null) rows (#573).
+- **SCI Classic (retired 2026-11, `social-capital-classic.csv`).** Kept exactly as
+  published. Its method, for reading those rows: two stages, and the weights in
+  `lib/sci.ts` (`SCI_WEIGHTS`) were typed data with a test pinning their sum, because the
+  prose version drifted and was wrong in three of five places (#12).
   1. **Composite:** a *weighted mean* of 11 platform follower counts, weights summing to 1.
      So the raw figure (~3,078) is the weighted-average audience, **not a total across
      platforms**. `weightedComposite()` throws on a missing or unknown platform rather

@@ -150,3 +150,20 @@ test("every ESTIMATED note states that it is not a measurement", async () => {
     }
   }
 });
+
+test("an empty value is a month with no observation, and its note says so", async () => {
+  // STANDARDS §6: a missing observation is null, never omitted and never 0. In a
+  // CSV that is an empty value field. The note must begin NOT MEASURED so the gap
+  // is explained on the series page, not just drawn as a hole (#688).
+  const dir = path.join(process.cwd(), "data");
+  const files = (await fs.readdir(dir)).filter((f) => f.endsWith(".csv"));
+  for (const file of files) {
+    const lines = (await fs.readFile(path.join(dir, file), "utf-8")).trim().split("\n");
+    for (const line of lines.slice(1)) {
+      const [date, value] = line.split(",");
+      if (value!.trim() !== "") continue;
+      const note = line.split(",").slice(2).join(",").trim();
+      expect(`${file}:${date}: ${note.startsWith("NOT MEASURED")}`).toBe(`${file}:${date}: true`);
+    }
+  }
+});

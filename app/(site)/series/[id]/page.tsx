@@ -175,7 +175,11 @@ export default async function IndicatorPage({ params }: PageProps) {
                     {formatDate(point.date)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-mono text-gray-900">
-                    {formatValue(point.value, indicator.id)}
+                    {point.value === null ? (
+                      <span className="text-gray-400 font-sans">Not measured</span>
+                    ) : (
+                      formatValue(point.value, indicator.id)
+                    )}
                   </td>
                   {hasHours && (
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-mono text-gray-900">

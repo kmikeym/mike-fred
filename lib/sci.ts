@@ -160,6 +160,8 @@ export const SCI2_ADOPTED_TABLE: readonly Sci2Channel[] = [
   { id: "linkedin", reach: 2, fit: 4, path: 4 },
   { id: "x", reach: 2, fit: 4, path: 3 },
   { id: "bluesky", reach: 3, fit: 3, path: 2 },
+  // Path 2: "it's a long path from IG to a dollar" (Mike, 2026-10-20). The only other
+  // Path score with a recorded reason is LinkedIn's 4 (Sorge: a DM becomes a call).
   { id: "instagram", reach: 2, fit: 3, path: 2 },
   { id: "youtube", reach: 2, fit: 3, path: 2 },
   { id: "facebook-personal", reach: 2, fit: 2, path: 2 },

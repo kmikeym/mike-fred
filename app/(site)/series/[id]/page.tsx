@@ -133,6 +133,13 @@ export default async function IndicatorPage({ params }: PageProps) {
             </Link>
           </p>
         )}
+        {indicator.id === "social-capital" && (
+          <p className="text-sm mt-4">
+            <Link href="/reports/sci-2.0-methodology" className="text-primary hover:text-accent font-medium">
+              → SCI 2.0 methodology report: what changed, how the weights are set, and a worked example
+            </Link>
+          </p>
+        )}
       </div>
 
       {/* Data Table */}

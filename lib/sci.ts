@@ -211,9 +211,13 @@ export function sci2Weights(table: readonly Sci2Channel[]): Record<string, numbe
  * Plain normalization makes a platform's sensitivity scale with 1/baseline, so one
  * new Mastodon follower on a base of 26 would move the index more than five Substack
  * subscribers. The floor keeps the numerator real and stops a tiny account swinging
- * the index. 100 is round, not derived, and labelled that way in the RFC. A platform
- * crossing it in either direction changes how it is scored, so every crossing gets a
- * line in that month's note.
+ * the index. 100 is round, not derived, and labelled that way in the RFC.
+ *
+ * The floor applies to the frozen BASELINE: `max(baseline, 100)`. A platform's monthly
+ * count crossing 100 does not change how it is scored; only re-anchoring the baseline
+ * could. The RFC still asks for a line in the month's note when a count crosses 100
+ * (threshold-crossing disclosure), so scripts/sci-row.ts reports it and the append
+ * script requires --sci-note. That note should say the crossing changed nothing.
  */
 export const SCI2_FLOOR = 100;
 
@@ -242,10 +246,13 @@ export async function loadPlatformCounts(
   const ids = lines[0]!.split(",").slice(1, -1);
   return lines.slice(1).map((line) => {
     const f = line.split(",");
-    const counts = Object.fromEntries(ids.map((id, i) => [id, Number(f[i + 1])]));
-    for (const [id, n] of Object.entries(counts)) {
-      if (!Number.isFinite(n)) throw new Error(`sci: non-numeric ${id} count in row ${f[0]}`);
-    }
+    // A blank cell is checked before Number(), which reads "" as 0: a missing input
+    // would otherwise score as a real zero, a collapse that never happened (§6).
+    const counts = Object.fromEntries(ids.map((id, i) => {
+      const cell = (f[i + 1] ?? "").trim();
+      if (!/^\d+$/.test(cell)) throw new Error(`sci: ${cell === "" ? "blank" : "non-numeric"} ${id} count in row ${f[0]}`);
+      return [id, Number(cell)];
+    }));
     return { date: f[0]!, counts, source: f.slice(ids.length + 1).join(",") };
   });
 }
@@ -289,4 +296,24 @@ export function sci2Index(
     const b = baseline[id]!;
     return sum + weights[id]! * (((counts[id]! - b) / Math.max(b, SCI2_FLOOR)) * 100 + 100);
   }, 0);
+}
+
+/**
+ * Parse the `--counts "id=N,id=N,..."` argument of scripts/sci-row.ts.
+ *
+ * Strict on purpose: these are typed by hand on release day. A blank value is a
+ * count not yet supplied, and Number("") is 0, so it must stop the row rather than
+ * score the platform at zero. A repeated id is a typo, not an update.
+ */
+export function parseCountsArg(raw: string): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const pair of raw.split(",")) {
+    const [id, n, ...extra] = pair.split("=").map((s) => s.trim());
+    if (!id || n === undefined || extra.length || !/^\d+$/.test(n)) {
+      throw new Error(`sci: bad count "${pair}" for ${id || "?"} (want id=whole number)`);
+    }
+    if (id in counts) throw new Error(`sci: ${id} given twice`);
+    counts[id] = Number(n);
+  }
+  return counts;
 }

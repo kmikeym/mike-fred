@@ -117,3 +117,24 @@ test("estimated values are flagged so they cannot be mistaken for measurements",
   expect(feb!.notes?.startsWith("ESTIMATED")).toBe(true);
   expect(feb!.notes).toContain("midpoint");
 });
+
+test("no series' latest reading follows an unmeasured month", async () => {
+  // The headline change compares the last two MEASURED rows. If the latest row
+  // follows a gap, that comparison spans several months while every page labels it
+  // a one-period move. That cannot happen today (SCI's gap is Dec 2025 to Jan 2026);
+  // this fails if it ever does, so the label is fixed before it misleads.
+  const { INDICATOR_REGISTRY } = await import("./indicators");
+  for (const id of Object.keys(INDICATOR_REGISTRY)) {
+    const data = await parseCSV(path.join(process.cwd(), "data", `${id}.csv`));
+    const lastMeasured = data.map((p) => p.value !== null).lastIndexOf(true);
+    const before = data[lastMeasured - 1];
+    expect(`${id}:${before === undefined || before.value !== null}`).toBe(`${id}:true`);
+  }
+});
+
+test("a measured previous value of 0 is a real 0, not a missing value", async () => {
+  // Guard on the operator, not the data: `||` read 0 as missing and fell back to
+  // the current value, reporting no change.
+  const src = await fs.readFile(path.join(process.cwd(), "lib", "indicators.ts"), "utf-8");
+  expect(src).not.toContain("?.value || currentValue");
+});

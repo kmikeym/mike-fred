@@ -50,8 +50,9 @@ Secrets (API keys) live in the gitignored `.env`, never here.
   test regenerates every published 2.0 row from them (#570).
   1. **Normalize:** each platform against its own baseline, the mean of its Oct and Nov
      2025 counts: `(count − baseline) ÷ max(baseline, 100) × 100 + 100`. The 100 floor
-     stops a tiny account swinging the index; a platform crossing it needs a line in that
-     month's note, and the append script refuses to run without one.
+     stops a tiny account swinging the index. It applies to the frozen baseline, so a
+     monthly count crossing 100 does not change scoring. The RFC still asks for a line in
+     that month's note when one does, and the append script refuses to run without one.
   2. **Weight:** `w = R·F·P ÷ ΣR·F·P` from the score table in `lib/sci.ts`. No rounding,
      no overrides. Substack's Reach dropped 3 → 2 on 2026-10-31 by the RFC's own default
      (`SUBSTACK_REACH_DEFAULT`); every row uses the table in force at publication.

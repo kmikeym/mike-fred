@@ -9,11 +9,14 @@
 // Prints KEY=VALUE lines for the shell to read:
 //   VALUE=105.61                      the SCI 2.0 index for the row, 2 decimals
 //   PLATFORM_ROW=2026-11-01,3970,...  the row for data/inputs/sci-platforms.csv
-//   CROSSING=mastodon 98->101         one line per platform that crossed the 100-follower
-//                                     floor since the previous row; each needs a line in
-//                                     that month's note (RFC, threshold-crossing disclosure)
+//   CROSSING=mastodon 98->101         one line per platform whose count crossed 100 since
+//                                     the previous row. The RFC asks for a line in that
+//                                     month's note (threshold-crossing disclosure). Scoring
+//                                     does not change: the floor applies to the frozen
+//                                     baseline, not to the monthly count. See SCI2_FLOOR.
 import {
   loadPlatformCounts,
+  parseCountsArg,
   sci2Baseline,
   sci2Index,
   sci2Weights,
@@ -34,15 +37,12 @@ if (!date || !/^\d{4}-\d{2}-01$/.test(date) || !raw) {
   process.exit(2);
 }
 
-const counts: Record<string, number> = {};
-for (const pair of raw.split(",")) {
-  const [id, n] = pair.split("=").map((s) => s.trim());
-  const value = Number(n);
-  if (!id || !Number.isInteger(value) || value < 0) {
-    console.error(`sci-row: bad count "${pair}" (want id=whole number)`);
-    process.exit(2);
-  }
-  counts[id] = value;
+let counts: Record<string, number>;
+try {
+  counts = parseCountsArg(raw);
+} catch (e) {
+  console.error(`sci-row: ${(e as Error).message}`);
+  process.exit(2);
 }
 
 const rows = await loadPlatformCounts();

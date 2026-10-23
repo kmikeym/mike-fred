@@ -176,22 +176,34 @@ fi
 if [ -n "$SCI_COUNTS" ]; then
   require_derivable "social-capital"
   SCI_RD=$(rowdate_for "social-capital")
-  SCI_OUT=$(cd "$REPO" && bun scripts/sci-row.ts --date "$SCI_RD" --counts "$SCI_COUNTS" --source "${MONTH} release") \
-    || { echo "ERROR: sci-row.ts refused the counts (see above)." >&2; exit 2; }
-  SVAL=$(echo "$SCI_OUT" | sed -n 's/^VALUE=//p')
-  CROSSINGS=$(echo "$SCI_OUT" | sed -n 's/^CROSSING=//p')
-  # A platform crossing the 100-follower floor changes how it is scored: a regime
-  # change inside the series. The RFC requires a line in that month's note, so the
-  # script refuses to fall back to a default note when one has happened.
-  if [ -n "$CROSSINGS" ] && [ -z "$SCI_NOTE" ]; then
-    echo "ERROR: platform(s) crossed the 100-follower floor: $CROSSINGS" >&2
-    echo "       Pass --sci-note that names each crossing." >&2
+  PLATFORMS="$DATA/inputs/sci-platforms.csv"
+  # The value row and its inputs row are one fact in two files: both are written or
+  # neither is. Checked here, before sci-row.ts, which refuses a date it already holds,
+  # so a re-run after --write SKIPs like every other series instead of aborting.
+  SCI_HAS_ROW=0; present "$DATA/social-capital.csv" "$SCI_RD" && SCI_HAS_ROW=1
+  SCI_HAS_INPUTS=0; present "$PLATFORMS" "$SCI_RD" && SCI_HAS_INPUTS=1
+  if [ $SCI_HAS_ROW -ne $SCI_HAS_INPUTS ]; then
+    echo "ERROR: $SCI_RD is in only one of social-capital.csv ($SCI_HAS_ROW) and inputs/sci-platforms.csv ($SCI_HAS_INPUTS)." >&2
+    echo "       Every published SCI value must regenerate from its counts (#570). Fix by hand." >&2
     exit 2
   fi
-  note=$(scrub "${SCI_NOTE:-Monthly release.}")
-  add_plan "social-capital" "${SVAL},${note}"
-  PLATFORMS="$DATA/inputs/sci-platforms.csv"
-  if ! present "$PLATFORMS" "$SCI_RD"; then
+  if [ $SCI_HAS_ROW -eq 1 ]; then
+    echo "  SKIP social-capital.csv + inputs/sci-platforms.csv — $SCI_RD already present (idempotency guard)"
+  else
+    SCI_OUT=$(cd "$REPO" && bun scripts/sci-row.ts --date "$SCI_RD" --counts "$SCI_COUNTS" --source "${MONTH} release") \
+      || { echo "ERROR: sci-row.ts refused the counts (see above)." >&2; exit 2; }
+    SVAL=$(echo "$SCI_OUT" | sed -n 's/^VALUE=//p')
+    CROSSINGS=$(echo "$SCI_OUT" | sed -n 's/^CROSSING=//p')
+    # A count crossing 100 followers. Scoring does not change (the floor applies to the
+    # frozen baseline, see SCI2_FLOOR), but the RFC asks for a line in that month's note
+    # (threshold-crossing disclosure), so the script refuses to fall back to a default.
+    if [ -n "$CROSSINGS" ] && [ -z "$SCI_NOTE" ]; then
+      echo "ERROR: follower count(s) crossed 100: $CROSSINGS" >&2
+      echo "       Pass --sci-note that names each crossing (it does not change scoring)." >&2
+      exit 2
+    fi
+    note=$(scrub "${SCI_NOTE:-Monthly release.}")
+    add_plan "social-capital" "${SVAL},${note}"
     PLAN_FILE+=("$PLATFORMS"); PLAN_ROW+=("$(echo "$SCI_OUT" | sed -n 's/^PLATFORM_ROW=//p')")
     echo "  inputs/sci-platforms.csv  +  ${PLAN_ROW[${#PLAN_ROW[@]}-1]}"
   fi

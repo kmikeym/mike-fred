@@ -110,6 +110,7 @@ import {
   sci2Baseline,
   sci2Index,
   loadPlatformCounts,
+  parseCountsArg,
 } from "./sci";
 
 const adopted = sci2Weights(SCI2_ADOPTED_TABLE);
@@ -210,4 +211,32 @@ test("the registry's SCI calculation text states the weights the code uses", asy
     const label = SCI_WEIGHTS.find((w) => w.id === c.id)!.label;
     expect(text).toContain(`${label} ${c.reach * c.fit * c.path}/${total}`);
   }
+});
+
+test("a blank count in the platform file throws rather than loading as zero", async () => {
+  // Number("") is 0, and 0 is finite, so a blank cell used to load as a real zero
+  // and score the platform at -100%: a dropped input read as a collapse (STANDARDS §6).
+  const dir = await fs.mkdtemp(path.join(process.env.TMPDIR ?? "/tmp", "sci-"));
+  const file = path.join(dir, "sci-platforms.csv");
+  const real = (await fs.readFile(path.join(process.cwd(), "data", "inputs", "sci-platforms.csv"), "utf-8")).trim().split("\n");
+  const blanked = real[1]!.split(",");
+  blanked[2] = ""; // substack
+  await fs.writeFile(file, [real[0], blanked.join(",")].join("\n") + "\n");
+  try {
+    await expect(loadPlatformCounts(file)).rejects.toThrow(/substack/);
+  } finally {
+    await fs.rm(dir, { recursive: true });
+  }
+});
+
+test("parseCountsArg rejects a blank value, a duplicate id, and anything but a whole number", () => {
+  const ok = "kmikeym-accounts=3970,substack=3380";
+  expect(parseCountsArg(ok)).toEqual({ "kmikeym-accounts": 3970, substack: 3380 });
+  // A count Mike has not supplied yet must stop the row, not score as zero.
+  expect(() => parseCountsArg("kmikeym-accounts=3970,substack=")).toThrow(/substack/);
+  expect(() => parseCountsArg("kmikeym-accounts=3970,substack= ")).toThrow(/substack/);
+  expect(() => parseCountsArg("x=4200,x=42")).toThrow(/x.*twice/);
+  expect(() => parseCountsArg("x=4,200")).toThrow();
+  expect(() => parseCountsArg("x=-3")).toThrow(/x/);
+  expect(() => parseCountsArg("x=1e3")).toThrow(/x/);
 });

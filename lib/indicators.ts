@@ -327,13 +327,15 @@ export async function loadIndicatorData(id: IndicatorId): Promise<Indicator> {
 
   // Current and previous are the last two MEASURED months. A month with no
   // observation (null) is skipped rather than read as zero, which would report a
-  // collapse that never happened (STANDARDS §6).
+  // collapse that never happened (STANDARDS §6). If the latest row ever follows a
+  // gap, this change spans more than one period while pages label it as one; a test
+  // in indicators.test.ts fails if that happens. `??`, not `||`: a measured 0 is real.
   const measured = data.filter((p): p is DataPoint & { value: number } => p.value !== null);
   const currentValue = measured[measured.length - 1]?.value;
   if (currentValue === undefined) {
     throw new Error(`No measured value found for indicator ${id}`);
   }
-  const previousValue = measured[measured.length - 2]?.value || currentValue;
+  const previousValue = measured[measured.length - 2]?.value ?? currentValue;
   const change = currentValue - previousValue;
   const changePercent = previousValue > 0 ? (change / previousValue) * 100 : 0;
   const trend = calculateTrend(changePercent);
@@ -608,7 +610,11 @@ export async function loadQuarterlyNarrative(quarterId: string): Promise<any | n
 /**
  * Format value with appropriate precision and unit
  */
-export function formatValue(value: number, indicatorId: IndicatorId): string {
+export function formatValue(value: number | null, indicatorId: IndicatorId): string {
+  // A null row is a month that was never measured (SCI Dec 2025 and Jan 2026, #573).
+  // It is shown as such, never as a number and never as a crash in the prerender.
+  if (value === null) return "Not measured";
+
   // Precision comes from the series' own metadata rather than a rule here
   // (STANDARDS.md §6). This previously hardcoded one decimal and special-cased
   // knowledge-expansion by id, so adding a series with different precision meant

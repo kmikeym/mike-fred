@@ -47,3 +47,9 @@ test("formatValue output is unchanged for every published value", async () => {
     expect(`${id}:${actual.join("|")}`).toBe(`${id}:${baseline[id]!.join("|")}`);
   }
 });
+
+test("an unmeasured month formats as 'Not measured', never as a number", () => {
+  // SCI 2.0 carries null rows for Dec 2025 and Jan 2026 (#573). Every per-point
+  // caller must be able to pass one through without crashing the prerender.
+  expect(formatValue(null, "social-capital")).toBe("Not measured");
+});

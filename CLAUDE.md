@@ -72,7 +72,7 @@ Worth knowing before touching `/reports`:
 - A **quarterly report** renders indicator values frozen in
   `data/quarterly/<id>.json` at publication, so an old report shows that
   quarter's numbers, not today's.
-- A report with **no `indicators` key** (only the PHI 2.0 methodology report)
+- A report with **no `indicators` key** (the methodology reports: PHI 2.0 and SCI 2.0)
   renders **live** values on purpose.
 - A **corrupt** snapshot throws and fails the build. It used to fall back to live
   data silently, which made a 2025 report display 2026 numbers (#5).

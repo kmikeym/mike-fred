@@ -143,11 +143,16 @@ export function cn(...classes: (string | boolean | undefined | null)[]): string 
  * never averages in data from after it, which keeps the release-lag reading
  * intact — a movement here summarises the run ending here (STANDARDS.md §9,
  * issue #1). Nothing is stored; this runs over the raw CSV values at build time.
+ *
+ * A window that contains an unmeasured month (null) is itself null: averaging
+ * the months either side of a gap would invent a reading for a span that was
+ * never fully measured (#688).
  */
-export function trailingAverage(values: number[], window: number): (number | null)[] {
-  return values.map((_, i) =>
-    i < window - 1
-      ? null
-      : values.slice(i - window + 1, i + 1).reduce((sum, v) => sum + v, 0) / window,
-  );
+export function trailingAverage(values: (number | null)[], window: number): (number | null)[] {
+  return values.map((_, i) => {
+    if (i < window - 1) return null;
+    const span = values.slice(i - window + 1, i + 1);
+    if (span.some((v) => v === null)) return null;
+    return (span as number[]).reduce((sum, v) => sum + v, 0) / window;
+  });
 }

@@ -1,0 +1,39 @@
+{
+  "title": "Social Capital Index: Rebuilt as SCI 2.0",
+  "quarter": "Methodology",
+  "status": "current",
+  "publishedDate": "2026-11-01",
+  "blurb": "The Social Capital Index now measures each platform against its own starting point before it is weighted, so growth on a smaller platform shows up in the index. The old index stays published as SCI Classic.",
+  "summary": "The Social Capital Index now measures each platform against its own starting point before it is weighted, so growth on a smaller platform shows up in the index. The old index stays published as SCI Classic, every row unchanged. On the new method SCI stood at 105.5 in the October 1 release, 5.5 points above its start, mostly on LinkedIn and Bluesky.",
+  "highlights": [
+    "Each platform is measured against its own starting point, the average of its October and November 2025 counts, before it is weighted",
+    "Weights come from three scores per platform (Reach, Fit, Path), multiplied, with nothing rounded or adjusted by hand",
+    "SCI 2.0 stood at 105.5 in the October 1 release, mostly on LinkedIn and Bluesky",
+    "The old index stays published as SCI Classic, every row unchanged"
+  ],
+  "narrative": {
+    "executiveSummary": "The old Social Capital Index weighted raw follower counts. The counts are so different in size that the two largest audiences, KmikeyM accounts and Substack, carried about 78% of the index whatever the weights said. A thousand new followers on a smaller platform barely moved it.\n\nSCI 2.0 first measures each platform against its own starting point, the average of its October and November 2025 counts. Then it applies the weight. A 10% rise on Bluesky counts as a 10% rise, and the weight decides how much that matters.",
+    "sections": [
+      {
+        "title": "How the weights are set",
+        "body": "Each platform gets three scores from 1 to 5:\nReach: how many live, reachable people it has.\nFit: how many of them could become a shareholder, a client or an employer.\nPath: how short the road is from that platform to a dollar.\n\nThe three scores are multiplied, and a platform's weight is its share of the total. Nothing is rounded or adjusted by hand.\n\nKmikeyM accounts 41%\nLinkedIn 13%\nX 10%\nSubstack 10%\nBluesky 7%\nInstagram 5%\nYouTube 5%\nFacebook (personal) 3%\nKmikeyM LinkedIn page 2%\nKmikeyM Facebook page 2%\nMastodon 2%\n\nSubstack's Reach score is 2. The method set a deadline of October 31, 2026 for Substack open-rate data, and dropped the score from 3 to 2 if none arrived. None did.\n\nPlatforms with fewer than 100 followers are measured against 100, so one new follower on a small account can't swing the index."
+      },
+      {
+        "title": "An example: Instagram",
+        "body": "The three scores:\nReach 2. Instagram had 790 followers when it was scored, which puts it in the 500 to 1,499 size band, worth a 3. There was no engagement data for it, so it dropped one step to 2.\nFit 3. The account carries short videos and behind-the-scenes posts, which reach people who could get involved.\nPath 2. The road from an Instagram follower to a dollar is long.\n\nFrom scores to the index, using the October 1 release:\n1. Score: 2 × 3 × 2 = 12.\n2. Weight: 12 of the 244 points across all eleven platforms, or 4.9%.\n3. Starting point: 705 followers in October 2025 and 731 in November, an average of 718.\n4. This month: 809 followers, 12.7% above the starting point, so Instagram reads 112.7.\n5. Contribution: 12.7 points above its start, times a 4.9% weight, adds 0.62 points to SCI.\n\nSCI 2.0 stood at 105.5 in the October 1 release, 5.5 points above its start. Instagram supplied about 0.6 of that."
+      },
+      {
+        "title": "What it shows",
+        "body": "SCI 2.0 has risen from 100 to about 105.5 through the October 1 release. Most of the rise is LinkedIn and Bluesky. KmikeyM accounts, the largest weight, has barely moved."
+      },
+      {
+        "title": "What it doesn't measure",
+        "body": "SCI counts public audiences. It does not see Mike's personal network, where a warm introduction can close a deal with no follower count involved, so it is not a full picture of Mike's economic network.\n\nFollower counts rarely go down, so an index built on them can rise but seldom falls. A version that counts new followers each month is planned but not built. Reach is measured for X, LinkedIn and Bluesky. The other scores are judgment calls, labeled that way in the method."
+      }
+    ],
+    "outlook": {
+      "title": "The old index",
+      "body": "SCI Classic stays published exactly as it was, every row unchanged. That includes September's LinkedIn reading, which the October release corrected. SCI 2.0 uses the corrected count. December 2025 and January 2026 were never measured, so SCI 2.0 shows no value for those months.\n\nThe method went through a Board review in September 2026."
+    }
+  }
+}

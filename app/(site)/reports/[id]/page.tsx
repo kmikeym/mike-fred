@@ -131,8 +131,8 @@ export default async function ReportPage({ params }: PageProps) {
   // Load quarterly snapshot data and narrative
   // A published report shows the values frozen at publication, so it reads as a
   // record rather than a dashboard. `null` means this document has no snapshot
-  // and wants live values — the PHI 2.0 methodology report is the only one, since
-  // it describes the index as it stands now rather than reporting a quarter.
+  // and wants live values — the methodology reports (PHI 2.0, SCI 2.0), since
+  // each describes the index as it stands now rather than reporting a quarter.
   // A corrupt snapshot now throws rather than landing here; see loadQuarterlySnapshot.
   const snapshotData = await loadQuarterlySnapshot(id);
   const indicators = snapshotData || await loadAllIndicators();
@@ -394,8 +394,8 @@ export default async function ReportPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Indicator Performance Table (skipped for the PHI methodology report) */}
-        {id !== "phi-2.0-methodology" && (
+        {/* Indicator Performance Table (skipped for methodology reports) */}
+        {report.quarter !== "Methodology" && (
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-300">
             Indicator Scorecard

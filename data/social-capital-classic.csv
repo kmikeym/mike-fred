@@ -1,0 +1,14 @@
+date,value,notes
+2025-10-01,100,Baseline set with weighted channels (raw: 3041.9)
+2025-11-01,100.1,Slight growth across platforms (raw: 3045.06)
+2025-12-01,100.4,ESTIMATED — not a measurement. No platform counts were taken for this month. The composite sits between the measured 3045.06 (row 2025-11-01) and 3076.95 (row 2026-01-01); the exact derivation was not recorded, and it is not midpoint interpolation, which would give 3061.0. (raw: 3053.92)
+2026-01-01,101.15,January actuals (raw: 3076.95)
+2026-02-01,101.0,Measured growth (raw: 3071.64)
+2026-03-01,101.23,March actuals (raw: 3079.43)
+2026-04-01,101.15,April release — March actuals (raw: 3076.95)
+2026-05-01,101.23,May release (raw: 3079.23)
+2026-06-01,101.22,May actuals (raw: 3078.95)
+2026-07-01,101.16,June actuals (raw: 3077.09)
+2026-08-01,101.19,July actuals (raw: 3078.06)
+2026-09-01,104.17,The largest monthly move recorded, and effectively all of it is LinkedIn.
+2026-10-01,101.23,The decline corrects August's LinkedIn input. LinkedIn's own data shows no jump; the suspected cause is a wave of spam accounts that was later scrubbed from the record. The other ten platforms were essentially flat.

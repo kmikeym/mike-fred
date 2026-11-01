@@ -87,8 +87,9 @@ test("malformed JSON throws instead of silently falling back to live data", asyn
   ).rejects.toThrow(/Failed to read quarterly snapshot q3-2025/);
 });
 
-test("the real methodology report still returns null against the shipped data", async () => {
+test("the real methodology reports still return null against the shipped data", async () => {
   expect(await loadQuarterlySnapshot("phi-2.0-methodology")).toBeNull();
+  expect(await loadQuarterlySnapshot("sci-2.0-methodology")).toBeNull();
 });
 
 test("the real quarterly reports still load their snapshots", async () => {

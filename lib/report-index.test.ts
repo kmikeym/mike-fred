@@ -16,7 +16,7 @@ import { loadReportIndex, loadReport } from "./indicators";
 test("every report exposes the metadata both pages need", async () => {
   const index = await loadReportIndex();
 
-  expect(index.length).toBe(8);
+  expect(index.length).toBe(9);
   for (const r of index) {
     for (const field of ["id", "title", "quarter", "publishedDate", "blurb", "summary", "status"] as const) {
       expect(`${r.id}.${field}:${Boolean(r[field])}`).toBe(`${r.id}.${field}:true`);
@@ -38,6 +38,7 @@ test("the index carries each report's addendum count", async () => {
   expect(byId["q4-2025"]!.updateCount).toBe(3);
   expect(byId["q1-2025"]!.updateCount).toBe(1);
   expect(byId["phi-2.0-methodology"]!.updateCount).toBe(0);
+  expect(byId["sci-2.0-methodology"]!.updateCount).toBe(0);
 });
 
 test("blurb and summary are distinct — a short card line and the full prose", async () => {
@@ -58,7 +59,7 @@ test("status is preserved for the listing badge", async () => {
   // q2-2026 was in this list until it was withdrawn on 2026-08-06. A withdrawn
   // report is not the current one, and leaving status:"current" on it would let a
   // downstream consumer advertise a document that is no longer served.
-  expect(current.sort()).toEqual(["phi-2.0-methodology", "q3-2026"]);
+  expect(current.sort()).toEqual(["phi-2.0-methodology", "q3-2026", "sci-2.0-methodology"]);
 });
 
 test("a withdrawn report carries a dated statement and is not current", async () => {

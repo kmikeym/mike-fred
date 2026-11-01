@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 # MIKE FRED — SCI (Social Capital Index) pull.
 #
-# SCI is a WEIGHTED MEAN of 11 platform follower counts (weights in lib/sci.ts,
-# summing to 1), then indexed: index = raw_composite / 3041.9 * 100.
+# SCI 2.0 (from the 2026-11-01 release): each of 11 platform counts is normalized to
+# its own Oct-Nov 2025 baseline, then weighted by a Reach x Fit x Path score table
+# (lib/sci.ts). Weights below are Score/244. SCI Classic's raw-composite method is
+# retired; scripts/sci-row.ts computes the row, via the append script's --sci-counts.
 #
 # This script retrieves the platforms that expose a public count and prints the
 # rest as an explicit ask. It writes nothing: like the other pulls, it prints and
 # you decide what lands.
 #
-# ⚠️ weightedComposite() THROWS on a missing platform rather than scoring it zero.
+# ⚠️ sci2Index() THROWS on a missing platform rather than scoring it zero.
 # All 11 counts are required. A partial pull is not a smaller pull.
 set -uo pipefail
 
@@ -64,27 +66,28 @@ echo "        dashboard read can be spotted. ALWAYS use the Substack dashboard."
 
 echo
 echo "STILL NEEDED FROM MIKE (auth-walled or undefined):"
-echo "     KmikeyM accounts          weight 0.35  = TOTAL USER ACCOUNTS (not shareholders!)"
+echo "     KmikeyM accounts          weight 0.41  = TOTAL USER ACCOUNTS (not shareholders!)"
 echo "                                              ADMIN PANEL — Mike only, see ops#571"
-echo "     LinkedIn (Mike) FOLLOWERS weight 0.09  auth-walled; the \"followers\" figure under the headline, NOT connections (~2,400 on 10/01)"
-echo "     KmikeyM LinkedIn (biz)    weight 0.01  auth-walled"
-echo "     Facebook (personal)       weight 0.01  auth-walled"
-echo "     KmikeyM Facebook (biz)    weight 0.01  auth-walled"
+echo "     LinkedIn (Mike) FOLLOWERS weight 0.13  auth-walled; the \"followers\" figure under the headline, NOT connections (~2,400 on 10/01)"
+echo "     KmikeyM LinkedIn (biz)    weight 0.02  auth-walled"
+echo "     Facebook (personal)       weight 0.03  auth-walled"
+echo "     KmikeyM Facebook (biz)    weight 0.02  auth-walled"
 echo
 echo "     ⚠️ 'KmikeyM accounts' is TOTAL USER ACCOUNTS on kmikeym.com, NOT the"
 echo "        shareholder count. On 2026-09-04: 3,965 accounts vs 1,248"
 echo "        shareholders. Using the wrong one moves the index by a third."
 echo "        (Mike, 2026-09-04), read off /users/leaderboard. It is the single"
-echo "        largest weight at 0.35, so it is never a guess and never an estimate."
+echo "        largest weight at 0.41, so it is never a guess and never an estimate."
 echo "        The page requires a login and the MCP leaderboard tool caps at 50"
 echo "        rows with no total, so there is no unauthenticated path to it."
 echo "        Blocked in auto mode by operations#501 (the classifier stops the"
 echo "        K5M.bot login itself). Until that is fixed: ask Mike, or capture it"
 echo "        during any logged-in session."
 echo
-echo "Coverage: 5 of 11 platforms automated cleanly = 0.23 of index weight."
-echo "          6 of 11 with Substack rounded        = 0.53 of index weight."
-echo "          Remaining 0.47 needs Mike."
+echo "Coverage: 5 of 11 platforms automated cleanly = 0.29 of index weight."
+echo "          6 of 11 with Substack rounded        = 0.39 of index weight."
+echo "          Remaining 0.61 needs Mike."
 echo
-echo "Then: index = weighted_mean(all 11) / 3041.9 * 100  ->  social-capital.csv"
-echo "      row dated the RELEASE month (month N reports month N-1)."
+echo "Then: ./scripts/mike-fred-append-month.sh --month YYYY-MM --sci-counts \"kmikeym-accounts=N,...\""
+echo "      (all 11 ids, as in data/inputs/sci-platforms.csv). It computes SCI 2.0 and"
+echo "      appends both the series row and the counts. Row dated the RELEASE month."

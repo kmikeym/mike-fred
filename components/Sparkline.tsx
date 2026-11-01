@@ -3,7 +3,8 @@
 import { BarChart, Bar, ResponsiveContainer, YAxis } from "recharts";
 
 interface SparklineProps {
-  data: Array<{ date: string; value: number; notes?: string }>;
+  // value null = an unmeasured month: Recharts draws no bar, which is the honest gap.
+  data: Array<{ date: string; value: number | null; notes?: string }>;
   color: string;
   minHeight?: number;
 }

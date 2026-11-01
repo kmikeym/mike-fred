@@ -26,7 +26,12 @@
 # Per-series inputs (append a row only for the series you supply; omit to skip a series):
 #   PPI   --pulse N            [--hours H]  [--ppi-note "..."]   value = pulse * 1.25
 #   KBER  --kber N                          [--kber-note "..."]  value = N (raw vault note count)
-#   SCI   --followers R                     [--sci-note "..."]   value = R / 3041.9 * 100
+#   SCI   --sci-counts "id=N,..."           [--sci-note "..."]   SCI 2.0, computed by scripts/sci-row.ts
+#                                                                from all 11 platform counts (ids as in
+#                                                                data/inputs/sci-platforms.csv). Also
+#                                                                appends the counts to that file. The old
+#                                                                --followers flag fed SCI Classic, which
+#                                                                is retired, and now errors.
 #   PHI   --phi-value V                     [--phi-note "..."]   PHI 2.0 is generated from the
 #                                                                Apple Health archive, NOT here.
 #                                                                The old --sleep-h/--workout-days/
@@ -45,7 +50,7 @@ WRITE=0
 
 MONTH=""; PULSE=""; HOURS=""; PPI_NOTE=""
 KBER=""; KBER_NOTE=""
-FOLLOWERS=""; SCI_NOTE=""
+FOLLOWERS=""; SCI_COUNTS=""; SCI_NOTE=""
 SLEEP_H=""; WORKOUT=""; WEIGHT=""; PHI_VALUE=""; PHI_NOTE=""
 WEALTH=""; PWI_NOTE=""
 LMV_VALUE=""; LMV_NOTE=""
@@ -59,6 +64,7 @@ while [ $# -gt 0 ]; do
     --kber) KBER="$2"; shift 2;;
     --kber-note) KBER_NOTE="$2"; shift 2;;
     --followers) FOLLOWERS="$2"; shift 2;;
+    --sci-counts) SCI_COUNTS="$2"; shift 2;;
     --sci-note) SCI_NOTE="$2"; shift 2;;
     --sleep-h) SLEEP_H="$2"; shift 2;;
     --workout-days) WORKOUT="$2"; shift 2;;
@@ -157,12 +163,50 @@ if [ -n "$KBER" ]; then
   add_plan "knowledge-expansion" "${KBER},${note}"
 fi
 
-# --- SCI: index = raw / 3041.9 * 100 ; note default 'Measured growth (raw: R)' ---
+# --- SCI 2.0: computed from all 11 platform counts by scripts/sci-row.ts ---
+# --followers fed SCI Classic (raw composite / 3041.9). That index is retired as of the
+# 2026-11-01 release (operations#688); using it would write a Classic-scale number into
+# the 2.0 series, the same failure the PHI-Classic flags guard against above.
 if [ -n "$FOLLOWERS" ]; then
+  echo "ERROR: --followers computed SCI Classic (raw composite / 3041.9), retired 2026-11." >&2
+  echo "       SCI 2.0 needs all 11 platform counts: --sci-counts \"kmikeym-accounts=N,substack=N,...\"" >&2
+  echo "       (ids are the header of data/inputs/sci-platforms.csv)." >&2
+  exit 2
+fi
+if [ -n "$SCI_COUNTS" ]; then
   require_derivable "social-capital"
-  SVAL=$(awk "BEGIN{printf \"%.2f\", $FOLLOWERS/3041.9*100}")
-  note=$(scrub "${SCI_NOTE:-Measured growth (raw: $FOLLOWERS)}")
-  add_plan "social-capital" "${SVAL},${note}"
+  SCI_RD=$(rowdate_for "social-capital")
+  PLATFORMS="$DATA/inputs/sci-platforms.csv"
+  # The value row and its inputs row are one fact in two files: both are written or
+  # neither is. Checked here, before sci-row.ts, which refuses a date it already holds,
+  # so a re-run after --write SKIPs like every other series instead of aborting.
+  SCI_HAS_ROW=0; present "$DATA/social-capital.csv" "$SCI_RD" && SCI_HAS_ROW=1
+  SCI_HAS_INPUTS=0; present "$PLATFORMS" "$SCI_RD" && SCI_HAS_INPUTS=1
+  if [ $SCI_HAS_ROW -ne $SCI_HAS_INPUTS ]; then
+    echo "ERROR: $SCI_RD is in only one of social-capital.csv ($SCI_HAS_ROW) and inputs/sci-platforms.csv ($SCI_HAS_INPUTS)." >&2
+    echo "       Every published SCI value must regenerate from its counts (#570). Fix by hand." >&2
+    exit 2
+  fi
+  if [ $SCI_HAS_ROW -eq 1 ]; then
+    echo "  SKIP social-capital.csv + inputs/sci-platforms.csv — $SCI_RD already present (idempotency guard)"
+  else
+    SCI_OUT=$(cd "$REPO" && bun scripts/sci-row.ts --date "$SCI_RD" --counts "$SCI_COUNTS" --source "${MONTH} release") \
+      || { echo "ERROR: sci-row.ts refused the counts (see above)." >&2; exit 2; }
+    SVAL=$(echo "$SCI_OUT" | sed -n 's/^VALUE=//p')
+    CROSSINGS=$(echo "$SCI_OUT" | sed -n 's/^CROSSING=//p')
+    # A count crossing 100 followers. Scoring does not change (the floor applies to the
+    # frozen baseline, see SCI2_FLOOR), but the RFC asks for a line in that month's note
+    # (threshold-crossing disclosure), so the script refuses to fall back to a default.
+    if [ -n "$CROSSINGS" ] && [ -z "$SCI_NOTE" ]; then
+      echo "ERROR: follower count(s) crossed 100: $CROSSINGS" >&2
+      echo "       Pass --sci-note that names each crossing (it does not change scoring)." >&2
+      exit 2
+    fi
+    note=$(scrub "${SCI_NOTE:-Monthly release.}")
+    add_plan "social-capital" "${SVAL},${note}"
+    PLAN_FILE+=("$PLATFORMS"); PLAN_ROW+=("$(echo "$SCI_OUT" | sed -n 's/^PLATFORM_ROW=//p')")
+    echo "  inputs/sci-platforms.csv  +  ${PLAN_ROW[${#PLAN_ROW[@]}-1]}"
+  fi
 fi
 
 # --- PHI 2.0: value only. Computed from the Apple Health archive, not here. ---

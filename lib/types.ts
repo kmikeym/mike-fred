@@ -15,7 +15,9 @@ export type TrendDirection = "up" | "down" | "neutral";
 
 export interface DataPoint {
   date: string; // ISO 8601 date format (YYYY-MM-DD)
-  value: number;
+  // null = no observation for this month (an empty value field in the CSV). Never
+  // 0, never omitted: "no data" and "scored zero" must stay distinguishable (STANDARDS §6).
+  value: number | null;
   notes?: string;
   hours?: number; // Total tracked hours (PPI only; column 5 of ppi.csv)
 }
